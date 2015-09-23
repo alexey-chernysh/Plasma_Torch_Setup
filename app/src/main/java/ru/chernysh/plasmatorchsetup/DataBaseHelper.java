@@ -36,8 +36,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
-    public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DataBaseHelper(String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(App.getInstance().getBaseContext(), name, factory, version);
     }
 
     @Override
