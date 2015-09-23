@@ -4,13 +4,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String[] BRANDS = new String[] {
+            "Hypertherm", "Thermodyne", "Lincoln Electric", "Trafimet", "ESAB"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, BRANDS);
+        AutoCompleteTextView textView = (AutoCompleteTextView)findViewById(R.id.BrandName);
+        textView.setAdapter(adapter);
     }
 
     @Override
