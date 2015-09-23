@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -53,10 +55,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Инициализирует базу данных. Копирует базу из ресурсов приложения, если на не
      * существует или ее версия устарела. Вызвать перед тем как использовать базу.
      *
-     * @throws ChainedSQLiteException
+     * @throws SQLiteException
      *             если инициализацию не удалось выполнить
      */
-    public static void Initialize() throws ChainedSQLiteException {
+    public static void Initialize() throws SQLiteException {
         if (isInitialized() == false) {
             copyInialDBfromAssets();
         }
@@ -85,10 +87,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Копирует файл базы данных из Assets в директорию для баз данных этого
      * приложения
      *
-     * @throws ChainedSQLiteException
+     * @throws SQLiteException
      *             если что-то пошло не так при компировании
      */
-    private static void copyInialDBfromAssets() throws ChainedSQLiteException {
+    private static void copyInialDBfromAssets() throws SQLiteException {
 
         Context appContext = App.getInstance().getApplicationContext();
         InputStream inStream = null;
@@ -114,10 +116,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         } catch (IOException ex) {
             // Что-то пошло не так
             Log.e(LOG_TAG, ex.getMessage());
-            throw new ChainedSQLiteException("Fail to copy initial db from assets", ex);
+            throw new SQLiteException("Fail to copy initial db from assets", ex);
         } finally {
-            IOUtils.closeSilent(outStream);
-            IOUtils.closeSilent(inStream);
+            IOUtils.closeQuietly(outStream);
+            IOUtils.closeQuietly(inStream);
         }
     }
 }
