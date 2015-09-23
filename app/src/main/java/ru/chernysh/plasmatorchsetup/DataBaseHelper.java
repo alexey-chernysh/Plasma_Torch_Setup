@@ -30,7 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "cut_chart.sqlite";
     private static final String DB_FOLDER = "/data/data/" + App.getInstance().getPackageName() + "/databases/";
     private static final String DB_PATH = DB_FOLDER + DB_NAME;
-    private static final String DB_ASSETS_PATH = DB_NAME;
+    private static final String DB_ASSETS_PATH = "db/" + DB_NAME;
     private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
@@ -56,7 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @throws ChainedSQLiteException
      *             если инициализацию не удалось выполнить
      */
-    public static void Initialize() {
+    public static void Initialize() throws ChainedSQLiteException {
         if (isInitialized() == false) {
             copyInialDBfromAssets();
         }
@@ -88,7 +88,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @throws ChainedSQLiteException
      *             если что-то пошло не так при компировании
      */
-    private static void copyInialDBfromAssets() {
+    private static void copyInialDBfromAssets() throws ChainedSQLiteException {
 
         Context appContext = App.getInstance().getApplicationContext();
         InputStream inStream = null;
@@ -114,8 +114,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         } catch (IOException ex) {
             // Что-то пошло не так
             Log.e(LOG_TAG, ex.getMessage());
-            throw new ChainedSQLiteException(
-                    "Fail to copy initial db from assets", ex);
+            throw new ChainedSQLiteException("Fail to copy initial db from assets", ex);
         } finally {
             IOUtils.closeSilent(outStream);
             IOUtils.closeSilent(inStream);

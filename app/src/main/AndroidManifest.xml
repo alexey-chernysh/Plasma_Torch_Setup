@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IniitialActivity"
-            android:label="@string/title_activity_iniitial" >
+            android:name=".InitialActivity"
+            android:label="@string/title_activity_initial" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
