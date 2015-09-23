@@ -37,12 +37,11 @@
             android:textStyle="bold|italic"
             android:singleLine="true">
         </TextView>
-        <EditText
+        <Spinner
             android:id="@+id/SeriesName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-        </EditText>
+            android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
