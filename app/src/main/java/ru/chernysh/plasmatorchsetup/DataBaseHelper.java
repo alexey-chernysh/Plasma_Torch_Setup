@@ -27,7 +27,7 @@ import java.io.OutputStream;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    private static final String LOG_TAG = DataBaseHelper.class.getName();
+    private static final String LOG_TAG = DataBaseHelper.class.getName() + ": ";
 
     private static final String DB_NAME = "cut_chart.sqlite";
     private static final String DB_FOLDER = "/data/data/" + App.getInstance().getPackageName() + "/databases/";
@@ -72,7 +72,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             checkDB = SQLiteDatabase.openDatabase(DB_PATH, null,
                     SQLiteDatabase.OPEN_READONLY);
-            correctVersion = checkDB.getVersion() == DB_VERSION;
+            int currentVersion = checkDB.getVersion();
+            correctVersion = (currentVersion == DB_VERSION);
         } catch (SQLiteException e) {
             Log.w(LOG_TAG, e.getMessage());
         } finally {
