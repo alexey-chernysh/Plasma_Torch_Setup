@@ -36,20 +36,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
-    public DataBaseHelper(String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(App.getInstance().getBaseContext(), name, factory, version);
+    public DataBaseHelper() {
+        super(App.getInstance().getBaseContext(), DB_NAME, null, 1);
     }
+
+    private final static String msg = "Call DataBaseHelper.Initialize first. This method should never be called..";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        throw new SQLiteException(
-                "Call DataBaseHelper.Initialize first. This method should never be called.");
+//        Log.d(LOG_TAG, msg);
+//        throw new SQLiteException(msg);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        throw new SQLiteException(
-                "Call DataBaseHelper.Initialize first. This method should never be called.");
+        Log.d(LOG_TAG, msg);
+        throw new SQLiteException(msg);
     }
     /**
      * Инициализирует базу данных. Копирует базу из ресурсов приложения, если на не
