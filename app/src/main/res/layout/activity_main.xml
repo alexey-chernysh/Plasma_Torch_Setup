@@ -17,26 +17,30 @@
         android:paddingBottom="4dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Brand"
             android:textStyle="bold|italic"
             android:layout_weight="1"
             android:singleLine="true" />
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/BrandName"/>
+            android:id="@+id/BrandName" />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addBrand"
-            android:src="@drawable/ic_action_new" />
+            android:src="@drawable/ic_action_new"
+            android:clickable="true"
+            android:onClick="onClick" />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/deleteBrand"
-            android:src="@drawable/ic_action_remove" />
+            android:src="@drawable/ic_action_remove"
+            android:onClick="onClick"
+            android:clickable="true" />
 
     </LinearLayout>
     <LinearLayout

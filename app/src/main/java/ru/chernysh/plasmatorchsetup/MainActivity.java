@@ -5,10 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
 
@@ -48,4 +49,18 @@ public class MainActivity extends Activity {
         seriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seriesSpinner.setAdapter(seriesAdapter);    }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.addBrand:
+                Log.d(LOG_TAG, "Add new brand");
+                break;
+            case R.id.deleteBrand:
+                Log.d(LOG_TAG, "Delete brand brand");
+                break;
+            default:
+                Log.d(LOG_TAG, "Unknown action!");
+        }
+    }
 }
