@@ -31,14 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addBrand"
-            android:src="@drawable/ic_action_new"
+            android:src="@drawable/ic_add_circle_outline_black_24dp"
             android:clickable="true"
             android:onClick="onClick" />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/deleteBrand"
-            android:src="@drawable/ic_action_remove"
+            android:src="@drawable/ic_remove_circle_outline_black_24dp"
             android:onClick="onClick"
             android:clickable="true" />
 
@@ -67,14 +67,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addSeries"
-            android:src="@drawable/ic_action_new"
+            android:src="@drawable/ic_add_circle_outline_black_24dp"
             android:clickable="true"
             android:onClick="onClick" />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/deleteSeries"
-            android:src="@drawable/ic_action_remove"
+            android:src="@drawable/ic_remove_circle_outline_black_24dp"
             android:onClick="onClick"
             android:clickable="true" />
     </LinearLayout>
@@ -102,14 +102,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addModel"
-            android:src="@drawable/ic_action_new"
+            android:src="@drawable/ic_add_circle_outline_black_24dp"
             android:clickable="true"
             android:onClick="onClick" />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/deleteModel"
-            android:src="@drawable/ic_action_remove"
+            android:src="@drawable/ic_remove_circle_outline_black_24dp"
             android:onClick="onClick"
             android:clickable="true" />
     </LinearLayout>

@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -38,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // find series of selected model
         String selection = "key == " + modelKey;
         Cursor modelCursor = db.query("models", null, selection, null, null, null, null);
-        Log.d(LOG_TAG, "Cursor position in models table " + modelCursor.toString());
+        Log.d(LOG_TAG, "Cursor position in models table " + modelCursor);
         int seriesKey = 0;
         if (modelCursor.moveToFirst()) {
             int seriesIndex = modelCursor.getColumnIndex("series");
@@ -49,11 +47,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // find brand for selected series
         selection = "key == " + seriesKey;
         Cursor seriesCursor = db.query("series", null, selection, null, null, null, null);
-        Log.d(LOG_TAG, "Cursor position in models table " + seriesCursor.toString());
+        Log.d(LOG_TAG, "Cursor position in series table " + seriesCursor);
         int brandKey = 0;
-        if (modelCursor.moveToFirst()) {
-            int brandIndex = modelCursor.getColumnIndex("manufacturers");
-            brandKey = modelCursor.getInt(brandIndex);
+        if (seriesCursor.moveToFirst()) {
+            int brandIndex = seriesCursor.getColumnIndex("manufacturer");
+            Log.d(LOG_TAG, "brandIndex " + brandIndex);
+            brandKey = seriesCursor.getInt(brandIndex);
         } else Log.d(LOG_TAG, "Something gone wrong");
         if(brandKey <= 0) brandKey = 1; // костыль
 
@@ -96,8 +95,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         cursor.close();
 
         Spinner brandSpinner = (Spinner)findViewById(R.id.brandName);
-        ArrayAdapter<String> brandAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brandName);
+        CustomAdapter brandAdapter =
+                new CustomAdapter(this, android.R.layout.simple_spinner_item, brandName);
         brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brandSpinner.setAdapter(brandAdapter);
         for(int i=0;i<nOfBrands;i++)
@@ -122,8 +121,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         cursor.close();
 
         Spinner seriesSpinner = (Spinner) findViewById(R.id.seriesName);
-        ArrayAdapter<String> seriesAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, seriesNames);
+        CustomAdapter seriesAdapter =
+                new CustomAdapter(this, android.R.layout.simple_spinner_item, seriesNames);
         seriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seriesSpinner.setAdapter(seriesAdapter);
         for(int i=0; i<nOfSeries; i++)
@@ -158,8 +157,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         cursor.close();
 
         Spinner brandSpinner = (Spinner)findViewById(R.id.brandName);
-        ArrayAdapter<String> brandAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brandName);
+        CustomAdapter brandAdapter =
+                new CustomAdapter(this, android.R.layout.simple_spinner_item, brandName);
         brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brandSpinner.setAdapter(brandAdapter);
         brandSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
