@@ -37,7 +37,7 @@ public class StoredKey {
         Log.d(LOG_TAG, "Value " + newKey + " is saved in " + requestTag + " field in shared preferences");
     }
 
-    private int get(){
+    public int get(){
         SharedPreferences sPref = App.getInstance().getSharedPreferences(null, Context.MODE_PRIVATE);
         String savedText = sPref.getString(requestTag, "");
         Log.d(LOG_TAG, "Value " + savedText + " is loaded from " + requestTag + " field in shared preferences");
