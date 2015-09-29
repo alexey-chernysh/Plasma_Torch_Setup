@@ -13,10 +13,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
 
-    private static final String[] SERIES = new String[] {
-            "Powermax", "Autocut", "HPR"
-    };
-
     StoredKey lastModelKey;
 
     @Override
