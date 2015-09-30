@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         prepareBrandSpinner(db, brandKey);
         prepareSeriesSpinner(db, seriesKey, brandKey);
+//        prepareModelSpinner(db, modelKey, seriesKey);
 
     }
 
@@ -100,6 +101,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void prepareSeriesSpinner(SQLiteDatabase db, int seriesKey, int brandKey) {
+        Spinner seriesSpinner = (Spinner) findViewById(R.id.seriesName);
+        updateSeriesSpinner(db, seriesKey, brandKey);
+        seriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                Log.d(LOG_TAG, "Series spinner selection listener activated");
+                Log.d(LOG_TAG, "with position = " + pos);
+            }
+        });
+    }
+
+    private void updateSeriesSpinner(SQLiteDatabase db, int seriesKey, int brandKey){
         String selection = "manufacturer == " + brandKey;
         Cursor cursor = db.query("series", null, selection, null, null, null, null);
         int nOfSeries = cursor.getCount();
@@ -123,20 +141,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
         seriesSpinner.setAdapter(seriesAdapter);
         for(int i=0; i<nOfSeries; i++)
             if(seriesKeys[i] == seriesKey) seriesSpinner.setSelection(i);
-        seriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    };
+
+    private void prepareModelSpinner(SQLiteDatabase db, int modelKey, int seriesKey) {
+        Spinner brandSpinner = (Spinner)findViewById(R.id.brandName);
+        brandSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                Log.d(LOG_TAG, "Series spinner selection listener activated");
+                Log.d(LOG_TAG, "Brand spinner selection listener activated");
+                Log.d(LOG_TAG, "with parent = " + parent.toString());
+                Log.d(LOG_TAG, "with view = " + view.toString());
                 Log.d(LOG_TAG, "with position = " + pos);
+                Log.d(LOG_TAG, "and id = " + id);
             }
         });
     }
 
-    private void prepareModelSpinner(SQLiteDatabase db) {
+    private void updateModelSpinner(SQLiteDatabase db, int modelKey, int seriesKey){
         Cursor cursor = db.query("models", null, null, null, null, null, null);
         int nOfBrands = cursor.getCount();
         String[] brandName = new String[nOfBrands];
@@ -157,20 +183,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 new CustomAdapter(this, android.R.layout.simple_spinner_item, brandName);
         brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brandSpinner.setAdapter(brandAdapter);
-        brandSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                Log.d(LOG_TAG, "Brand spinner selection listener activated");
-                Log.d(LOG_TAG, "with parent = " + parent.toString());
-                Log.d(LOG_TAG, "with view = " + view.toString());
-                Log.d(LOG_TAG, "with position = " + pos);
-                Log.d(LOG_TAG, "and id = " + id);
-            }
-        });
     }
 
     @Override
