@@ -158,6 +158,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.d(LOG_TAG, "with view = " + view.toString());
                 Log.d(LOG_TAG, "with position = " + pos);
                 Log.d(LOG_TAG, "and id = " + id);
+
             }
         });
     }
