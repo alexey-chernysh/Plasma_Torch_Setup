@@ -133,6 +133,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // restore last saved model selection or choose model #1
         int modelKey = lastModelKey.get();
+        if(modelKey <= 0) modelKey = 1;
 
         // find series of selected model
         String selection = "key == " + modelKey;
@@ -143,6 +144,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             int seriesIndex = modelCursor.getColumnIndex("series");
             seriesKey = modelCursor.getInt(seriesIndex);
         };
+        Log.d(LOG_TAG, "Model key = " + modelKey + " Series key = " + seriesKey);
 
         updateModelSpinner(db, modelKey, seriesKey);
         ((Spinner)findViewById(R.id.modelName))
@@ -168,17 +170,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String selection = "series == " + seriesKey;
         Cursor modelCursor = db.query("models", null, selection, null, null, null, null);
         int nOfModels = modelCursor.getCount();
-        String[] modelName = new String[nOfModels];
-        int[] modelKey = new int[nOfModels];
-        if (modelCursor.moveToFirst()) {
-            int brandIndex = modelCursor.getColumnIndex("brand");
-            int keyIndex = modelCursor.getColumnIndex("key");
-            for(int i=0; i<nOfModels;i++){
-                modelName[i] = modelCursor.getString(brandIndex);
-                modelKey[i] = modelCursor.getInt(keyIndex);
-                modelCursor.moveToNext();
-            }
-        } else Log.d(LOG_TAG, "0 rows");
+        String[] modelName;
+        int[] modelKey;
+        if(nOfModels > 0){
+            modelName = new String[nOfModels];
+            modelKey = new int[nOfModels];
+            if (modelCursor.moveToFirst()) {
+                int brandIndex = modelCursor.getColumnIndex("brand");
+                int keyIndex = modelCursor.getColumnIndex("key");
+                for(int i=0; i<nOfModels;i++){
+                    modelName[i] = modelCursor.getString(brandIndex);
+                    modelKey[i] = modelCursor.getInt(keyIndex);
+                    modelCursor.moveToNext();
+                }
+            };
+        }
         modelCursor.close();
 
         Spinner modelSpinner = (Spinner)findViewById(R.id.modelName);
