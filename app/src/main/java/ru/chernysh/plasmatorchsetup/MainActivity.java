@@ -167,19 +167,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void updateModelSpinner(SQLiteDatabase db, int selectedKey, int seriesKey){
+        Log.d(LOG_TAG, "updateModelSpinner, selectedkey = " + selectedKey + " seriesKey = " + seriesKey);
         String selection = "series == " + seriesKey;
         Cursor modelCursor = db.query("models", null, selection, null, null, null, null);
         int nOfModels = modelCursor.getCount();
-        String[] modelName;
-        int[] modelKey;
+        Log.d(LOG_TAG, "updateModelSpinner, nOfModels = " + nOfModels);
+        String[] modelName = null;
+        int[] modelKey = null;
         if(nOfModels > 0){
             modelName = new String[nOfModels];
             modelKey = new int[nOfModels];
             if (modelCursor.moveToFirst()) {
-                int brandIndex = modelCursor.getColumnIndex("brand");
+                int nameIndex = modelCursor.getColumnIndex("name");
                 int keyIndex = modelCursor.getColumnIndex("key");
-                for(int i=0; i<nOfModels;i++){
-                    modelName[i] = modelCursor.getString(brandIndex);
+                for(int i=0; i<nOfModels; i++){
+                    String ts = modelCursor.getString(nameIndex);
+                    Log.d(LOG_TAG, "updateModelSpinner, model [" + i + "]= " + ts);
+                    modelName[i] = ts;
+//                    modelName[i] = modelCursor.getString(brandIndex);
                     modelKey[i] = modelCursor.getInt(keyIndex);
                     modelCursor.moveToNext();
                 }
