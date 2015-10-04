@@ -42,7 +42,5 @@ public class CustomAdapter extends ArrayAdapter {
     public void setUndefined(){
         flag = false;
     }
-    public void setSelected(){
-        flag = true;
-    }
+    public void setSelected(){ flag = true; }
 }
