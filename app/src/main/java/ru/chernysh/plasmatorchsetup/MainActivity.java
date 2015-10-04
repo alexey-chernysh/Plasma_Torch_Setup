@@ -83,17 +83,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         updateSeriesSpinner(db, seriesKey, brandKey);
         ((Spinner) findViewById(R.id.seriesName))
                 .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                Log.d(LOG_TAG, "Series spinner selection listener activated");
-                Log.d(LOG_TAG, "with position = " + pos);
-            }
-        });
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int pos, long id) {
+                        Log.d(LOG_TAG, "Series spinner selection listener activated");
+                        Log.d(LOG_TAG, "with position = " + pos);
+                    }
+                });
         return brandKey;
     }
 
@@ -160,7 +160,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         lastModelKey.set(pos);
                         Log.d(LOG_TAG, "Model spinner selection listener activated");
                         Log.d(LOG_TAG, "with position = " + pos);
-
+                        Log.d(LOG_TAG, "with name = " + parent.getAdapter().getItem(pos));
                     }
                 });
         return seriesKey;
