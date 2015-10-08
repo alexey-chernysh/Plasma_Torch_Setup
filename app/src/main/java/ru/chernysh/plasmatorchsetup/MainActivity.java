@@ -90,10 +90,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                                int pos, long id) {
                         CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                         if (adapter != null) adapter.setSelected();
-                        int selectedKey = adapter.getKey(pos);
-                        (new StoredKey(getString(R.string.LAST_INVERTER_BRAND))).set(selectedKey);
-                        updateSeriesSpinnerList(0, selectedKey);
-                        updateModelSpinner(0, 0);
+//                        int selectedKey = adapter.getKey(pos);
+//                        (new StoredKey(getString(R.string.LAST_INVERTER_BRAND))).set(selectedKey);
+//                        updateSeriesSpinnerList(0, selectedKey);
+//                        updateModelSpinnerList(0, 0);
                     }
                 });
         updateBrandSpinnerList(selectedBrandKey);
@@ -112,12 +112,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                                    int pos, long id) {
                             CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                             if(adapter != null ) adapter.setSelected();
-                            int selectedKey = adapter.getKey(pos);
-                            (new StoredKey(getString(R.string.LAST_INVERTER_SERIES))).set(selectedKey);
-                            updateModelSpinner(0, selectedKey);
+//                            int selectedKey = adapter.getKey(pos);
+//                            (new StoredKey(getString(R.string.LAST_INVERTER_SERIES))).set(selectedKey);
+//                            updateModelSpinnerList(0, selectedKey);
                         }
                     });
-        updateModelSpinner(modelKey, seriesKey);
+        updateModelSpinnerList(modelKey, seriesKey);
    }
 
     private void prepareSeriesSpinner(int seriesKey, int brandKey) {
@@ -132,8 +132,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                                    int pos, long id) {
                             CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                             if (adapter != null) adapter.setSelected();
-                            int selectedKey = adapter.getKey(pos);
-                            (new StoredKey(getString(R.string.LAST_INVERTER_MODEL))).set(selectedKey);
+//                            int selectedKey = adapter.getKey(pos);
+//                            (new StoredKey(getString(R.string.LAST_INVERTER_MODEL))).set(selectedKey);
                         }
                     });
         updateSeriesSpinnerList(seriesKey, brandKey);
@@ -220,7 +220,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     };
 
-    private void updateModelSpinner(int selectedModelKey, int seriesKey){
+    private void updateModelSpinnerList(int selectedModelKey, int seriesKey){
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
 
         String[] modelName = null;
@@ -231,7 +231,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String selection = "series == " + seriesKey;
             Cursor modelCursor = db.query("models", null, selection, null, null, null, null);
             nOfModels = modelCursor.getCount();
-            Log.d(LOG_TAG, "updateModelSpinner, nOfModels = " + nOfModels);
+            Log.d(LOG_TAG, "updateModelSpinnerList, nOfModels = " + nOfModels);
             if(nOfModels > 0){
                 modelName = new String[nOfModels];
                 modelKey = new int[nOfModels];
