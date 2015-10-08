@@ -7,7 +7,7 @@
     <string name="LAST_INVERTER_MODEL">last_inverter_model</string>
     <string name="KEY_IS_EQUAL_TO">key == </string>
     <string name="NAME_IS_EQUAL_TO">name == </string>
-    <string name="BRAND_TABLE_NAME">manufacturers</string>
+    <string name="BRAND_TABLE_NAME">brand</string>
     <string name="SERIES_TABLE_NAME">series</string>
     <string name="MODEL_TABLE_NAME">model</string>
 </resources>

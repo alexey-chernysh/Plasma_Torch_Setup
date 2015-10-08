@@ -24,10 +24,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int seriesKey = 0;
         int brandKey = 0;
         int lastModel = (new StoredKey(getString(R.string.LAST_INVERTER_MODEL))).get();
-        if(lastModel > 0){
+        if(lastModel <= 0) {
             seriesKey = getSeriesKeyForModel(db, lastModel);
             brandKey = getBrandKeyForSeries(db, seriesKey);
-        }
+        };
         prepareModelSpinner(db, lastModel, seriesKey);
         prepareSeriesSpinner(db, seriesKey, brandKey);
         prepareBrandSpinner(db, brandKey);
@@ -77,7 +77,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             Log.d(LOG_TAG, "Model spinner selection listener activated");
                             Log.d(LOG_TAG, "with position = " + pos);
                             Log.d(LOG_TAG, "with name = " + parent.getAdapter().getItem(pos));
-                            ((CustomAdapter) parent.getAdapter()).setSelected();
+                            CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+                            if(adapter != null ) adapter.setSelected();
                         }
                     });
         updateModelSpinner(db, modelKey, seriesKey);
@@ -95,7 +96,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                                    int pos, long id) {
                             Log.d(LOG_TAG, "Series spinner selection listener activated");
                             Log.d(LOG_TAG, "with position = " + pos);
-                            ((CustomAdapter) parent.getAdapter()).setSelected();
+                            CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+                            if(adapter != null ) adapter.setSelected();
                         }
                     });
         updateSeriesSpinnerList(db, seriesKey, brandKey);
@@ -113,7 +115,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                                int pos, long id) {
                         Log.d(LOG_TAG, "Brand spinner selection listener activated");
                         Log.d(LOG_TAG, "with position = " + pos);
-                        ((CustomAdapter) parent.getAdapter()).setSelected();
+                        CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+                        if (adapter != null) adapter.setSelected();
                     }
                 });
         updateBrandSpinnerList(db, selectedBrandKey);
@@ -177,18 +180,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         };
 
         Spinner seriesSpinner = (Spinner) findViewById(R.id.seriesName);
-        CustomAdapter seriesAdapter =
-                new CustomAdapter(this, android.R.layout.simple_spinner_item, seriesNames);
-        seriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seriesSpinner.setAdapter(seriesAdapter);
-        if(selectedSeriesKey > 0){
-            for(int i=0; i<nOfSeries; i++){
-                if(seriesKeys[i] == selectedSeriesKey){
-                    seriesSpinner.setSelection(i);
-                    seriesAdapter.setSelected();
+        if(seriesNames != null){
+            CustomAdapter seriesAdapter =
+                    new CustomAdapter(this, android.R.layout.simple_spinner_item, seriesNames);
+            seriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            seriesSpinner.setAdapter(seriesAdapter);
+            if(selectedSeriesKey > 0){
+                for(int i=0; i<nOfSeries; i++){
+                    if(seriesKeys[i] == selectedSeriesKey){
+                        seriesSpinner.setSelection(i);
+                        seriesAdapter.setSelected();
+                    }
                 }
-            }
-        } else seriesAdapter.setUndefined();
+            } else seriesAdapter.setUndefined();
+        } else seriesSpinner.setEnabled(false);
 
     };
 
@@ -219,18 +224,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         Spinner modelSpinner = (Spinner)findViewById(R.id.modelName);
-        CustomAdapter modelAdapter =
-                new CustomAdapter(this, android.R.layout.simple_spinner_item, modelName);
-        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        modelSpinner.setAdapter(modelAdapter);
-        if(selectedModelKey > 0){
-            for(int i=0; i<nOfModels; i++){
-                if(modelKey[i] == selectedModelKey){
-                    modelSpinner.setSelection(i);
-                    modelAdapter.setSelected();
+        if(modelName != null){
+            CustomAdapter modelAdapter =
+                    new CustomAdapter(this, android.R.layout.simple_spinner_item, modelName);
+            modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            modelSpinner.setAdapter(modelAdapter);
+            if(selectedModelKey > 0){
+                for(int i=0; i<nOfModels; i++){
+                    if(modelKey[i] == selectedModelKey){
+                        modelSpinner.setSelection(i);
+                        modelAdapter.setSelected();
+                    }
                 }
-            }
-        } else modelAdapter.setUndefined();
+            } else modelAdapter.setUndefined();
+        } else modelSpinner.setEnabled(false);
     }
 
     @Override
