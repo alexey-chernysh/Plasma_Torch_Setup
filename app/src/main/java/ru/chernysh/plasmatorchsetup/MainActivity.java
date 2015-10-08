@@ -37,9 +37,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 lastSeries = (new StoredKey(getString(R.string.LAST_INVERTER_BRAND))).get();
             };
         };
-        prepareModelSpinner(lastModel, lastSeries);
-        prepareSeriesSpinner(lastSeries, lastBrand);
-        prepareBrandSpinner(lastBrand);
+        initModelSpinner(lastModel, lastSeries);
+        initSeriesSpinner(lastSeries, lastBrand);
+        initBrandSpinner(lastBrand);
     }
 
     private int getSeriesKeyForModel(int modelKey) {
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return key;
     }
 
-    private void prepareBrandSpinner(int selectedBrandKey) {
+    private void initBrandSpinner(int selectedBrandKey) {
         ((Spinner)findViewById(R.id.brandName))
                 .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         updateBrandSpinnerList(selectedBrandKey);
     }
 
-    private void prepareModelSpinner(int modelKey, int seriesKey) {
+    private void initModelSpinner(int modelKey, int seriesKey) {
 
         ((Spinner)findViewById(R.id.modelName))
                     .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -111,7 +111,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
                             CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
-                            if(adapter != null ) adapter.setSelected();
+                            if (adapter != null) adapter.setSelected();
 //                            int selectedKey = adapter.getKey(pos);
 //                            (new StoredKey(getString(R.string.LAST_INVERTER_SERIES))).set(selectedKey);
 //                            updateModelSpinnerList(0, selectedKey);
@@ -120,7 +120,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         updateModelSpinnerList(modelKey, seriesKey);
    }
 
-    private void prepareSeriesSpinner(int seriesKey, int brandKey) {
+    private void initSeriesSpinner(int seriesKey, int brandKey) {
         ((Spinner) findViewById(R.id.seriesName))
                     .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -228,8 +228,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int nOfModels = 0;
 
         if(seriesKey > 0){
-            String selection = "series == " + seriesKey;
-            Cursor modelCursor = db.query("models", null, selection, null, null, null, null);
+            Cursor modelCursor = db.query(getString(R.string.MODEL_TABLE_NAME),
+                    null,
+                    "series == " + seriesKey,
+                    null, null, null, null);
             nOfModels = modelCursor.getCount();
             Log.d(LOG_TAG, "updateModelSpinnerList, nOfModels = " + nOfModels);
             if(nOfModels > 0){
