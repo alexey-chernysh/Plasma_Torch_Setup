@@ -17,15 +17,18 @@ import android.widget.TextView;
 public class CustomAdapter extends ArrayAdapter {
     private Context context;
     private int textViewResourceId;
-    private String[] objects;
+    private String[] objects_;
+    private int[] keys_;
     private boolean flag = false;
 
     public CustomAdapter(Context context, int textViewResourceId,
-                         String[] objects) {
+                         String[] objects,
+                         int[] keys) {
         super(context, textViewResourceId, objects);
         this.context = context;
         this.textViewResourceId = textViewResourceId;
-        this.objects = objects;
+        this.objects_ = objects;
+        this.keys_ = keys;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class CustomAdapter extends ArrayAdapter {
         if (convertView == null)
             convertView = View.inflate(context, textViewResourceId, null);
         TextView tv = (TextView) convertView;
-        if (flag != false) tv.setText(objects[position]);
+        if (flag != false) tv.setText(objects_[position]);
         else tv.setText("Please select...");
 
         return convertView;
@@ -43,4 +46,11 @@ public class CustomAdapter extends ArrayAdapter {
         flag = false;
     }
     public void setSelected(){ flag = true; }
+
+    public int getKey(int pos){
+        if(keys_ == null) return 0;
+        if(pos >= keys_.length) return 0;
+        if(pos < 0) return 0;
+        return keys_[pos];
+    }
 }
