@@ -42,10 +42,7 @@ public class CustomAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    public void setUndefined(){
-        selected = false;
-    }
-    public void setSelected(){ selected = true; }
+    public void setSelected(boolean newState){ selected = newState; }
 
     public int getKey(int pos){
         if(keys_ == null) return 0;
