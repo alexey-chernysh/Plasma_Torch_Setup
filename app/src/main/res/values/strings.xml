@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Plasma Torch Setup</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="preference_prefix">last_selection_in_</string>
+    <string name="preference_suffix">_table</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_initial">InitialActivity</string>
-    <string name="LAST_INVERTER_MODEL">last_inverter_model</string>
-    <string name="LAST_INVERTER_SERIES">last_inverter_series</string>
-    <string name="LAST_INVERTER_BRAND">last_inverter_brand</string>
+    <string name="INVERTER_MODEL">inverter_model</string>
+    <string name="INVERTER_SERIES">inverter_series</string>
+    <string name="INVERTER_BRAND">inverter_brand</string>
     <string name="KEY_IS_EQUAL_TO">key == </string>
     <string name="NAME_IS_EQUAL_TO">name == </string>
     <string name="BRAND_TABLE_NAME">brand</string>

@@ -20,13 +20,13 @@ public class StoredKey {
     private final static String LOG_TAG = "Selection field";
 
     private String requestTag;
-    private final static String prefix = "last_selection_in_";
-    private final static String suffix = "_table";
 
     public StoredKey(@NonNull String name){
         if(name == null) throw new SQLiteException("Call SelectionField constructor with NULL field name. Real table name needed.");
         if(name.length() <= 0) throw new SQLiteException("Call SelectionField constructor with NULL field name. Real table name needed.");
-        requestTag = prefix + name + suffix;
+        requestTag = App.getInstance().getString(R.string.preference_prefix) +
+                     name +
+                     App.getInstance().getString(R.string.preference_suffix);
     }
 
     public void set(int newKey){
