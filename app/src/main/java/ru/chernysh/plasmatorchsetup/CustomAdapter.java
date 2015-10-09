@@ -19,7 +19,7 @@ public class CustomAdapter extends ArrayAdapter {
     private int textViewResourceId;
     private String[] objects_;
     private int[] keys_;
-    private boolean flag = false;
+    private boolean selected = false;
 
     public CustomAdapter(Context context, int textViewResourceId,
                          String[] objects,
@@ -36,16 +36,16 @@ public class CustomAdapter extends ArrayAdapter {
         if (convertView == null)
             convertView = View.inflate(context, textViewResourceId, null);
         TextView tv = (TextView) convertView;
-        if (flag != false) tv.setText(objects_[position]);
+        if (selected) tv.setText(objects_[position]);
         else tv.setText("Please select...");
 
         return convertView;
     }
 
     public void setUndefined(){
-        flag = false;
+        selected = false;
     }
-    public void setSelected(){ flag = true; }
+    public void setSelected(){ selected = true; }
 
     public int getKey(int pos){
         if(keys_ == null) return 0;
