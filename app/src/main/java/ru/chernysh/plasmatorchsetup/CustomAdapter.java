@@ -15,22 +15,22 @@ import android.widget.TextView;
  * Created by alexey on 25.09.15.
  */
 public class CustomAdapter extends ArrayAdapter {
-    private Context context;
-    private int textViewResourceId;
-    private String[] objects_;
+//    private Context context;
+//    private int textViewResourceId;
+//    private String[] objects_;
     private int[] keys_;
-    private boolean selected = false;
+//    private boolean selected = false;
 
     public CustomAdapter(Context context, int textViewResourceId,
                          String[] objects,
                          int[] keys) {
         super(context, textViewResourceId, objects);
-        this.context = context;
-        this.textViewResourceId = textViewResourceId;
-        this.objects_ = objects;
+//        this.context = context;
+//        this.textViewResourceId = textViewResourceId;
+//        this.objects_ = objects;
         this.keys_ = keys;
     }
-
+/*
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
@@ -42,8 +42,14 @@ public class CustomAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    public void setSelected(boolean newState){ selected = newState; }
+    public void setSelected(boolean newState){
+        selected = newState;
+    }
 
+    public boolean isSelected() {
+        return selected;
+    }
+*/
     public int getKey(int pos){
         if(keys_ == null) return 0;
         if(pos >= keys_.length) return 0;

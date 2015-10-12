@@ -90,27 +90,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Log.d(LOG_TAG, "called initBrandSpinner(" + selectedBrandKey + ")");
         ((Spinner)findViewById(R.id.brandName))
                 .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    private int lastPos = 0;
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-                        onSel(parent, lastPos);
                     }
 
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int pos, long id) {
-                        Log.d(LOG_TAG, "Selection in brand spinner with pos = " + pos);
-                        lastPos = pos;
-                        onSel(parent, lastPos);
-                    }
-
-                    private void onSel(AdapterView<?> parent, int pos) {
                         CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                         if (brandAdapter != null) {
-                            brandAdapter.setSelected(true);
                             int selectedKey = brandAdapter.getKey(pos);
-//                            (new StoredKey(getString(R.string.INVERTER_BRAND))).set(selectedKey);
+                            (new StoredKey(getString(R.string.INVERTER_BRAND))).set(selectedKey);
                             updateSeriesSpinnerList(0, selectedKey);
                             updateModelSpinnerList(0, 0);
                         }
@@ -121,8 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void initSeriesSpinner(int selectedSeriesKey, int selectedBrandKey) {
         Log.d(LOG_TAG, "called initSeriesSpinner(" + selectedSeriesKey + "," + selectedBrandKey + ")");
-        ((Spinner) findViewById(R.id.seriesName))
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner seriesSpinner = (Spinner) findViewById(R.id.seriesName);
+        seriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
@@ -130,39 +120,39 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int pos, long id) {
-                        Log.d(LOG_TAG, "Selection in series spinner with pos = " + pos);
                         CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                         if (adapter != null) {
-                            adapter.setSelected(true);
                             int selectedKey = adapter.getKey(pos);
-//                            (new StoredKey(getString(R.string.INVERTER_SERIES))).set(selectedKey);
+                            (new StoredKey(getString(R.string.INVERTER_SERIES))).set(selectedKey);
                             updateModelSpinnerList(0, selectedKey);
                         }
                     }
                 });
+        seriesSpinner.setEnabled(false);
         updateSeriesSpinnerList(selectedSeriesKey, selectedBrandKey);
     }
 
     private void initModelSpinner(int selectedModelKey, int selectedSeriesKey) {
         Log.d(LOG_TAG, "called initModelSpinner(" + selectedModelKey + "," + selectedSeriesKey + ")");
-        ((Spinner)findViewById(R.id.modelName))
-                    .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
+        Spinner modelSpinner = (Spinner) findViewById(R.id.modelName);
+        modelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(LOG_TAG, "onNothingSelect in modelSpinner");
+            }
 
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view,
-                                                   int pos, long id) {
-                            Log.d(LOG_TAG, "Selection in model spinner with pos = " + pos);
-                            CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
-                            if (adapter != null) {
-                                adapter.setSelected(true);
-                                int selectedKey = adapter.getKey(pos);
-//                                (new StoredKey(getString(R.string.INVERTER_MODEL))).set(selectedKey);
-                            }
-                        }
-                    });
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                Log.d(LOG_TAG, "onSelect in modelSpinner");
+                Log.d(LOG_TAG, "Selection in model spinner with pos = " + pos);
+                CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+                if (adapter != null) {
+                    int selectedKey = adapter.getKey(pos);
+                   (new StoredKey(getString(R.string.INVERTER_MODEL))).set(selectedKey);
+                }
+            }
+        });
         updateModelSpinnerList(selectedModelKey, selectedSeriesKey);
     }
 
@@ -193,8 +183,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 new CustomAdapter(this, android.R.layout.simple_spinner_item, brandName, brandKey);
         brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brandSpinner.setAdapter(brandAdapter);
-
-        brandAdapter.setSelected(selectedBrandKey > 0);
         for (int i = 0; i < nOfBrands; i++)
             if (brandKey[i] == selectedBrandKey) brandSpinner.setSelection(i);
 
@@ -237,7 +225,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 new CustomAdapter(this, android.R.layout.simple_spinner_item, seriesName, seriesKey);
         seriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seriesSpinner.setAdapter(seriesAdapter);
-        seriesAdapter.setSelected(selectedSeriesKey > 0);
         if(selectedSeriesKey > 0){
             for(int i=0; i<nOfSeries; i++){
                 if(seriesKey[i] == selectedSeriesKey){
@@ -246,7 +233,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
         seriesSpinner.setEnabled(selectedBrandKey > 0);
-        seriesSpinner.invalidate();
         db.close();
     };
 
@@ -264,7 +250,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                             getString(R.string.SERIES_TABLE_NAME) + " == " + selectedSeriesKey,
                                             null, null, null, null);
             nOfModels = cursor.getCount();
-            Log.d(LOG_TAG, "nOfModels = " + nOfModels);
             if(nOfModels > 0){
                 modelName = new String[nOfModels];
                 modelKey = new int[nOfModels];
@@ -287,7 +272,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 new CustomAdapter(this, android.R.layout.simple_spinner_item, modelName, modelKey);
         modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modelSpinner.setAdapter(modelAdapter);
-        modelAdapter.setSelected(selectedModelKey > 0);
         if(selectedModelKey > 0){
             for(int i=0; i<nOfModels; i++){
                 if(modelKey[i] == selectedModelKey){
@@ -296,7 +280,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
         modelSpinner.setEnabled(selectedSeriesKey > 0);
-        modelSpinner.invalidate();
         db.close();
     }
 
