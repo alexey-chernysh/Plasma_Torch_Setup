@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Plasma Torch Setup</string>
+
+    <string name="brand_title">Brand</string>
+    <string name="series_title">Series</string>
+    <string name="model_title">Model</string>
+
     <string name="PLEASE_SELECT">Please select...</string>
     <string name="preference_prefix">last_selection_in_</string>
     <string name="preference_suffix">_table</string>

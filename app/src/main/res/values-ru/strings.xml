@@ -6,14 +6,9 @@
 <resources>
     <string name="app_name">Plasma Torch Setup</string>
     <string name="PLEASE_SELECT">Выбирете...</string>
-    <string name="action_settings">Настройки</string>
-    <string name="title_activity_initial">InitialActivity</string>
-    <string name="INVERTER_MODEL">inverter_model</string>
-    <string name="INVERTER_SERIES">inverter_series</string>
-    <string name="INVERTER_BRAND">inverter_brand</string>
-    <string name="KEY_IS_EQUAL_TO">key == </string>
-    <string name="NAME_IS_EQUAL_TO">name == </string>
-    <string name="BRAND_TABLE_NAME">brand</string>
-    <string name="SERIES_TABLE_NAME">series</string>
-    <string name="MODEL_TABLE_NAME">model</string>
+
+    <string name="brand_title">Брэнд</string>
+    <string name="series_title">Серия</string>
+    <string name="model_title">Модель</string>
+
 </resources>
