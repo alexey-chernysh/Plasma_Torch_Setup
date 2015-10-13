@@ -162,7 +162,9 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "called updateBrandSpinnerList(" + selectedBrandKey + ")");
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        Cursor cursor = db.query(getString(R.string.BRAND_TABLE_NAME), null, null, null, null, null, null);
+        String tmp = getString(R.string.BRAND_TABLE_NAME);
+        Log.d(LOG_TAG, "Table name is " + tmp);
+        Cursor cursor = db.query(tmp, null, null, null, null, null, null);
         int nOfBrands = cursor.getCount();
         Log.d(LOG_TAG, "nOfBrands = " + nOfBrands);
         String[] brandName = new String[nOfBrands];
