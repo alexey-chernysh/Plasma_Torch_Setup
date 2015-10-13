@@ -26,19 +26,18 @@ public class MainActivity extends Activity {
 
     private void initInverterSpinners(){
         Log.d(LOG_TAG, "initInverterSpinners");
-//        int lastModel = (new StoredKey(getString(R.string.INVERTER_MODEL))).get();
-        int lastModel = 0;
+        int lastModel = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.MODEL_TABLE_NAME))).get();
         int lastSeries = 0;
         int lastBrand = 0;
         if(lastModel > 0) {
             lastSeries = getSeriesKeyForModel(lastModel);
             lastBrand = getBrandKeyForSeries(lastSeries);
         } else {
-            lastSeries = (new StoredKey(getString(R.string.INVERTER_SERIES))).get();
+            lastSeries = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.SERIES_TABLE_NAME))).get();
             if(lastSeries > 0){
                 lastBrand = getBrandKeyForSeries(lastSeries);
             } else {
-                lastSeries = (new StoredKey(getString(R.string.INVERTER_BRAND))).get();
+                lastSeries = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.SERIES_TABLE_NAME))).get();
             };
         };
         initBrandSpinner(lastBrand);
@@ -100,7 +99,8 @@ public class MainActivity extends Activity {
                         CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                         if (brandAdapter != null) {
                             int selectedKey = brandAdapter.getKey(pos);
-                            (new StoredKey(getString(R.string.INVERTER_BRAND))).set(selectedKey);
+                            (new StoredKey(getString(R.string.PREFERENCE_)+
+                                           getString(R.string.BRAND_TABLE_NAME))).set(selectedKey);
                             updateSeriesSpinnerList(0, selectedKey);
                             updateModelSpinnerList(0, 0);
                         }
@@ -123,7 +123,8 @@ public class MainActivity extends Activity {
                 CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                 if (adapter != null) {
                     int selectedKey = adapter.getKey(pos);
-                    (new StoredKey(getString(R.string.INVERTER_SERIES))).set(selectedKey);
+                    (new StoredKey(getString(R.string.PREFERENCE_)+
+                                    getString(R.string.SERIES_TABLE_NAME))).set(selectedKey);
                     updateModelSpinnerList(0, selectedKey);
                 }
             }
@@ -149,7 +150,8 @@ public class MainActivity extends Activity {
                 CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                 if (adapter != null) {
                     int selectedKey = adapter.getKey(pos);
-                    (new StoredKey(getString(R.string.INVERTER_MODEL))).set(selectedKey);
+                    (new StoredKey(getString(R.string.PREFERENCE_)+
+                                    getString(R.string.MODEL_TABLE_NAME))).set(selectedKey);
                 }
             }
         });

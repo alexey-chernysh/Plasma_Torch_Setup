@@ -4,9 +4,7 @@
   -->
 
 <resources>
-    <string name="app_name">Plasma Torch Setup</string>
-    <string name="PLEASE_SELECT">Выбирете...</string>
-
+    <string name="please_select_prompt">Выбирете...</string>
     <string name="brand_title">Брэнд</string>
     <string name="series_title">Серия</string>
     <string name="model_title">Модель</string>
