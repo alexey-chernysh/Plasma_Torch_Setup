@@ -5,7 +5,9 @@
 
 package ru.chernysh.plasmatorchsetup;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -15,11 +17,12 @@ import android.widget.Spinner;
  */
 public class TableWithSpinner {
 
-    private static final String LOG_TAG = MainActivity.class.getName()+": ";
+    private static final String LOG_TAG = "Table with spinner: ";
     private static final String[] stringNullArray = {""};
     private static final int[] intNullArray = {0};
 
     View parent_;
+    private int selected = 0;
 
     public TableWithSpinner(View parent, final String table_name, int spinnerId){
         parent_ = parent;
@@ -37,10 +40,40 @@ public class TableWithSpinner {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                 if (brandAdapter != null) {
-                    int selectedKey = brandAdapter.getKey(pos);
-                    (new StoredKey(App.getInstance().getString(R.string.PREFERENCE_) + table_name)).set(selectedKey);
+                    selected = brandAdapter.getKey(pos);
+                    (new StoredKey(App.getInstance().getString(R.string.PREFERENCE_) + table_name)).set(selected);
                 }
             }
         });
+
+        Cursor cursor = db.query(table_name, null, null, null, null, null, null);
+        int nOfRows = cursor.getCount();
+        name = new String[nOfRows];
+        key = new int[nOfRows];
+        if (cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex("name");
+            int keyIndex = cursor.getColumnIndex("key");
+            for(int i=0; i<nOfRows; i++){
+                name[i] = cursor.getString(brandNameIndex);
+                key[i] = cursor.getInt(brandKeyIndex);
+                Log.d(LOG_TAG, "record [" + i + "] : name = " + brandName[i] + ", key = " + brandKey[i]);
+                cursor.moveToNext();
+            }
+        } else Log.d(LOG_TAG, "0 rows");
+        cursor.close();
+        db.close();
+
+        if(brandSpinner != null){
+            CustomAdapter brandAdapter =
+                    new CustomAdapter(this, android.R.layout.simple_spinner_item, brandName, brandKey);
+            brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            brandSpinner.setAdapter(brandAdapter);
+            for (int i = 0; i < nOfBrands; i++)
+                if (brandKey[i] == selectedBrandKey) brandSpinner.setSelection(i);
+        }
+    }
+
+    public int getSelected() {
+        return selected;
     }
 }
