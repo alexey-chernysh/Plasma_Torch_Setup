@@ -17,4 +17,7 @@ public class App extends android.app.Application {
     private static App instance;
     public App() {instance = this;}
     public static App getInstance() {return instance;}
+    public static String getResourceString(int id){
+        return instance.getString(id);
+    }
 }

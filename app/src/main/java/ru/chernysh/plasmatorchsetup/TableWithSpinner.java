@@ -19,27 +19,22 @@ public class TableWithSpinner {
     private static final int[] intNullArray = {0};
 
     private int selected_ = 0;
+    private int spinnerId_;
+    private final String table_name_;
 
     public TableWithSpinner(View view,
-                            final String table_name,
+                            String table_name,
                             int spinnerId,
                             int selected){
         selected_ = selected;
-        this.init(view,table_name,spinnerId);
-    }
-
-    public TableWithSpinner(View view,
-                            final String table_name,
-                            int spinnerId){
-        this.init(view,table_name,spinnerId);
+        spinnerId_ = spinnerId;
+        table_name_ = table_name;
+        this.init(view, table_name);
     }
 
     private void init(View view,
-                      final String table_name,
-                      int spinnerId){
-        Spinner spinner = (Spinner)view.findViewById(spinnerId);
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-
+                      String table_name){
+        Spinner spinner = (Spinner)view.findViewById(spinnerId_);
         String[] name  = stringNullArray;
         int[] key = intNullArray;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -52,19 +47,21 @@ public class TableWithSpinner {
                 CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                 if (brandAdapter != null) {
                     selected_ = brandAdapter.getKey(pos);
-                    (new StoredKey(App.getInstance().getString(R.string.preference_) + table_name)).set(selected_);
+                    (new StoredKey(App.getResourceString(R.string.preference_) + table_name_)).set(selected_);
                 }
             }
         });
+        spinner.setPrompt(App.getResourceString(R.string.please_select_prompt));
 
+        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
         Cursor cursor = db.query(table_name, null, null, null, null, null, null);
         int nOfRows = cursor.getCount();
         name = new String[nOfRows];
         key = new int[nOfRows];
         if (cursor.moveToFirst()) {
-            int nameIndex = cursor.getColumnIndex(App.getInstance().getString(R.string.name_field)
+            int nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field)
                     + "_" + App.language);
-            int keyIndex = cursor.getColumnIndex(App.getInstance().getString(R.string.key_field));
+            int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
             for(int i=0; i<nOfRows; i++){
                 name[i] = cursor.getString(nameIndex);
                 key[i] = cursor.getInt(keyIndex);
@@ -79,7 +76,6 @@ public class TableWithSpinner {
                 new CustomAdapter(view.getContext(), android.R.layout.simple_spinner_item, name, key);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setPrompt(view.getContext().getString(R.string.please_select_prompt));
         for (int i = 0; i < nOfRows; i++)
             if (key[i] == selected_) spinner.setSelection(i);
     }
