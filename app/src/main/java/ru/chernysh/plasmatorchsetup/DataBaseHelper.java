@@ -21,18 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * Created by Sales on 23.09.2015.
- */
-
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = DataBaseHelper.class.getName() + ": ";
 
-//    private static final String DB_NAME = "cut_chart.sqlite";
-//    private static final String DB_FOLDER = "/data/data/" + App.getInstance().getPackageName() + "/databases/";
-//    private static final String DB_PATH = DB_FOLDER + DB_NAME;
-//    private static final String DB_ASSETS_PATH = "database/" + DB_NAME;
     private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
