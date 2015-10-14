@@ -19,7 +19,7 @@ public class TableWithSpinner {
     private static final int[] intNullArray = {0};
 
     private int selected_ = 0;
-    private int spinnerId_;
+    private int spinnerId_ = 0;
     private final String table_name_;
 
     public TableWithSpinner(View view,
@@ -29,14 +29,11 @@ public class TableWithSpinner {
         selected_ = selected;
         spinnerId_ = spinnerId;
         table_name_ = table_name;
-        this.init(view, table_name);
+        this.init(view);
     }
 
-    private void init(View view,
-                      String table_name){
+    private void init(View view){
         Spinner spinner = (Spinner)view.findViewById(spinnerId_);
-        String[] name  = stringNullArray;
-        int[] key = intNullArray;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -52,15 +49,20 @@ public class TableWithSpinner {
             }
         });
         spinner.setPrompt(App.getResourceString(R.string.please_select_prompt));
+        updateList(view);
+    }
 
+    public void updateList(View view){
+        String[] name  = stringNullArray;
+        int[] key = intNullArray;
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        Cursor cursor = db.query(table_name, null, null, null, null, null, null);
+        Cursor cursor = db.query(table_name_, null, null, null, null, null, null);
         int nOfRows = cursor.getCount();
         name = new String[nOfRows];
         key = new int[nOfRows];
         if (cursor.moveToFirst()) {
             int nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field)
-                    + "_" + App.language);
+                                                     + "_" + App.language);
             int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
             for(int i=0; i<nOfRows; i++){
                 name[i] = cursor.getString(nameIndex);
@@ -75,6 +77,7 @@ public class TableWithSpinner {
         CustomAdapter adapter =
                 new CustomAdapter(view.getContext(), android.R.layout.simple_spinner_item, name, key);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = (Spinner)view.findViewById(spinnerId_);
         spinner.setAdapter(adapter);
         for (int i = 0; i < nOfRows; i++)
             if (key[i] == selected_) spinner.setSelection(i);
