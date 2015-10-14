@@ -1,20 +1,42 @@
 <resources>
+    <!--
+        Language-independent part of strings:
+        1. names of apps and activities
+        2. names of preferences
+        3. names of resources
+        4. names of files
+        5. names of tables and fields in database and string expressions used in queries
+    -->
+
+    <!--
+        1. names of apps and activities
+    -->
     <string name="app_name">Plasma Torch Setup</string>
+    <string name="title_activity_initial">InitialActivity</string>
 
-    <string name="brand_title">Brand</string>
-    <string name="series_title">Series</string>
-    <string name="model_title">Model</string>
-    <string name="material_title">Material</string>
-    <string name="please_select_prompt">Please select...</string>
-
+    <!--
+        2. names of preferences
+    -->
+    <string name="preference_">preference_</string>
     <string name="preference_prefix">last_selection_in_</string>
     <string name="preference_suffix">_table</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_initial">InitialActivity</string>
-    <string name="KEY_IS_EQUAL_TO">key == </string>
-    <string name="NAME_IS_EQUAL_TO">name == </string>
-    <string name="BRAND_TABLE_NAME">brand</string>
-    <string name="SERIES_TABLE_NAME">series</string>
-    <string name="MODEL_TABLE_NAME">model</string>
-    <string name="PREFERENCE_">preference_</string>
+
+    <!--
+        3. names of resources
+    -->
+    <!--
+        4. names of files
+    -->
+    <string name="sd_card">/data/data/</string>
+    <string name="db_folder">databases</string>
+    <string name="db_name">cut_chart.sqlite</string>
+    <!--
+        5. names of tables and fields in database and string expressions used in queries
+    -->
+    <string name="key_field">key</string>
+    <string name="name_field">name</string>
+    <string name="is_equal_to">==</string>
+    <string name="brand_table">brand</string>
+    <string name="series_table">series</string>
+    <string name="model_table">model</string>
 </resources>

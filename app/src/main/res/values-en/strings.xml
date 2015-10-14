@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+  ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
+  -->
+
+<resources>
+    <!--
+        Language-dependent part of strings
+    -->
+
+    <!--
+        Resource titles
+    -->
+    <string name="action_settings">Settings</string>
+    <string name="brand_title">Brand</string>
+    <string name="series_title">Series</string>
+    <string name="model_title">Model</string>
+    <string name="material_title">Material</string>
+    <string name="please_select_prompt">Please select...</string>
+    <!--
+        Messages
+    -->
+</resources>

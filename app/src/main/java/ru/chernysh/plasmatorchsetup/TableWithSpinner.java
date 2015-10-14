@@ -42,7 +42,7 @@ public class TableWithSpinner {
                 CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                 if (brandAdapter != null) {
                     selected = brandAdapter.getKey(pos);
-                    (new StoredKey(App.getInstance().getString(R.string.PREFERENCE_) + table_name)).set(selected);
+                    (new StoredKey(App.getInstance().getString(R.string.preference_) + table_name)).set(selected);
                 }
             }
         });

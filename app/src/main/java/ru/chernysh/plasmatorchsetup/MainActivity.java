@@ -26,18 +26,18 @@ public class MainActivity extends Activity {
 
     private void initInverterSpinners(){
         Log.d(LOG_TAG, "initInverterSpinners");
-        int lastModel = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.MODEL_TABLE_NAME))).get();
+        int lastModel = (new StoredKey(getString(R.string.preference_)+getString(R.string.model_table))).get();
         int lastSeries = 0;
         int lastBrand = 0;
         if(lastModel > 0) {
             lastSeries = getSeriesKeyForModel(lastModel);
             lastBrand = getBrandKeyForSeries(lastSeries);
         } else {
-            lastSeries = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.SERIES_TABLE_NAME))).get();
+            lastSeries = (new StoredKey(getString(R.string.preference_)+getString(R.string.series_table))).get();
             if(lastSeries > 0){
                 lastBrand = getBrandKeyForSeries(lastSeries);
             } else {
-                lastSeries = (new StoredKey(getString(R.string.PREFERENCE_)+getString(R.string.SERIES_TABLE_NAME))).get();
+                lastSeries = (new StoredKey(getString(R.string.preference_)+getString(R.string.series_table))).get();
             };
         };
         initBrandSpinner(lastBrand);
@@ -50,13 +50,13 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "called getSeriesKeyForModel(" + modelKey + ")");
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
 
-        Cursor cursor = db.query(getString(R.string.MODEL_TABLE_NAME),
+        Cursor cursor = db.query(getString(R.string.model_table),
                                             null,
-                                            getString(R.string.KEY_IS_EQUAL_TO) + modelKey,
+                                            getString(R.string.key_field) + getString(R.string.is_equal_to) + modelKey,
                                             null, null, null, null);
         int seriesKey = 0;
         if (cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(getString(R.string.SERIES_TABLE_NAME));
+            int index = cursor.getColumnIndex(getString(R.string.series_table));
             seriesKey = cursor.getInt(index);
         };
         cursor.close();
@@ -70,13 +70,13 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "called getBrandKeyForSeries(" + seriesKey + ")");
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
 
-        Cursor cursor = db.query(getString(R.string.SERIES_TABLE_NAME),
+        Cursor cursor = db.query(getString(R.string.series_table),
                                             null,
-                                            getString(R.string.KEY_IS_EQUAL_TO) + seriesKey,
+                                            getString(R.string.key_field) + getString(R.string.is_equal_to) + seriesKey,
                                             null, null, null, null);
         int brandKey = 0;
         if (cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(getString(R.string.BRAND_TABLE_NAME));
+            int index = cursor.getColumnIndex(getString(R.string.brand_table));
             brandKey = cursor.getInt(index);
         };
         cursor.close();
@@ -99,8 +99,8 @@ public class MainActivity extends Activity {
                         CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                         if (brandAdapter != null) {
                             int selectedKey = brandAdapter.getKey(pos);
-                            (new StoredKey(getString(R.string.PREFERENCE_)+
-                                           getString(R.string.BRAND_TABLE_NAME))).set(selectedKey);
+                            (new StoredKey(getString(R.string.preference_)+
+                                           getString(R.string.brand_table))).set(selectedKey);
                             updateSeriesSpinnerList(0, selectedKey);
                             updateModelSpinnerList(0, 0);
                         }
@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
                 CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                 if (adapter != null) {
                     int selectedKey = adapter.getKey(pos);
-                    (new StoredKey(getString(R.string.PREFERENCE_)+
-                                    getString(R.string.SERIES_TABLE_NAME))).set(selectedKey);
+                    (new StoredKey(getString(R.string.preference_)+
+                                    getString(R.string.series_table))).set(selectedKey);
                     updateModelSpinnerList(0, selectedKey);
                 }
             }
@@ -150,8 +150,8 @@ public class MainActivity extends Activity {
                 CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                 if (adapter != null) {
                     int selectedKey = adapter.getKey(pos);
-                    (new StoredKey(getString(R.string.PREFERENCE_)+
-                                    getString(R.string.MODEL_TABLE_NAME))).set(selectedKey);
+                    (new StoredKey(getString(R.string.preference_)+
+                                    getString(R.string.model_table))).set(selectedKey);
                 }
             }
         });
@@ -162,7 +162,9 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "called updateBrandSpinnerList(" + selectedBrandKey + ")");
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String tmp = getString(R.string.BRAND_TABLE_NAME);
+        Log.d(LOG_TAG, "DB path is " + db.getPath());
+        Log.d(LOG_TAG, "DB version is " + db.getVersion());
+        final String tmp = getString(R.string.brand_table);
         Log.d(LOG_TAG, "Table name is " + tmp);
         Cursor cursor = db.query(tmp, null, null, null, null, null, null);
         int nOfBrands = cursor.getCount();
@@ -202,9 +204,9 @@ public class MainActivity extends Activity {
         int nOfSeries = 0;
 
         if(selectedBrandKey > 0) {
-            Cursor cursor = db.query(getString(R.string.SERIES_TABLE_NAME),
+            Cursor cursor = db.query(getString(R.string.series_table),
                     null,
-                    getString(R.string.BRAND_TABLE_NAME) + " == " + selectedBrandKey,
+                    getString(R.string.brand_table) + " == " + selectedBrandKey,
                     null, null, null, null);
             nOfSeries = cursor.getCount();
             Log.d(LOG_TAG, "nOfSeries = " + nOfSeries);
@@ -252,9 +254,9 @@ public class MainActivity extends Activity {
         int nOfModels = 0;
 
         if(selectedSeriesKey > 0){
-            Cursor cursor = db.query(getString(R.string.MODEL_TABLE_NAME),
+            Cursor cursor = db.query(getString(R.string.model_table),
                                             null,
-                                            getString(R.string.SERIES_TABLE_NAME) + " == " + selectedSeriesKey,
+                                            getString(R.string.series_table) + " == " + selectedSeriesKey,
                                             null, null, null, null);
             nOfModels = cursor.getCount();
             if(nOfModels > 0){

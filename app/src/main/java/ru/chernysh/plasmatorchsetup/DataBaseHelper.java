@@ -29,15 +29,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = DataBaseHelper.class.getName() + ": ";
 
-    private static final String DB_NAME = "cut_chart.sqlite";
-    private static final String DB_FOLDER = "/data/data/" + App.getInstance().getPackageName() + "/databases/";
-    private static final String DB_PATH = DB_FOLDER + DB_NAME;
-    private static final String DB_ASSETS_PATH = "db/" + DB_NAME;
+//    private static final String DB_NAME = "cut_chart.sqlite";
+//    private static final String DB_FOLDER = "/data/data/" + App.getInstance().getPackageName() + "/databases/";
+//    private static final String DB_PATH = DB_FOLDER + DB_NAME;
+//    private static final String DB_ASSETS_PATH = "database/" + DB_NAME;
     private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
     public DataBaseHelper() {
-        super(App.getInstance().getBaseContext(), DB_NAME, null, 1);
+        super(  App.getInstance().getBaseContext(),
+                App.getInstance().getString(R.string.db_name),
+                null,
+                1);
     }
 
     private final static String msg = "Call DataBaseHelper.Initialize first. This method should never be called..";
@@ -72,8 +75,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Boolean correctVersion = false;
 
         try {
-            checkDB = SQLiteDatabase.openDatabase(DB_PATH, null,
-                    SQLiteDatabase.OPEN_READONLY);
+            String db_path =  App.getInstance().getString(R.string.sd_card)
+                            + App.getInstance().getPackageName()
+                            + "/" + App.getInstance().getString(R.string.db_folder) + "/"
+                            + App.getInstance().getString(R.string.db_name);
+            checkDB = SQLiteDatabase.openDatabase(  db_path,
+                                                    null,
+                                                    SQLiteDatabase.OPEN_READONLY);
             int currentVersion = checkDB.getVersion();
             correctVersion = (currentVersion == DB_VERSION);
         } catch (SQLiteException e) {
@@ -100,11 +108,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         OutputStream outStream = null;
 
         try {
-            inStream = new BufferedInputStream(appContext.getAssets().open(DB_ASSETS_PATH), DB_FILES_COPY_BUFFER_SIZE);
-            File dbDir = new File(DB_FOLDER);
+            String db_assets_path = App.getInstance().getString(R.string.db_folder)
+                                  + "/"
+                                  + App.getInstance().getString(R.string.db_name);
+            inStream = new BufferedInputStream(appContext.getAssets().open(db_assets_path), DB_FILES_COPY_BUFFER_SIZE);
+            String db_folder = App.getInstance().getString(R.string.sd_card)
+                             + App.getInstance().getPackageName()
+                             + "/" + App.getInstance().getString(R.string.db_folder) + "/";
+            File dbDir = new File(db_folder);
             if (dbDir.exists() == false)
                 dbDir.mkdir();
-            outStream = new BufferedOutputStream(new FileOutputStream(DB_PATH), DB_FILES_COPY_BUFFER_SIZE);
+            String db_path = db_folder + App.getInstance().getString(R.string.db_name);
+            outStream = new BufferedOutputStream(new FileOutputStream(db_path), DB_FILES_COPY_BUFFER_SIZE);
 
             byte[] buffer = new byte[DB_FILES_COPY_BUFFER_SIZE];
             int length;
@@ -119,7 +134,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         } catch (IOException ex) {
             // Что-то пошло не так
             Log.e(LOG_TAG, ex.getMessage());
-            throw new SQLiteException("Fail to copy initial db from assets", ex);
+            throw new SQLiteException("Fail to copy initial database from assets", ex);
         } finally {
             IOUtils.closeQuietly(outStream);
             IOUtils.closeQuietly(inStream);
