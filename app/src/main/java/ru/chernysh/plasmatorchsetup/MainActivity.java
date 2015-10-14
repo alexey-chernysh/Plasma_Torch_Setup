@@ -15,6 +15,8 @@ public class MainActivity extends Activity {
     private static final String[] stringNullArray = {""};
     private static final int[] intNullArray = {0};
 
+    private TableWithSpinner material;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,12 @@ public class MainActivity extends Activity {
 
         Log.d(LOG_TAG, "OnCreate");
         initInverterSpinners();
+
+        final String material_table_name = getString(R.string.material_table);
+        material = new TableWithSpinner(this.findViewById(android.R.id.content),
+                                        material_table_name,
+                                        R.id.materialName,
+                                        (new StoredKey(getString(R.string.preference_)+material_table_name)).get());
     }
 
     private void initInverterSpinners(){
@@ -172,8 +180,8 @@ public class MainActivity extends Activity {
         String[] brandName = new String[nOfBrands];
         int[] brandKey = new int[nOfBrands];
         if (cursor.moveToFirst()) {
-            int brandNameIndex = cursor.getColumnIndex("name");
-            int brandKeyIndex = cursor.getColumnIndex("key");
+            int brandNameIndex = cursor.getColumnIndex(getString(R.string.name_field));
+            int brandKeyIndex = cursor.getColumnIndex(getString(R.string.key_field));
             for(int i=0; i<nOfBrands;i++){
                 brandName[i] = cursor.getString(brandNameIndex);
                 brandKey[i] = cursor.getInt(brandKeyIndex);
@@ -214,8 +222,8 @@ public class MainActivity extends Activity {
                 seriesName = new String[nOfSeries];
                 seriesKey = new int[nOfSeries];
                 if (cursor.moveToFirst()) {
-                    int seriesNameIndex = cursor.getColumnIndex("name");
-                    int seriesKeyIndex = cursor.getColumnIndex("key");
+                    int seriesNameIndex = cursor.getColumnIndex(getString(R.string.name_field));
+                    int seriesKeyIndex = cursor.getColumnIndex(getString(R.string.key_field));
                     for(int i=0; i<nOfSeries; i++){
                         seriesName[i] = cursor.getString(seriesNameIndex);
                         seriesKey[i] = cursor.getInt(seriesKeyIndex);
@@ -263,8 +271,8 @@ public class MainActivity extends Activity {
                 modelName = new String[nOfModels];
                 modelKey = new int[nOfModels];
                 if (cursor.moveToFirst()) {
-                    int nameIndex = cursor.getColumnIndex("name");
-                    int keyIndex = cursor.getColumnIndex("key");
+                    int nameIndex = cursor.getColumnIndex(getString(R.string.name_field));
+                    int keyIndex = cursor.getColumnIndex(getString(R.string.key_field));
                     for(int i=0; i<nOfModels; i++){
                         modelName[i] = cursor.getString(nameIndex);
                         modelKey[i] = cursor.getInt(keyIndex);

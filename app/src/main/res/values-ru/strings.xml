@@ -8,5 +8,6 @@
     <string name="brand_title">Брэнд</string>
     <string name="series_title">Серия</string>
     <string name="model_title">Модель</string>
+    <string name="material_title">Материал</string>
 
 </resources>

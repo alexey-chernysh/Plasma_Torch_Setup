@@ -39,4 +39,5 @@
     <string name="brand_table">brand</string>
     <string name="series_table">series</string>
     <string name="model_table">model</string>
+    <string name="material_table">material</string>
 </resources>
