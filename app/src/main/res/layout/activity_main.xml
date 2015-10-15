@@ -95,4 +95,29 @@
             android:prompt="@string/please_select_prompt"
             android:layout_weight="1" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/material_thickness"
+            android:layout_weight="1"
+            android:textStyle="bold|italic"
+            android:singleLine="true"
+            android:textAlignment="viewEnd" />
+        <EditText
+            android:id="@+id/materialThickness"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:prompt="@string/please_select_prompt"
+            android:layout_weight="1"
+            android:editable="true"
+            android:numeric="decimal" />
+    </LinearLayout>
 </LinearLayout>

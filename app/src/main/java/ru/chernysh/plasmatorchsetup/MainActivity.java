@@ -1,13 +1,8 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 
 public class MainActivity extends Activity {
 
@@ -31,6 +26,7 @@ public class MainActivity extends Activity {
     }
 
     private void initSpinners(){
+
         final String model_table_name = getString(R.string.model_table);
         final String series_table_name = getString(R.string.series_table);
         final String brand_table_name = getString(R.string.brand_table);
@@ -62,6 +58,7 @@ public class MainActivity extends Activity {
                 null,
                 0,
                 series);
+
         series.updateList(series_selected,brand_selected);
         model.updateList(model_selected,series_selected);
 
