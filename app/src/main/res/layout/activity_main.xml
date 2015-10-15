@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@color/primary_material_light">
+    android:background="@color/background_material_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,13 +21,15 @@
             android:text="@string/brand_title"
             android:textStyle="bold|italic"
             android:layout_weight="1"
+            android:textColor="@color/foreground_material_dark"
             android:singleLine="true" />
         <Spinner
             android:id="@+id/brandName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:prompt="@string/please_select_prompt"
-            android:layout_weight="1"/>
+            android:background="@color/background_material_light"
+            android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,12 +45,14 @@
             android:text="@string/series_title"
             android:layout_weight="1"
             android:textStyle="bold|italic"
+            android:textColor="@color/foreground_material_dark"
             android:singleLine="true"/>
         <Spinner
             android:id="@+id/seriesName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:prompt="@string/please_select_prompt"
+            android:background="@color/background_material_light"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
@@ -65,12 +69,14 @@
             android:text="@string/model_title"
             android:layout_weight="1"
             android:textStyle="bold|italic"
+            android:textColor="@color/foreground_material_dark"
             android:singleLine="true" />
         <Spinner
             android:id="@+id/modelName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:prompt="@string/please_select_prompt"
+            android:background="@color/background_material_light"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
@@ -87,12 +93,14 @@
             android:text="@string/material_title"
             android:layout_weight="1"
             android:textStyle="bold|italic"
+            android:textColor="@color/foreground_material_dark"
             android:singleLine="true" />
         <Spinner
             android:id="@+id/materialName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:prompt="@string/please_select_prompt"
+            android:background="@color/background_material_light"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
@@ -109,13 +117,14 @@
             android:text="@string/material_thickness"
             android:layout_weight="1"
             android:textStyle="bold|italic"
-            android:singleLine="true"
-            android:textAlignment="viewEnd" />
+            android:textColor="@color/foreground_material_dark"
+            android:singleLine="true" />
         <EditText
             android:id="@+id/materialThickness"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:prompt="@string/please_select_prompt"
+            android:background="@color/background_material_light"
             android:layout_weight="1"
             android:editable="true"
             android:numeric="decimal" />
