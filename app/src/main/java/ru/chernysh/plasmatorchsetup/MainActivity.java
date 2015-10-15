@@ -29,7 +29,10 @@ public class MainActivity extends Activity {
         material = new TableWithSpinner(this.findViewById(android.R.id.content),
                                         material_table_name,
                                         R.id.materialName,
-                                        (new StoredKey(getString(R.string.preference_)+material_table_name)).get());
+                                        (new StoredKey(getString(R.string.preference_)+material_table_name)).get(),
+                                        null,
+                                        0,
+                                        null);
     }
 
     private void initInverterSpinners(){
