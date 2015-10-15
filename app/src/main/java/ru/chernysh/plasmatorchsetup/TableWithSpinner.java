@@ -75,6 +75,7 @@ public class TableWithSpinner {
             filter = filterColumnName_
                       + App.getResourceString(R.string.is_equal_to)
                       + filterColumnKey;
+        Log.d(LOG_TAG, "table name is " + table_name_ + "; filter value is " + filter + ";");
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         int nOfRows = cursor.getCount();
         if(nOfRows > 0){
@@ -83,6 +84,8 @@ public class TableWithSpinner {
             if (cursor.moveToFirst()) {
                 int nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field)
                         + "_" + App.language);
+                if(nameIndex<0) // for multi language names without localization
+                    nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field));
                 int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
                 for(int i=0; i<nOfRows; i++){
                     name[i] = cursor.getString(nameIndex);
