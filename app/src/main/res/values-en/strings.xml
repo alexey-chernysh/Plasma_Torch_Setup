@@ -17,7 +17,7 @@
     <string name="model_title"> Model : </string>
     <string name="material_title"> Material : </string>
     <string name="please_select_prompt">Please select...</string>
-    <string name="material_thickness"> Thickness : </string>
+    <string name="material_thickness_title"> Thickness : </string>
     <string name="material_thickness_units"> inches </string>
     <string name="equipment_title"> Equipment </string>
     <string name="metal_title"> Metal </string>

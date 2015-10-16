@@ -20,6 +20,7 @@
     <string name="preference_">preference_</string>
     <string name="preference_prefix">last_selection_in_</string>
     <string name="preference_suffix">_table</string>
+    <string name="material_thickness">thickness</string>
 
     <!--
         3. names of resources

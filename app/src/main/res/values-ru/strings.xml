@@ -9,7 +9,7 @@
     <string name="series_title"> Серия : </string>
     <string name="model_title"> Модель : </string>
     <string name="material_title"> Материал : </string>
-    <string name="material_thickness"> Толщина : </string>
+    <string name="material_thickness_title"> Толщина : </string>
     <string name="material_thickness_units"> мм </string>
     <string name="equipment_title"> Оборудование </string>
     <string name="metal_title"> Металл </string>
