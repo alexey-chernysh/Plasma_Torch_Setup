@@ -40,4 +40,6 @@
     <string name="series_table">series</string>
     <string name="model_table">model</string>
     <string name="material_table">material</string>
+    <string name="cutting_voltage_header">Cutting voltage</string>
+    <string name="cutting_height_header">Cutting height</string>
 </resources>

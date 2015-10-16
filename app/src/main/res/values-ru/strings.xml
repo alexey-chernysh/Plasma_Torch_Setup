@@ -14,5 +14,12 @@
     <string name="equipment_title"> Оборудование </string>
     <string name="metal_title"> Металл </string>
     <string name="settings_title"> Установки </string>
+    <string name="cutting_speed_header">Cutting speed</string>
+    <string name="cutting_voltage_header">Cutting voltage</string>
+    <string name="cutting_height_header">Cutting height</string>
+    <string name="pierce_time_header">Pierce time</string>
+    <string name="pierce_height_header">Pierce height</string>
+    <string name="current_header">Current</string>
+    <string name="system_header">System</string>
 
 </resources>
