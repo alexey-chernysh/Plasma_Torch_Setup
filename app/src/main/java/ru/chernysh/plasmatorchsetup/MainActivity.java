@@ -12,8 +12,8 @@ import java.text.ParseException;
 public class MainActivity extends Activity {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
-    private static final String[] stringNullArray = {""};
-    private static final int[] intNullArray = {0};
+//    private static final String[] stringNullArray = {""};
+//    private static final int[] intNullArray = {0};
 
     private TableWithSpinner material;
     private TableWithSpinner model;
@@ -79,9 +79,9 @@ public class MainActivity extends Activity {
 
     private void initThicknessEdit(){
         final EditText materialThicknessEdit = (EditText)findViewById(R.id.materialThickness);
-        int thicknessMul100 = (new StoredKey(App.getResourceString(R.string.preference_)
+        int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
                                                     +App.getResourceString(R.string.material_thickness) )).get();
-        Double thickness = ((double)thicknessMul100)/100.0;
+        Double thickness = ((double)thickness_х_100)/100.0;
         materialThicknessEdit.setText(thickness.toString());
         materialThicknessEdit.setOnKeyListener(new View.OnKeyListener(){
             public boolean onKey(View v, int keyCode, KeyEvent event){
@@ -91,9 +91,9 @@ public class MainActivity extends Activity {
                     String str = materialThicknessEdit.getText().toString();
                     try {
                         double thickness = Double.parseDouble(str);
-                        int thicknessMul100 = (int)(thickness*100.0);
+                        int thickness_x_100 = (int)(thickness*100.0);
                         (new StoredKey(App.getResourceString(R.string.preference_)
-                                     + App.getResourceString(R.string.material_thickness) )).set(thicknessMul100);
+                                     + App.getResourceString(R.string.material_thickness) )).set(thickness_x_100);
                     } catch (NumberFormatException nfe) {
                     };
                     return true;
