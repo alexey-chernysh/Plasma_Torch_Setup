@@ -20,6 +20,11 @@ public class MainActivity extends Activity {
     private TableWithSpinner series;
     private TableWithSpinner brand;
 
+    final String model_table_name = getString(R.string.model_table);
+    final String series_table_name = getString(R.string.series_table);
+    final String brand_table_name = getString(R.string.brand_table);
+    final String pref = getString(R.string.preference_);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +37,7 @@ public class MainActivity extends Activity {
 
     private void initSpinners(){
 
-        final String model_table_name = getString(R.string.model_table);
-        final String series_table_name = getString(R.string.series_table);
-        final String brand_table_name = getString(R.string.brand_table);
-
-        int model_selected = (new StoredKey(getString(R.string.preference_)+model_table_name)).get();
-        if(model_selected == 0) model_selected = 1; // for first run
+        final int model_selected = (new StoredKey(pref + model_table_name)).get();
         model = new TableWithSpinner(this.findViewById(android.R.id.content),
                 model_table_name,
                 R.id.modelName,
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
                 0,
                 null);
 
-        int series_selected = model.getFilterKey(model_selected);
+        final int series_selected = model.getFilterKey(model_selected);
         series = new TableWithSpinner(this.findViewById(android.R.id.content),
                 series_table_name,
                 R.id.seriesName,
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
                 0,
                 model);
 
-        int brand_selected = series.getFilterKey(series_selected);
+        final int brand_selected = series.getFilterKey(series_selected);
         brand = new TableWithSpinner(this.findViewById(android.R.id.content),
                 brand_table_name,
                 R.id.brandName,
@@ -66,18 +66,21 @@ public class MainActivity extends Activity {
 
         series.updateList(series_selected, brand_selected);
         model.updateList(model_selected, series_selected);
+        (new StoredKey(pref + model_table_name)).set(model_selected);
 
-        final String material_table_name = getString(R.string.material_table);
-        material = new TableWithSpinner(this.findViewById(android.R.id.content),
-                material_table_name,
-                R.id.materialName,
-                (new StoredKey(getString(R.string.preference_)+material_table_name)).get(),
-                null,
-                0,
-                null);
     }
 
     private void initThicknessEdit(){
+        final String material_table_name = getString(R.string.material_table);
+        final int materialSelected = (new StoredKey(getString(R.string.preference_)+material_table_name)).get();
+        material = new TableWithSpinner(this.findViewById(android.R.id.content),
+                material_table_name,
+                R.id.materialName,
+                materialSelected,
+                null,
+                0,
+                null);
+
         final EditText materialThicknessEdit = (EditText)findViewById(R.id.materialThickness);
         int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
                                                     +App.getResourceString(R.string.material_thickness) )).get();

@@ -54,6 +54,9 @@ public class TableWithSpinner {
                 CustomAdapter brandAdapter = (CustomAdapter) parent.getAdapter();
                 if (brandAdapter != null) {
                     selectedKey_ = brandAdapter.getKey(pos);
+                    String assStr = (String)brandAdapter.getItem(pos);
+                    Log.d(LOG_TAG, " selection in spinner for table " + table_name_ + " by key = " + selectedKey_ + " associated with string value " + assStr);
+
                     (new StoredKey(App.getResourceString(R.string.preference_) + table_name_)).set(selectedKey_);
                 }
                 if (dependent_ != null) {
@@ -75,18 +78,23 @@ public class TableWithSpinner {
             filter = filterColumnName_
                       + App.getResourceString(R.string.is_equal_to)
                       + filterColumnKey;
-        Log.d(LOG_TAG, "table name is " + table_name_ + "; filter value is " + filter + ";");
+        Log.d(LOG_TAG, "table name is " + table_name_ + "; selected key is " + selectedKey + ", filter value is " + filter + ";");
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         int nOfRows = cursor.getCount();
         if(nOfRows > 0){
             name = new String[nOfRows];
             key = new int[nOfRows];
+            String nameHeader = App.getResourceString(R.string.name_field)
+                    + "_" + App.language;
+            int nameIndex = cursor.getColumnIndex(nameHeader);
+            if(nameIndex<0){ // for multi language names without localization
+                nameHeader = App.getResourceString(R.string.name_field);
+            }
+            cursor.close();
+            cursor = db.query(table_name_, null, filter, null, null, null, nameHeader);
+            nameIndex = cursor.getColumnIndex(nameHeader);
+            int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
             if (cursor.moveToFirst()) {
-                int nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field)
-                        + "_" + App.language);
-                if(nameIndex<0) // for multi language names without localization
-                    nameIndex = cursor.getColumnIndex(App.getResourceString(R.string.name_field));
-                int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
                 for(int i=0; i<nOfRows; i++){
                     name[i] = cursor.getString(nameIndex);
                     key[i] = cursor.getInt(keyIndex);
@@ -103,9 +111,12 @@ public class TableWithSpinner {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = (Spinner)parentView_.findViewById(spinnerId_);
         spinner.setAdapter(adapter);
-        spinner.setEnabled(nOfRows>0);
-        for (int i = 0; i < nOfRows; i++)
-            if (key[i] == selectedKey_) spinner.setSelection(i);
+        spinner.setEnabled(nOfRows > 0);
+        for (int i = 0; i < nOfRows; i++){
+            int k = key[i];
+            if ( k == selectedKey_) spinner.setSelection(i);
+        }
+        spinner.invalidate();
     }
 
     public int getFilterKey(int selectionKey){
@@ -125,6 +136,7 @@ public class TableWithSpinner {
         };
         cursor.close();
         db.close();
+        Log.d(LOG_TAG, "getFilterKey result =" + result +  " for table " + table_name_ + " row with key =  " + selectionKey);
         return result;
     }
 
