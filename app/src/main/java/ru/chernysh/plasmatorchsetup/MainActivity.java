@@ -1,29 +1,22 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import java.text.ParseException;
-
 public class MainActivity extends Activity {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
-//    private static final String[] stringNullArray = {""};
-//    private static final int[] intNullArray = {0};
-
-    private TableWithSpinner material;
+    private int model_selected;
     private TableWithSpinner model;
     private TableWithSpinner series;
     private TableWithSpinner brand;
-
-    final String model_table_name = getString(R.string.model_table);
-    final String series_table_name = getString(R.string.series_table);
-    final String brand_table_name = getString(R.string.brand_table);
-    final String pref = getString(R.string.preference_);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,59 +26,60 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "OnCreate");
         initSpinners();
         initThicknessEdit();
+
+        model.setSelected(model_selected);
+        int series_selected = model.getFilterKey();
+        series.setSelected(series_selected);
+        int brand_selected = series.getFilterKey();
+
+        brand.setSelected(brand_selected);
+        series.setSelected(series_selected);
+        model.setSelected(model_selected);
     }
 
     private void initSpinners(){
 
-        final int model_selected = (new StoredKey(pref + model_table_name)).get();
+        final String model_table_name = getString(R.string.model_table);
+        final String series_table_name = getString(R.string.series_table);
+        final String brand_table_name = getString(R.string.brand_table);
+        final String pref = getString(R.string.preference_);
+
+        Log.d(LOG_TAG, "initSpinners!!!");
+
+        model_selected = (new StoredKey(pref + model_table_name)).get();
         model = new TableWithSpinner(this.findViewById(android.R.id.content),
                 model_table_name,
-                R.id.modelName,
-                model_selected,
-                series_table_name,
-                0,
-                null);
+                R.id.modelName);
 
-        final int series_selected = model.getFilterKey(model_selected);
         series = new TableWithSpinner(this.findViewById(android.R.id.content),
                 series_table_name,
-                R.id.seriesName,
-                series_selected,
-                brand_table_name,
-                0,
-                model);
+                R.id.seriesName);
+        model.setUpperLevelSpinner(series);
+        series.setLowerLevelSpinner(model);
 
-        final int brand_selected = series.getFilterKey(series_selected);
         brand = new TableWithSpinner(this.findViewById(android.R.id.content),
                 brand_table_name,
-                R.id.brandName,
-                brand_selected,
-                null,
-                0,
-                series);
-
-        series.updateList(series_selected, brand_selected);
-        model.updateList(model_selected, series_selected);
-        (new StoredKey(pref + model_table_name)).set(model_selected);
+                R.id.brandName);
+        series.setUpperLevelSpinner(brand);
+        brand.setLowerLevelSpinner(series);
 
     }
 
     private void initThicknessEdit(){
         final String material_table_name = getString(R.string.material_table);
         final int materialSelected = (new StoredKey(getString(R.string.preference_)+material_table_name)).get();
-        material = new TableWithSpinner(this.findViewById(android.R.id.content),
+
+        TableWithSpinner material = new TableWithSpinner(this.findViewById(android.R.id.content),
                 material_table_name,
-                R.id.materialName,
-                materialSelected,
-                null,
-                0,
-                null);
+                R.id.materialName);
+        material.setSelected(materialSelected);
 
         final EditText materialThicknessEdit = (EditText)findViewById(R.id.materialThickness);
         int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
                                                     +App.getResourceString(R.string.material_thickness) )).get();
         Double thickness = ((double)thickness_х_100)/100.0;
-        materialThicknessEdit.setText(thickness.toString());
+        String thicknessString = thickness.toString();
+        materialThicknessEdit.setText(thicknessString);
         materialThicknessEdit.setOnKeyListener(new View.OnKeyListener(){
             public boolean onKey(View v, int keyCode, KeyEvent event){
                 if(event.getAction() == KeyEvent.ACTION_DOWN &&
@@ -98,7 +92,9 @@ public class MainActivity extends Activity {
                         (new StoredKey(App.getResourceString(R.string.preference_)
                                      + App.getResourceString(R.string.material_thickness) )).set(thickness_x_100);
                     } catch (NumberFormatException nfe) {
-                    };
+                        // nothing to do
+                        // waiting for suitable number
+                    }
                     return true;
                 }
                 return false;

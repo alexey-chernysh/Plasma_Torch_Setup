@@ -11,10 +11,6 @@ import android.database.sqlite.SQLiteException;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-/**
- * Created by Sales on 24.09.2015.
- */
-
 public class StoredKey {
 
     private final static String LOG_TAG = "Selection field";
@@ -22,7 +18,6 @@ public class StoredKey {
     private String requestTag;
 
     public StoredKey(@NonNull String name){
-        if(name == null) throw new SQLiteException("Call SelectionField constructor with NULL field name. Real table name needed.");
         if(name.length() <= 0) throw new SQLiteException("Call SelectionField constructor with NULL field name. Real table name needed.");
         requestTag = App.getInstance().getString(R.string.preference_prefix) +
                      name +
@@ -32,8 +27,7 @@ public class StoredKey {
     public void set(int newKey){
         SharedPreferences sPref = App.getInstance().getSharedPreferences(null, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(requestTag, new Integer(newKey).toString());
-        ed.commit();
+        ed.putString(requestTag, Integer.toString(newKey)).apply();
         Log.d(LOG_TAG, "Value " + newKey + " is saved in " + requestTag + " field in shared preferences");
     }
 
@@ -42,7 +36,7 @@ public class StoredKey {
         String savedText = sPref.getString(requestTag, "");
         Log.d(LOG_TAG, "Value " + savedText + " is loaded from " + requestTag + " field in shared preferences");
         if(savedText.length() <= 0) return 0;
-        return new Integer(savedText);
+        return Integer.valueOf(savedText);
     }
 
 }

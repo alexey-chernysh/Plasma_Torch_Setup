@@ -56,7 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      *             если инициализацию не удалось выполнить
      */
     public static void Initialize() throws SQLiteException {
-        if (isInitialized() == false) {
+        if (!isInitialized()) {
             copyInialDBfromAssets();
         }
     }
@@ -108,16 +108,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                              + App.getInstance().getPackageName()
                              + "/" + App.getInstance().getString(R.string.db_folder) + "/";
             File dbDir = new File(db_folder);
-            if (dbDir.exists() == false)
-                dbDir.mkdir();
+            if (!dbDir.exists())
+                if(dbDir.mkdir())
+                    throw new IOException("Can't create database dir");
             String db_path = db_folder + App.getInstance().getString(R.string.db_name);
             outStream = new BufferedOutputStream(new FileOutputStream(db_path), DB_FILES_COPY_BUFFER_SIZE);
 
             byte[] buffer = new byte[DB_FILES_COPY_BUFFER_SIZE];
             int length;
-            while ((length = inStream.read(buffer)) > 0) {
+            while ((length = inStream.read(buffer)) > 0)
                 outStream.write(buffer, 0, length);
-            }
 
             outStream.flush();
             outStream.close();

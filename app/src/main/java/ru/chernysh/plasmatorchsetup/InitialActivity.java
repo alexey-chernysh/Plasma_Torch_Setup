@@ -14,10 +14,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-/**
- * Начальная активити, инициализирующая приложение
- *
- */
 public class InitialActivity extends Activity {
 
     ProgressDialog progressDialog;

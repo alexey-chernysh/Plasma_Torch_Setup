@@ -25,4 +25,13 @@ public class CustomAdapter extends ArrayAdapter {
         if(pos < 0) return 0;
         return keys_[pos];
     }
+
+    public int getPos(int keySelected) {
+        if(keys_ == null) return 0;
+        int N = keys_.length;
+        if(N <= 0) return 0;
+        for(int i=0; i<N; i++)
+            if(keys_[i] == keySelected) return i;
+        return 0;
+    }
 }
