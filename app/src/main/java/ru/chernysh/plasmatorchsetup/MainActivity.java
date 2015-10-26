@@ -109,22 +109,25 @@ public class MainActivity extends Activity {
 
     private void initTable() {
         TableLayout table = (TableLayout)findViewById(R.id.plasmaSettingTable);
-        int nOfRow = 10;
+
+//        table.removeAllViews();
+
+        int nOfRow = 30;
         for( int i=1; i<nOfRow; i++){
             TableRow row= new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
-            int nOfColumns = 10;
+            int nOfColumns = 30;
             for( int j = 0; j< nOfColumns; j++){
                 TextView tv = new TextView(this);
-                if((j%2)==0)
-                    tv.setText(Integer.toString(i*1000+j*10));
+                tv.setText(Integer.toString(i*1000+j*10));
                 row.addView(tv);
             }
             if((i%2)>0) row.setBackgroundColor(Color.parseColor("#FFFFFFAA"));
             else row.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
             table.addView(row,i);
         }
+
     }
 
 }

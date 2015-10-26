@@ -175,73 +175,25 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/plasmaSettingTable">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/table_column_system"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/system_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_current"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/current_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_pierce_height"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/pierce_height_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_pierce_time"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/pierce_time_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_cut_height"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/cutting_height_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_cut_voltage"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/cutting_voltage_header" />
-            <LinearLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/background_material_dark"/>
-            <TextView
-                android:id="@+id/table_column_cut_speed"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/background_material_light"
-                android:text="@string/cutting_speed_header" />
-        </TableRow>
-    </TableLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/horizontalScrollView" >
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/plasmaSettingTable">
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableLayout>
+
+        </HorizontalScrollView>
+    </ScrollView>
 
 </LinearLayout>
