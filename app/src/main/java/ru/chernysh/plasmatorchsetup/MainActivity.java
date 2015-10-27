@@ -167,7 +167,9 @@ public class MainActivity extends Activity {
         if(model != null) currentInverter = model.getSelected();
         if(currentInverter == 0) return;
 
-        int[] processList = getProcessList(currentInverter);
+        int[] processKey = getProcessList(currentInverter);
+        String[] processName = getProcessNames(processKey);
+        Log.d(LOG_TAG, "Processes :" + processName);
 
         int nOfRow = 30;
         for( int i=1; i<nOfRow; i++){
@@ -211,7 +213,31 @@ public class MainActivity extends Activity {
         }
         cursor.close();
         db.close();
-        return new int[0];
+        return result;
+    }
+
+    private String[] getProcessNames(int[] processKey) {
+        int nOfRows = processKey.length;
+        String[] result = null;
+        if(nOfRows > 0){
+            SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+            String tableName = getString(R.string.process_table);
+            Cursor cursor = db.query(tableName, null, null, null, null, null, null);
+            String nameHeader = TableWithSpinner.getNameColumnHeader(cursor);
+            int processNameIndex = cursor.getColumnIndex(nameHeader);
+            result = new String[nOfRows];
+            for(int i=0; i<nOfRows; i++){
+                String filter = getString(R.string.key_field)
+                        + getString(R.string.is_equal_to)
+                        + processKey[i];
+                cursor = db.query(tableName, null, filter, null, null, null, null);
+                if (cursor.moveToFirst()) result[i] = cursor.getString(processNameIndex);
+                else result[i] = null;
+            }
+            cursor.close();
+            db.close();
+        }
+        return result;
     }
 
 }
