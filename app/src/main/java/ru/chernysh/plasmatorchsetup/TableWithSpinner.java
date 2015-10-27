@@ -100,15 +100,10 @@ public class TableWithSpinner {
         if(nOfRows > 0){
             name = new String[nOfRows];
             key = new int[nOfRows];
-            String nameHeader = App.getResourceString(R.string.name_field)
-                    + "_" + App.language;
-            int nameIndex = cursor.getColumnIndex(nameHeader);
-            if(nameIndex<0){ // for multi language names without localization
-                nameHeader = App.getResourceString(R.string.name_field);
-            }
+            String nameHeader = getNameColumnHeader(cursor);
             cursor.close();
             cursor = db.query(table_name_, null, filter, null, null, null, nameHeader);
-            nameIndex = cursor.getColumnIndex(nameHeader);
+            int nameIndex = cursor.getColumnIndex(nameHeader);
             int keyIndex = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfRows; i++){
@@ -174,5 +169,23 @@ public class TableWithSpinner {
         String name = (String)spinner.getSelectedItem();
         Log.d(LOG_TAG, "getSelected in " + table_name_ + ", result = " + result + "," + name);
         return result;
+    }
+
+    public static String getNameColumnHeader(Cursor cursor){
+        String neutralNameHeader = App.getResourceString(R.string.name_field);
+        String nameHeader = neutralNameHeader
+                          + "_"
+                          + App.language;
+        int nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        nameHeader = neutralNameHeader
+                   + "_"
+                   + App.getResourceString(R.string.english_language);
+        nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        nameHeader = neutralNameHeader;
+        nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        else return null;
     }
 }
