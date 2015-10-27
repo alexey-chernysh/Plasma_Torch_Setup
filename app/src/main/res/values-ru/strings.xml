@@ -1,10 +1,17 @@
 <!--
-  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
 <resources>
-    <string name="please_select_prompt">Выбирете...</string>
+    <!--
+        Language-dependent part of strings
+    -->
+
+    <!--
+        Resource titles
+    -->
+    <string name="please_select_prompt">Выбирете…</string>
     <string name="brand_title"> Брэнд : </string>
     <string name="series_title"> Серия : </string>
     <string name="model_title"> Модель : </string>
@@ -14,12 +21,19 @@
     <string name="equipment_title"> Оборудование </string>
     <string name="metal_title"> Металл </string>
     <string name="settings_title"> Установки </string>
-    <string name="cutting_speed_header">Cutting speed</string>
-    <string name="cutting_voltage_header">Cutting voltage</string>
-    <string name="cutting_height_header">Cutting height</string>
-    <string name="pierce_time_header">Pierce time</string>
-    <string name="pierce_height_header">Pierce height</string>
-    <string name="current_header">Current</string>
-    <string name="system_header">System</string>
+
+    <!--
+        Table headers
+    -->
+    <string name="cutting_speed_header"> Скорость резки </string>
+    <string name="arc_voltage_header"> Напряжение дуги </string>
+    <string name="arc_height_header"> Высота дуги </string>
+    <string name="pierce_time_header"> Время прожига </string>
+    <string name="pierce_height_header"> Высота прожига </string>
+    <string name="current_header"> Ток резки </string>
+    <string name="system_header"> Система </string>
+    <string name="process_header"> Процесс </string>
+    <string name="purpose_header"> Назначение </string>
+    <string name="kerf_offset_header">Kerf offset</string>
 
 </resources>

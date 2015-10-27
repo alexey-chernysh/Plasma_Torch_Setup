@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
@@ -16,19 +16,27 @@
     <string name="series_title"> Series : </string>
     <string name="model_title"> Model : </string>
     <string name="material_title"> Material : </string>
-    <string name="please_select_prompt">Please select...</string>
+    <string name="please_select_prompt">Please select…</string>
     <string name="material_thickness_title"> Thickness : </string>
     <string name="material_thickness_units"> inches </string>
     <string name="equipment_title"> Equipment </string>
     <string name="metal_title"> Metal </string>
     <string name="settings_title"> Settings </string>
-    <string name="cutting_speed_header">Cutting speed</string>
-    <string name="cutting_voltage_header">Cutting voltage</string>
-    <string name="cutting_height_header">Cutting height</string>
-    <string name="pierce_time_header">Pierce time</string>
-    <string name="pierce_height_header">Pierce height</string>
-    <string name="current_header">Current</string>
-    <string name="system_header">System</string>
+
+    <!--
+        Table headers
+    -->
+    <string name="cutting_speed_header"> Cutting speed </string>
+    <string name="arc_voltage_header"> Arc voltage </string>
+    <string name="arc_height_header"> Arc height </string>
+    <string name="pierce_time_header"> Pierce time </string>
+    <string name="pierce_height_header"> Pierce height </string>
+    <string name="current_header"> Current </string>
+    <string name="system_header"> System </string>
+    <string name="process_header"> Process </string>
+    <string name="purpose_header"> Purpose </string>
+    <string name="kerf_offset_header">Kerf offset</string>
+
     <!--
         Messages
     -->

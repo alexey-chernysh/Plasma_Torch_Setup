@@ -43,4 +43,7 @@
     <string name="material_table">material</string>
     <string name="cutting_voltage_header">Cutting voltage</string>
     <string name="cutting_height_header">Cutting height</string>
+    <string name="settings_table">settings</string>
+    <string name="process_usage_table">process_usage</string>
+    <string name="process_table">process</string>
 </resources>

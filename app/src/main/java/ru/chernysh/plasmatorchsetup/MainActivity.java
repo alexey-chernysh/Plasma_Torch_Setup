@@ -1,11 +1,10 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
-import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,6 +17,10 @@ public class MainActivity extends Activity {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
 
+    private TableWithSpinner model;
+    private TableWithSpinner series;
+    private TableWithSpinner brand;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +29,17 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "OnCreate");
         initSpinners();
         initThicknessEdit();
-        initTable();
+        updateTable();
 
     }
 
     private void initSpinners(){
         int model_selected;
-        TableWithSpinner model;
-        TableWithSpinner series;
-        TableWithSpinner brand;
 
+        final String pref = getString(R.string.preference_);
         final String model_table_name = getString(R.string.model_table);
         final String series_table_name = getString(R.string.series_table);
         final String brand_table_name = getString(R.string.brand_table);
-        final String pref = getString(R.string.preference_);
 
         Log.d(LOG_TAG, "initSpinners!!!");
 
@@ -107,17 +107,74 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void initTable() {
+    private void updateTable() {
         TableLayout table = (TableLayout)findViewById(R.id.plasmaSettingTable);
+        prepareTable(table);
+        fillTableContent(table);
+        table.invalidate();
+    }
 
-//        table.removeAllViews();
+    private void prepareTable(TableLayout table) {
+        Log.d(LOG_TAG, "prepare table");
+        // clear table
+        table.removeAllViews();
+        // create header row
+        TableRow headerRow = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        headerRow.setLayoutParams(lp);
+
+        // fill table header
+        TextView processHeader = new TextView(this);
+        processHeader.setText(getString(R.string.process_header));
+        headerRow.addView(processHeader);
+
+        TextView currentHeader = new TextView(this);
+        currentHeader.setText(getString(R.string.current_header));
+        headerRow.addView(currentHeader);
+
+        TextView purposeHeader = new TextView(this);
+        purposeHeader.setText(getString(R.string.purpose_header));
+        headerRow.addView(purposeHeader);
+
+        TextView arcVoltageHeader = new TextView(this);
+        arcVoltageHeader.setText(getString(R.string.arc_voltage_header));
+        headerRow.addView(arcVoltageHeader);
+
+        TextView arcHeightHeader = new TextView(this);
+        arcHeightHeader.setText(getString(R.string.arc_height_header));
+        headerRow.addView(arcHeightHeader);
+
+        TextView pierceHeightHeader = new TextView(this);
+        pierceHeightHeader.setText(getString(R.string.pierce_height_header));
+        headerRow.addView(pierceHeightHeader);
+
+        TextView pierceTimeHeader = new TextView(this);
+        pierceTimeHeader.setText(getString(R.string.pierce_time_header));
+        headerRow.addView(pierceTimeHeader);
+
+        TextView kerfOffsetHeader = new TextView(this);
+        kerfOffsetHeader.setText(getString(R.string.kerf_offset_header));
+        headerRow.addView(kerfOffsetHeader);
+
+        // add row to layout
+        headerRow.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
+        table.addView(headerRow);
+    }
+
+    private void fillTableContent(TableLayout table) {
+
+        int currentInverter = 0;
+        if(model != null) currentInverter = model.getSelected();
+        if(currentInverter == 0) return;
+
+        int[] processList = getProcessList(currentInverter);
 
         int nOfRow = 30;
         for( int i=1; i<nOfRow; i++){
             TableRow row= new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
-            int nOfColumns = 30;
+            int nOfColumns = 8;
             for( int j = 0; j< nOfColumns; j++){
                 TextView tv = new TextView(this);
                 tv.setText(Integer.toString(i*1000+j*10));
@@ -127,7 +184,34 @@ public class MainActivity extends Activity {
             else row.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
             table.addView(row,i);
         }
+    }
 
+    private int[] getProcessList(int inverter) {
+
+        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        String tableName = getString(R.string.process_usage_table);
+        String filter = getString(R.string.model_table)
+                      + getString(R.string.is_equal_to)
+                      + inverter;
+        String process_key = getString(R.string.process_table);
+        String[] columnList = {process_key};
+        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, process_key, null, null);
+        int nOfRows = cursor.getCount();
+        int[] result = null;
+        if(nOfRows > 0){
+            result = new int[nOfRows];
+            int processKeyIndex = cursor.getColumnIndex(process_key);
+            if (cursor.moveToFirst()) {
+                for(int i=0; i<nOfRows; i++){
+                    result[i] = cursor.getInt(processKeyIndex);
+                    Log.d(LOG_TAG, "process key [" + i + "] : = " + result[i]);
+                    cursor.moveToNext();
+                }
+            }
+        }
+        cursor.close();
+        db.close();
+        return new int[0];
     }
 
 }
