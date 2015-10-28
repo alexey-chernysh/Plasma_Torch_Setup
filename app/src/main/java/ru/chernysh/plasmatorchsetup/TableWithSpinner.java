@@ -136,9 +136,7 @@ public class TableWithSpinner {
         if(selectedKey == 0) return 0;
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String filter = App.getResourceString(R.string.key_field)
-                      + App.getResourceString(R.string.is_equal_to)
-                      + selectedKey;
+        String filter = getFilterEqualTo(R.string.key_field, selectedKey);
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         if (cursor.moveToFirst()) {
             int index = cursor.getColumnIndex(filterColumnName);
@@ -187,5 +185,9 @@ public class TableWithSpinner {
         nameIndex = cursor.getColumnIndex(nameHeader);
         if(nameIndex >= 0) return nameHeader;
         else return null;
+    }
+
+    public static String getFilterEqualTo(int nameId, int value){
+        return App.getResourceString(nameId) + "==" + value;
     }
 }
