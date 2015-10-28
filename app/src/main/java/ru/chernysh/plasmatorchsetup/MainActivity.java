@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     private TableWithSpinner model;
     private TableWithSpinner series;
     private TableWithSpinner brand;
+    private TableWithSpinner material;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
         final String material_table_name = getString(R.string.material_table);
         final int materialSelected = (new StoredKey(getString(R.string.preference_)+material_table_name)).get();
 
-        TableWithSpinner material = new TableWithSpinner(this.findViewById(android.R.id.content),
+        material = new TableWithSpinner(this.findViewById(android.R.id.content),
                 material_table_name,
                 R.id.materialName);
         material.setSelected(materialSelected);
@@ -163,16 +164,20 @@ public class MainActivity extends Activity {
 
     private void fillTableContent(TableLayout table) {
 
-        int currentInverter = 0;
-        if(model != null) currentInverter = model.getSelected();
-        if(currentInverter == 0) return;
+        int modelKey = 0;
+        if(model != null) modelKey = model.getSelected();
+        if(modelKey == 0) return;
 
-        int[] processKey = getProcessList(currentInverter);
+        int materialKey = 0;
+        if(material != null) materialKey = material.getSelected();
+        if(materialKey == 0) return;
+
+        int[] processKey = getProcessList(modelKey);
         if(processKey != null){
             String[] processName = getProcessNames(processKey);
             int N = processKey.length;
             for(int i=0; i<N; i++)
-                fillTableForProcess(table, currentInverter, processKey[i], processName[i]);
+                fillTableForProcess(table, modelKey, materialKey, processKey[i], processName[i]);
         }
 
         int nOfRow = 30;
@@ -196,15 +201,15 @@ public class MainActivity extends Activity {
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
         String tableName = getString(R.string.process_usage_table);
-        String filter = TableWithSpinner.getFilterEqualTo(R.string.model_table,inverter);
-        String process_key = getString(R.string.process_table);
-        String[] columnList = {process_key};
-        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, process_key, null, null);
+        String filter = TableWithSpinner.getFilterEqualTo(R.string.model_table, inverter);
+        String process_column_header = getString(R.string.process_table);
+        String[] columnList = {process_column_header};
+        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, process_column_header, null, null);
         int nOfRows = cursor.getCount();
         int[] result = null;
         if(nOfRows > 0){
             result = new int[nOfRows];
-            int processKeyIndex = cursor.getColumnIndex(process_key);
+            int processKeyIndex = cursor.getColumnIndex(process_column_header);
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfRows; i++){
                     result[i] = cursor.getInt(processKeyIndex);
@@ -242,10 +247,29 @@ public class MainActivity extends Activity {
         return result;
     }
 
-    private void fillTableForProcess(TableLayout table, int modelKey, int processKey, String processName) {
+    private void fillTableForProcess(TableLayout table, int modelKey, int materialKey, int processKey, String processName) {
         if(modelKey > 0){
             String modelFilter = TableWithSpinner.getFilterEqualTo(R.string.model_table,modelKey);
+            String materialFilter = TableWithSpinner.getFilterEqualTo(R.string.material_table,materialKey);
+            String processFilter = TableWithSpinner.getFilterEqualTo(R.string.process_table, processKey);
+            // find all "purpose" cases
+            SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+            String tableName = getString(R.string.series_table);
+            String filter = modelFilter + "," + materialFilter + "," + processFilter;
+            String purpose_column_header = getString(R.string.purpose_table);
+            String[] columnList = {purpose_column_header};
+            Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_column_header, null, null);
+            int nOfRows = cursor.getCount();
+            if(nOfRows > 0){
+                int purposeKeyIndex = cursor.getColumnIndex(purpose_column_header);
+                if (cursor.moveToFirst()) {
+                    for(int i=0; i<nOfRows; i++){
+                        int purposeKey = cursor.getInt(purposeKeyIndex);;
+                        cursor.moveToNext();
+                    }
+                }
+            }
+            cursor.close();
         }
     }
-
 }
