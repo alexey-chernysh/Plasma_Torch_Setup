@@ -177,23 +177,7 @@ public class MainActivity extends Activity {
             String[] processName = getProcessNames(processKey);
             int N = processKey.length;
             for(int i=0; i<N; i++)
-                fillTableForProcess(table, modelKey, materialKey, processKey[i], processName[i]);
-        }
-
-        int nOfRow = 30;
-        for( int i=1; i<nOfRow; i++){
-            TableRow row= new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-            row.setLayoutParams(lp);
-            int nOfColumns = 8;
-            for( int j = 0; j< nOfColumns; j++){
-                TextView tv = new TextView(this);
-                tv.setText(Integer.toString(i*1000+j*10));
-                row.addView(tv);
-            }
-            if((i%2)>0) row.setBackgroundColor(Color.parseColor("#FFFFFFAA"));
-            else row.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
-            table.addView(row,i);
+                fillTableForProcess(table, materialKey, processKey[i], processName[i]);
         }
     }
 
@@ -213,7 +197,7 @@ public class MainActivity extends Activity {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfRows; i++){
                     result[i] = cursor.getInt(processKeyIndex);
-                    Log.d(LOG_TAG, "process key[" + i + "]= " + result[i]);
+                    Log.d(LOG_TAG, "getProcessList : process key[" + i + "]= " + result[i]);
                     cursor.moveToNext();
                 }
             }
@@ -233,24 +217,22 @@ public class MainActivity extends Activity {
             result = new String[nOfRows];
             for(int i=0; i<nOfRows; i++){
                 result[i] = DataBaseHelper.getNameByKey(db, tableName, processKey[i]);
-                Log.d(LOG_TAG, "process name[" + i + "]= " + result[i]);
+                Log.d(LOG_TAG, "getProcessNames : process name[" + i + "]= " + result[i]);
             }
             db.close();
         }
         return result;
     }
 
-    private void fillTableForProcess(TableLayout table, int modelKey, int materialKey, int processKey, String processName) {
-        if(modelKey <= 0) return;
-        String modelFilter = DataBaseHelper.getFilterEqualTo(R.string.model_table, modelKey);
+    private void fillTableForProcess(TableLayout table, int materialKey, int processKey, String processName) {
         if(materialKey <= 0) return;
         String materialFilter = DataBaseHelper.getFilterEqualTo(R.string.material_table, materialKey);
         if(processKey <= 0) return;
         String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
         // find all "purpose" cases
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String tableName = getString(R.string.series_table);
-        String filter = modelFilter + "," + materialFilter + "," + processFilter;
+        String tableName = getString(R.string.settings_table);
+        String filter = materialFilter + ";" + processFilter;
         String purpose_table_name = getString(R.string.purpose_table);
         String[] columnList = {purpose_table_name};
         Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_table_name, null, null);
@@ -261,7 +243,7 @@ public class MainActivity extends Activity {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
                     String purposeName = DataBaseHelper.getNameByKey(db, purpose_table_name, processKey);
-                    String filterWithPurpose = filter + "," + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+                    String filterWithPurpose = filter + ";" + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
                     Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
                     int nOfSettings = purposeCursor.getCount();
                     if(nOfSettings>0){
@@ -278,44 +260,61 @@ public class MainActivity extends Activity {
                                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                                 row.setLayoutParams(lp);
 
-                                // fill table header
+                                // fill table data
                                 TextView processData = new TextView(this);
+                                Log.d(LOG_TAG, "fillTableForProcess : process name: " + processName);
                                 processData.setText(processName);
                                 row.addView(processData);
 
                                 TextView currentData = new TextView(this);
                                 double current = purposeCursor.getDouble(currentIndex);
-                                currentData.setText(Double.toString(current));
+                                String currentText = Double.toString(current);
+                                Log.d(LOG_TAG, "fillTableForProcess : process name: " + currentText);
+                                currentData.setText(currentText);
                                 row.addView(currentData);
 
                                 TextView purposeData = new TextView(this);
+                                Log.d(LOG_TAG, "fillTableForProcess : purpose name: " + purposeName);
                                 purposeData.setText(purposeName);
                                 row.addView(purposeData);
 
                                 TextView arcVoltageData = new TextView(this);
-                                double arc_voltage = purposeCursor.getDouble(arcVoltageIndex);
-                                arcVoltageData.setText(Double.toString(arc_voltage));
+                                double arcVoltage = purposeCursor.getDouble(arcVoltageIndex);
+                                String arcVoltageText = Double.toString(arcVoltage);
+                                Log.d(LOG_TAG, "fillTableForProcess : arcVoltage: " + arcVoltage);
+                                arcVoltageData.setText(arcVoltageText);
                                 row.addView(arcVoltageData);
 
                                 TextView arcHeightData = new TextView(this);
                                 double arcHeight = purposeCursor.getDouble(arcHeightIndex);
-                                arcHeightData.setText(Double.toString(arcHeight));
+                                String arcHeightText = Double.toString(arcHeight);
+                                Log.d(LOG_TAG, "fillTableForProcess : arcHeight: " + arcHeight);
+                                arcHeightData.setText(arcHeightText);
                                 row.addView(arcHeightData);
 
                                 TextView pierceHeightData = new TextView(this);
                                 double pierceHeight = purposeCursor.getDouble(pierceHeightIndex);;
-                                pierceHeightData.setText(Double.toString(pierceHeight));
+                                String pierceHeightText = Double.toString(pierceHeight);
+                                Log.d(LOG_TAG, "fillTableForProcess : pierceHeight: " + pierceHeight);
+                                pierceHeightData.setText(pierceHeightText);
                                 row.addView(pierceHeightData);
 
                                 TextView pierceTimeData = new TextView(this);
                                 double pierceTime = purposeCursor.getDouble(pierceTimeIndex);
-                                pierceTimeData.setText(Double.toString(pierceTime));
+                                String pierceTimeText = Double.toString(pierceTime);
+                                Log.d(LOG_TAG, "fillTableForProcess : pierceTime: " + pierceTime);
+                                pierceTimeData.setText(pierceTimeText);
                                 row.addView(pierceTimeData);
 
                                 TextView kerfOffsetData = new TextView(this);
                                 double kerfOffset = purposeCursor.getDouble(kerfOffsetIndex);
-                                kerfOffsetData.setText(Double.toString(kerfOffset));
+                                String kerfOffsetText = Double.toString(kerfOffset);
+                                Log.d(LOG_TAG, "fillTableForProcess : kerfOffset: " + kerfOffset);
+                                kerfOffsetData.setText(kerfOffsetText);
                                 row.addView(kerfOffsetData);
+
+                                row.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
+                                table.addView(row);
 
                                 purposeCursor.moveToNext();
                             }
