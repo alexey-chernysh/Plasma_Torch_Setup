@@ -100,7 +100,7 @@ public class TableWithSpinner {
         if(nOfRows > 0){
             name = new String[nOfRows];
             key = new int[nOfRows];
-            String nameHeader = getNameColumnHeader(cursor);
+            String nameHeader = DataBaseHelper.getNameColumnHeader(cursor);
             cursor.close();
             cursor = db.query(table_name_, null, filter, null, null, null, nameHeader);
             int nameIndex = cursor.getColumnIndex(nameHeader);
@@ -136,7 +136,7 @@ public class TableWithSpinner {
         if(selectedKey == 0) return 0;
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String filter = getFilterEqualTo(R.string.key_field, selectedKey);
+        String filter = DataBaseHelper.getFilterEqualTo(R.string.key_field, selectedKey);
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         if (cursor.moveToFirst()) {
             int index = cursor.getColumnIndex(filterColumnName);
@@ -167,27 +167,5 @@ public class TableWithSpinner {
         String name = (String)spinner.getSelectedItem();
         Log.d(LOG_TAG, "getSelected in " + table_name_ + ", result = " + result + "," + name);
         return result;
-    }
-
-    public static String getNameColumnHeader(Cursor cursor){
-        String neutralNameHeader = App.getResourceString(R.string.name_field);
-        String nameHeader = neutralNameHeader
-                          + "_"
-                          + App.language;
-        int nameIndex = cursor.getColumnIndex(nameHeader);
-        if(nameIndex >= 0) return nameHeader;
-        nameHeader = neutralNameHeader
-                   + "_"
-                   + App.getResourceString(R.string.english_language);
-        nameIndex = cursor.getColumnIndex(nameHeader);
-        if(nameIndex >= 0) return nameHeader;
-        nameHeader = neutralNameHeader;
-        nameIndex = cursor.getColumnIndex(nameHeader);
-        if(nameIndex >= 0) return nameHeader;
-        else return null;
-    }
-
-    public static String getFilterEqualTo(int nameId, int value){
-        return App.getResourceString(nameId) + "==" + value;
     }
 }

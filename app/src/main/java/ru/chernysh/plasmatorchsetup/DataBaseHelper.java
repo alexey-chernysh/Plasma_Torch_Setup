@@ -6,6 +6,7 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -131,5 +132,40 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             IOUtils.closeQuietly(outStream);
             IOUtils.closeQuietly(inStream);
         }
+    }
+
+    public static String getNameColumnHeader(Cursor cursor){
+        String neutralNameHeader = App.getResourceString(R.string.name_field);
+        String nameHeader = neutralNameHeader
+                + "_"
+                + App.language;
+        int nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        nameHeader = neutralNameHeader
+                + "_"
+                + App.getResourceString(R.string.english_language);
+        nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        nameHeader = neutralNameHeader;
+        nameIndex = cursor.getColumnIndex(nameHeader);
+        if(nameIndex >= 0) return nameHeader;
+        else return null;
+    }
+
+    public static String getFilterEqualTo(int nameId, int value){
+        return App.getResourceString(nameId) + "==" + value;
+    }
+
+    public static String getNameByKey(SQLiteDatabase db, String tableName, int key) {
+        Cursor cursor = db.query(tableName, null, null, null, null, null, null);
+        int processNameIndex = cursor.getColumnIndex(getNameColumnHeader(cursor));
+        String filter = App.getResourceString(R.string.key_field)
+                      + App.getResourceString(R.string.is_equal_to)
+                      + key;
+        cursor = db.query(tableName, null, filter, null, null, null, null);
+        String result = null;
+        if (cursor.moveToFirst()) result = cursor.getString(processNameIndex);
+        cursor.close();
+        return result;
     }
 }

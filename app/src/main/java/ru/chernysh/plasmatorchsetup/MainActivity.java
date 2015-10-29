@@ -201,7 +201,7 @@ public class MainActivity extends Activity {
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
         String tableName = getString(R.string.process_usage_table);
-        String filter = TableWithSpinner.getFilterEqualTo(R.string.model_table, inverter);
+        String filter = DataBaseHelper.getFilterEqualTo(R.string.model_table, inverter);
         String process_column_header = getString(R.string.process_table);
         String[] columnList = {process_column_header};
         Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, process_column_header, null, null);
@@ -230,46 +230,101 @@ public class MainActivity extends Activity {
         if(nOfRows > 0){
             SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
             String tableName = getString(R.string.process_table);
-            Cursor cursor = db.query(tableName, null, null, null, null, null, null);
-            String nameHeader = TableWithSpinner.getNameColumnHeader(cursor);
-            int processNameIndex = cursor.getColumnIndex(nameHeader);
             result = new String[nOfRows];
             for(int i=0; i<nOfRows; i++){
-                String filter = TableWithSpinner.getFilterEqualTo(R.string.key_field,processKey[i]);
-                cursor = db.query(tableName, null, filter, null, null, null, null);
-                if (cursor.moveToFirst()) result[i] = cursor.getString(processNameIndex);
-                else result[i] = null;
+                result[i] = DataBaseHelper.getNameByKey(db, tableName, processKey[i]);
                 Log.d(LOG_TAG, "process name[" + i + "]= " + result[i]);
             }
-            cursor.close();
             db.close();
         }
         return result;
     }
 
     private void fillTableForProcess(TableLayout table, int modelKey, int materialKey, int processKey, String processName) {
-        if(modelKey > 0){
-            String modelFilter = TableWithSpinner.getFilterEqualTo(R.string.model_table,modelKey);
-            String materialFilter = TableWithSpinner.getFilterEqualTo(R.string.material_table,materialKey);
-            String processFilter = TableWithSpinner.getFilterEqualTo(R.string.process_table, processKey);
-            // find all "purpose" cases
-            SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-            String tableName = getString(R.string.series_table);
-            String filter = modelFilter + "," + materialFilter + "," + processFilter;
-            String purpose_column_header = getString(R.string.purpose_table);
-            String[] columnList = {purpose_column_header};
-            Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_column_header, null, null);
-            int nOfRows = cursor.getCount();
-            if(nOfRows > 0){
-                int purposeKeyIndex = cursor.getColumnIndex(purpose_column_header);
-                if (cursor.moveToFirst()) {
-                    for(int i=0; i<nOfRows; i++){
-                        int purposeKey = cursor.getInt(purposeKeyIndex);;
-                        cursor.moveToNext();
+        if(modelKey <= 0) return;
+        String modelFilter = DataBaseHelper.getFilterEqualTo(R.string.model_table, modelKey);
+        if(materialKey <= 0) return;
+        String materialFilter = DataBaseHelper.getFilterEqualTo(R.string.material_table, materialKey);
+        if(processKey <= 0) return;
+        String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
+        // find all "purpose" cases
+        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        String tableName = getString(R.string.series_table);
+        String filter = modelFilter + "," + materialFilter + "," + processFilter;
+        String purpose_table_name = getString(R.string.purpose_table);
+        String[] columnList = {purpose_table_name};
+        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_table_name, null, null);
+        int nOfPurpose = cursor.getCount();
+        if(nOfPurpose > 0){
+            int purposeKeyIndex = cursor.getColumnIndex(purpose_table_name);
+            if (cursor.moveToFirst()) {
+                for(int i=0; i<nOfPurpose; i++){
+                    int purposeKey = cursor.getInt(purposeKeyIndex);
+                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_table_name, processKey);
+                    String filterWithPurpose = filter + "," + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+                    Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
+                    int nOfSettings = purposeCursor.getCount();
+                    if(nOfSettings>0){
+                        int currentIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.current_column_name));
+                        int arcVoltageIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_voltage_column_name));
+                        int arcHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_height_column_name));
+                        int pierceHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_height_column_name));
+                        int pierceTimeIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_time_column_name));
+                        int kerfOffsetIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.kerf_offset_column_name));
+                        if(purposeCursor.moveToFirst()){
+                            for(int j=0; j<nOfSettings; j++){
+                                // create content row
+                                TableRow row = new TableRow(this);
+                                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                                row.setLayoutParams(lp);
+
+                                // fill table header
+                                TextView processData = new TextView(this);
+                                processData.setText(processName);
+                                row.addView(processData);
+
+                                TextView currentData = new TextView(this);
+                                double current = purposeCursor.getDouble(currentIndex);
+                                currentData.setText(Double.toString(current));
+                                row.addView(currentData);
+
+                                TextView purposeData = new TextView(this);
+                                purposeData.setText(purposeName);
+                                row.addView(purposeData);
+
+                                TextView arcVoltageData = new TextView(this);
+                                double arc_voltage = purposeCursor.getDouble(arcVoltageIndex);
+                                arcVoltageData.setText(Double.toString(arc_voltage));
+                                row.addView(arcVoltageData);
+
+                                TextView arcHeightData = new TextView(this);
+                                double arcHeight = purposeCursor.getDouble(arcHeightIndex);
+                                arcHeightData.setText(Double.toString(arcHeight));
+                                row.addView(arcHeightData);
+
+                                TextView pierceHeightData = new TextView(this);
+                                double pierceHeight = purposeCursor.getDouble(pierceHeightIndex);;
+                                pierceHeightData.setText(Double.toString(pierceHeight));
+                                row.addView(pierceHeightData);
+
+                                TextView pierceTimeData = new TextView(this);
+                                double pierceTime = purposeCursor.getDouble(pierceTimeIndex);
+                                pierceTimeData.setText(Double.toString(pierceTime));
+                                row.addView(pierceTimeData);
+
+                                TextView kerfOffsetData = new TextView(this);
+                                double kerfOffset = purposeCursor.getDouble(kerfOffsetIndex);
+                                kerfOffsetData.setText(Double.toString(kerfOffset));
+                                row.addView(kerfOffsetData);
+
+                                purposeCursor.moveToNext();
+                            }
+                        }
                     }
+                    cursor.moveToNext();
                 }
             }
-            cursor.close();
         }
+        cursor.close();
     }
 }
