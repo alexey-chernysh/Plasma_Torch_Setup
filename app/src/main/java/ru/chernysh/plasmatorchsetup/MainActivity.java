@@ -133,6 +133,10 @@ public class MainActivity extends Activity {
         currentHeader.setText(getString(R.string.current_header));
         headerRow.addView(currentHeader);
 
+        TextView thicknessHeader = new TextView(this);
+        thicknessHeader.setText(getString(R.string.thickness_header));
+        headerRow.addView(thicknessHeader);
+
         TextView purposeHeader = new TextView(this);
         purposeHeader.setText(getString(R.string.purpose_header));
         headerRow.addView(purposeHeader);
@@ -242,17 +246,18 @@ public class MainActivity extends Activity {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
-                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_table_name, processKey);
+                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_table_name, purposeKey);
                     String filterWithPurpose = filter + ";" + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
                     Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
+                    int thicknessIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.thickness_column_name));
+                    int currentIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.current_column_name));
+                    int arcVoltageIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_voltage_column_name));
+                    int arcHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_height_column_name));
+                    int pierceHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_height_column_name));
+                    int pierceTimeIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_time_column_name));
+                    int kerfOffsetIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.kerf_offset_column_name));
                     int nOfSettings = purposeCursor.getCount();
                     if(nOfSettings>0){
-                        int currentIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.current_column_name));
-                        int arcVoltageIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_voltage_column_name));
-                        int arcHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.arc_height_column_name));
-                        int pierceHeightIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_height_column_name));
-                        int pierceTimeIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.pierce_time_column_name));
-                        int kerfOffsetIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.kerf_offset_column_name));
                         if(purposeCursor.moveToFirst()){
                             for(int j=0; j<nOfSettings; j++){
                                 // create content row
@@ -272,6 +277,12 @@ public class MainActivity extends Activity {
                                 Log.d(LOG_TAG, "fillTableForProcess : process name: " + currentText);
                                 currentData.setText(currentText);
                                 row.addView(currentData);
+
+                                TextView thicknessData = new TextView(this);
+                                double thickness = purposeCursor.getDouble(thicknessIndex);
+                                String thicknessText = Double.toString(thickness);
+                                thicknessData.setText(thicknessText);
+                                row.addView(thicknessData);
 
                                 TextView purposeData = new TextView(this);
                                 Log.d(LOG_TAG, "fillTableForProcess : purpose name: " + purposeName);
