@@ -1,1 +1,1 @@
-include ':app', ':dbexplorer'
+include ':dbexplorer', ':app'
