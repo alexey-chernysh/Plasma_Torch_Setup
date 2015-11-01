@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PlasmaTorchSetup.iml" filepath="$PROJECT_DIR$/PlasmaTorchSetup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Plasma_Torch_Setup.iml" filepath="$PROJECT_DIR$/Plasma_Torch_Setup.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
