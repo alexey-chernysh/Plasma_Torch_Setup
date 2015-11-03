@@ -178,10 +178,9 @@ public class MainActivity extends Activity {
 
         int[] processKey = getProcessList(modelKey);
         if(processKey != null){
-            String[] processName = getProcessNames(processKey);
             int N = processKey.length;
             for(int i=0; i<N; i++)
-                fillTableForProcess(table, materialKey, processKey[i], processName[i]);
+                fillTableForProcess(table, materialKey, processKey[i]);
         }
     }
 
@@ -211,43 +210,29 @@ public class MainActivity extends Activity {
         return result;
     }
 
-    private String[] getProcessNames(int[] processKey) {
-        String[] result = null;
-        if(processKey == null) return null;
-        int nOfRows = processKey.length;
-        if(nOfRows > 0){
-            SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-            String tableName = getString(R.string.process_table);
-            result = new String[nOfRows];
-            for(int i=0; i<nOfRows; i++){
-                result[i] = DataBaseHelper.getNameByKey(db, tableName, processKey[i]);
-                Log.d(LOG_TAG, "getProcessNames : process name[" + i + "]= " + result[i]);
-            }
-            db.close();
-        }
-        return result;
-    }
-
-    private void fillTableForProcess(TableLayout table, int materialKey, int processKey, String processName) {
+    private void fillTableForProcess(TableLayout table, int materialKey, int processKey) {
         if(materialKey <= 0) return;
         String materialFilter = DataBaseHelper.getFilterEqualTo(R.string.material_table, materialKey);
         if(processKey <= 0) return;
         String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
         // find all "purpose" cases
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        String processName = DataBaseHelper.getNameByKey(db, getString(R.string.process_table), processKey);
         String tableName = getString(R.string.settings_table);
-        String filter = materialFilter + ";" + processFilter;
-        String purpose_table_name = getString(R.string.purpose_table);
-        String[] columnList = {purpose_table_name};
-        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_table_name, null, null);
+        String filter = processFilter + " AND " + materialFilter;
+        Log.d(LOG_TAG, "fillTableForProcess : filter 1: " + filter);
+        String purpose_column_name = getString(R.string.purpose_table);
+        String[] columnList = {purpose_column_name};
+        Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_column_name, null, null);
         int nOfPurpose = cursor.getCount();
         if(nOfPurpose > 0){
-            int purposeKeyIndex = cursor.getColumnIndex(purpose_table_name);
+            int purposeKeyIndex = cursor.getColumnIndex(purpose_column_name);
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
-                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_table_name, purposeKey);
-                    String filterWithPurpose = filter + ";" + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_column_name, purposeKey);
+                    String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+                    Log.d(LOG_TAG, "fillTableForProcess : filter 2: " + filterWithPurpose);
                     Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
                     int thicknessIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.thickness_column_name));
                     int currentIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.current_column_name));
@@ -274,13 +259,14 @@ public class MainActivity extends Activity {
                                 TextView currentData = new TextView(this);
                                 double current = purposeCursor.getDouble(currentIndex);
                                 String currentText = Double.toString(current);
-                                Log.d(LOG_TAG, "fillTableForProcess : process name: " + currentText);
+                                Log.d(LOG_TAG, "fillTableForProcess : current, A: " + currentText);
                                 currentData.setText(currentText);
                                 row.addView(currentData);
 
                                 TextView thicknessData = new TextView(this);
                                 double thickness = purposeCursor.getDouble(thicknessIndex);
                                 String thicknessText = Double.toString(thickness);
+                                Log.d(LOG_TAG, "fillTableForProcess : thickness, mm: " + thicknessText);
                                 thicknessData.setText(thicknessText);
                                 row.addView(thicknessData);
 
