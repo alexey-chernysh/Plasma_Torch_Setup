@@ -193,11 +193,8 @@ public class Spline {
             b[i] = (a[i + 1] - a[i]) / h[i] - (2 * c[i] + c[i + 1]) / 3 * h[i];
             d[i] = (c[i + 1] - c[i]) / (3 * h[i]);
         }
-        b[N - 2] =
-                (a[N - 1] - a[N - 2]) / h[N
-                        - 2]
-                        - (2 * c[N - 2] + c[N - 1]) / 3 * h[N
-                        - 2];
+        b[N - 2] = (a[N - 1] - a[N - 2]) / h[N - 2]
+                 - (2 * c[N - 2] + c[N - 1]) / 3 * h[N - 2];
         d[N - 2] = (c[N - 1] - c[N - 2]) / (3 * h[N - 2]);
     }
 
@@ -208,8 +205,8 @@ public class Spline {
         int n = b.length;
         for (int i = 1; i < n; i++) {
             A[i][i - 1] = A[i][i - 1] / A[i - 1][i - 1];
-            A[i][i] = A[i][i] - A[i - 1][i] * A[i][i - 1];
-            b[i] = b[i] - A[i][i - 1] * b[i - 1];
+            A[i][i]     = A[i][i] - A[i - 1][i] * A[i][i - 1];
+            b[i]        = b[i] - A[i][i - 1] * b[i - 1];
         }
 
         b[n - 1] = b[n - 1] / A[n - 1][n - 1];
