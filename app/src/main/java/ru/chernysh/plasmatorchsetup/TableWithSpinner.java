@@ -31,7 +31,7 @@ public class TableWithSpinner {
                             int spinnerId){
         parentView_ = parentView;
         table_name_ = table_name;
-        spinnerId_ = spinnerId;
+        spinnerId_  = spinnerId;
         init();
         updateList();
     }
