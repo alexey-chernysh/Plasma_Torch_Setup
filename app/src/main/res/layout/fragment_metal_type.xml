@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
+  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
@@ -14,7 +14,7 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:id="@+id/metal_type_frag"
-    android:background="#FF00F0F0"
+    android:background="#FF0000FF"
     android:orientation="horizontal">
 
     <TextView
@@ -24,9 +24,10 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/mild_steel"
+        android:text="@string/placeholder"
         android:id="@+id/metal_name_text"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:layout_gravity="top|left" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,9 +36,10 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/thickness"
+        android:text="@string/placeholder"
         android:id="@+id/metal_thickness_text"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:layout_gravity="top|center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,6 +50,6 @@
         android:paddingBottom="4dp"
         android:text="@string/mm"
         android:id="@+id/thickness_units_text"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:layout_gravity="top|right" />
 </LinearLayout>

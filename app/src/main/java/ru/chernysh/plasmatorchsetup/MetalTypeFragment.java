@@ -6,11 +6,13 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Fragment;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class MetalTypeFragment extends Fragment {
 
@@ -25,7 +27,32 @@ public class MetalTypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(LOG_TAG, "onCreateView");
-        return inflater.inflate(R.layout.fragment_metal_type, container, false);
+        View v = inflater.inflate(R.layout.fragment_metal_type, container, false);
+
+        fillMetalName(v);
+        fillMetalThickness(v);
+
+        return v;
+    }
+
+    private void fillMetalName(View parentView){
+        final String material_table_name = getString(R.string.material_table);
+        final int materialSelected = (new StoredKey(getString(R.string.preference_)+material_table_name)).get();
+
+        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        String metalName = DataBaseHelper.getNameByKey(db, material_table_name, materialSelected);
+        db.close();;
+
+        ((TextView)parentView.findViewById(R.id.metal_name_text)).setText(metalName);
+
+    }
+
+    private void fillMetalThickness(View parentView) {
+        int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
+                +App.getResourceString(R.string.material_thickness) )).get();
+        Double thickness = ((double)thickness_х_100)/100.0;
+        String thicknessString = thickness.toString();
+        ((TextView)parentView.findViewById(R.id.metal_thickness_text)).setText(thicknessString);
     }
 
 }

@@ -57,4 +57,5 @@
     <string name="thickness_header">Thickness</string>
     <string name="thickness_column_name">thickness</string>
     <string name="mm">mm</string>
+    <string name="placeholder" />
 </resources>
