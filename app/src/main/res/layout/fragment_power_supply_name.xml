@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
+  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
@@ -23,7 +23,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/corp"
+        android:text="@string/please_select_prompt"
         android:id="@+id/corp_name_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -34,7 +34,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/series"
+        android:text="@string/please_select_prompt"
         android:id="@+id/series_name_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -45,7 +45,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/model"
+        android:text="@string/please_select_prompt"
         android:id="@+id/model_name_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
