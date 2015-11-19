@@ -56,4 +56,5 @@
     <string name="kerf_offset_column_name">kerf_width_compensation</string>
     <string name="thickness_header">Thickness</string>
     <string name="thickness_column_name">thickness</string>
+    <string name="mm">mm</string>
 </resources>

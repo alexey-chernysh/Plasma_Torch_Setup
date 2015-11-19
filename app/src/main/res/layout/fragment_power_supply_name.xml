@@ -1,0 +1,52 @@
+<!--
+  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
+  ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="ru.chernysh.myapplication.PowerSupplyNameFragment"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:id="@+id/power_supply_name_frag"
+    android:background="#FF00F0F0"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/corp"
+        android:id="@+id/corp_name_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/series"
+        android:id="@+id/series_name_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/model"
+        android:id="@+id/model_name_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+</LinearLayout>
