@@ -13,7 +13,7 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:id="@+id/power_supply_name_frag"
-    android:background="#FF00F0F0"
+    android:background="#FF0000AA"
     android:orientation="horizontal">
 
     <TextView
@@ -25,7 +25,8 @@
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
         android:id="@+id/brandNameText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:textColor="#FFFFFFFF" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
         android:id="@+id/seriesNameText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:textColor="#FFFFFFFF" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,6 +49,7 @@
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
         android:id="@+id/modelNameText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:textColor="#FFFFFFFF" />
 
 </LinearLayout>
