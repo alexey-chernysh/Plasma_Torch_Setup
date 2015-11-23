@@ -1,25 +1,20 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
 
-    private TableWithSpinner model;
-    private TableWithSpinner series;
-    private TableWithSpinner brand;
+    private boolean powerSupplyFragExpanded = false;
+    private boolean metalFragExpanded = false;
+
     private TableWithSpinner material;
 
     private CuttingChartTable cuttingChartTable;
@@ -30,47 +25,19 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Log.d(LOG_TAG, "OnCreate");
-        initSpinners();
+
+        findViewById(R.id.power_supply_placeholder).setOnClickListener(this);
+        findViewById(R.id.metal_placeholder).setOnClickListener(this);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
+        ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+
         initThicknessEdit();
 
         cuttingChartTable = new CuttingChartTable(this);
-    }
-
-    private void initSpinners(){
-        int model_selected;
-
-        final String pref = getString(R.string.preference_);
-        final String model_table_name = getString(R.string.model_table);
-        final String series_table_name = getString(R.string.series_table);
-        final String brand_table_name = getString(R.string.brand_table);
-
-        Log.d(LOG_TAG, "initSpinners!!!");
-
-        model_selected = (new StoredKey(pref + model_table_name)).get();
-        model = new TableWithSpinner(this.findViewById(android.R.id.content),
-                model_table_name,
-                R.id.modelName);
-
-        series = new TableWithSpinner(this.findViewById(android.R.id.content),
-                series_table_name,
-                R.id.seriesName);
-        model.setUpperLevelSpinner(series);
-        series.setLowerLevelSpinner(model);
-
-        brand = new TableWithSpinner(this.findViewById(android.R.id.content),
-                brand_table_name,
-                R.id.brandName);
-        series.setUpperLevelSpinner(brand);
-        brand.setLowerLevelSpinner(series);
-
-        model.setSelected(model_selected);
-        int series_selected = model.getFilterKey();
-        series.setSelected(series_selected);
-        int brand_selected = series.getFilterKey();
-
-        brand.setSelected(brand_selected);
-        series.setSelected(series_selected);
-        model.setSelected(model_selected);
     }
 
     private void initThicknessEdit(){
@@ -109,4 +76,59 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        switch (viewId){
+            case R.id.power_supply_placeholder:
+                if(powerSupplyFragExpanded) squeezePowerSupplyFrag();
+                else {
+                    expandPowerSupplyFrag();
+                    squeezeMetalFrag();
+                }
+                break;
+            case R.id.metal_placeholder:
+                if(metalFragExpanded) squeezeMetalFrag();
+                else {
+                    expandMetalFrag();
+                    squeezePowerSupplyFrag();
+                }
+                break;
+            default:
+        }
+    }
+
+    private void expandPowerSupplyFrag(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.power_supply_placeholder, new PowerSupplySelectFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+        powerSupplyFragExpanded = true;
+    }
+
+    private void squeezePowerSupplyFrag(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+        powerSupplyFragExpanded = false;
+    }
+
+    private void expandMetalFrag(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.metal_placeholder, new MetalSelectFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+        metalFragExpanded = true;
+    }
+
+    private void squeezeMetalFrag(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+        metalFragExpanded = false;
+    }
+
 }

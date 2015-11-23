@@ -18,6 +18,10 @@ public class MetalTypeFragment extends Fragment {
 
     final String LOG_TAG = "Metal Type: ";
 
+    private TableWithSpinner model;
+    private TableWithSpinner series;
+    private TableWithSpinner brand;
+
     public MetalTypeFragment() {
         // Required empty public constructor
     }

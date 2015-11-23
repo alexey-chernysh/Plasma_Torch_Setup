@@ -24,7 +24,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
-        android:id="@+id/corp_name_text"
+        android:id="@+id/brandNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
-        android:id="@+id/series_name_text"
+        android:id="@+id/seriesNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
     <TextView
@@ -46,7 +46,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:text="@string/please_select_prompt"
-        android:id="@+id/model_name_text"
+        android:id="@+id/modelNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
 </LinearLayout>

@@ -14,18 +14,17 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:id="@+id/power_supply_select_frag"
-    android:background="#FFF0F000"
+    android:background="#FF0000FF"
     android:orientation="vertical">
 
-    <TextView
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
-        android:id="@+id/corp_select_text"
+        android:id="@+id/brandNameSpinner"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:background="#FFFFFFFF"
         android:layout_marginLeft="4dp"
@@ -33,15 +32,14 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp" />
 
-    <TextView
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
-        android:id="@+id/series_select_text"
+        android:id="@+id/seriesNameSpinner"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:background="#FFFFFFFF"
         android:layout_marginLeft="4dp"
@@ -49,15 +47,14 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp" />
 
-    <TextView
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
-        android:id="@+id/model_select_text"
+        android:id="@+id/modelNameSpinner"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:background="#FFFFFFFF"
         android:layout_marginLeft="4dp"

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+ * Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
  * e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
  */
 
