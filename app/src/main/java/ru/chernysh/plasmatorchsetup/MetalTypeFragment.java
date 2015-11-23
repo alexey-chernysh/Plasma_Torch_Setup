@@ -29,30 +29,29 @@ public class MetalTypeFragment extends Fragment {
         Log.i(LOG_TAG, "onCreateView");
         View v = inflater.inflate(R.layout.fragment_metal_type, container, false);
 
-        initMetalName(v);
-        initMetalThickness(v);
+        initTexts(v);
 
         return v;
     }
 
-    private void initMetalName(View parentView){
+    private void initTexts(View parentView){
+        final String pref = getString(R.string.preference_);
+        final String materialTableName = getString(R.string.material_table);
+        final String materialThickness = getString(R.string.material_thickness);
+
+
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
 
-        final String pref = getString(R.string.preference_);
-        final String material_table_name = getString(R.string.material_table);
-        final int materialSelected = (new StoredKey(pref + material_table_name)).get();
-        String metalName = DataBaseHelper.getNameByKey(db, material_table_name, materialSelected);
+        final int materialSelected = (new StoredKey(pref + materialTableName)).get();
+        String metalName = DataBaseHelper.getNameByKey(db, materialTableName, materialSelected);
         ((TextView)parentView.findViewById(R.id.metal_name_text)).setText(metalName);
 
-        db.close();
-    }
-
-    private void initMetalThickness(View parentView) {
-        int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
-                +App.getResourceString(R.string.material_thickness) )).get();
+        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
         Double thickness = ((double)thickness_х_100)/100.0;
         String thicknessString = thickness.toString();
         ((TextView)parentView.findViewById(R.id.metal_thickness_text)).setText(thicknessString);
+
+        db.close();
     }
 
 }

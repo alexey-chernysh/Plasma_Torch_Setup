@@ -11,7 +11,7 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:id="@+id/metal_select_fragment"
-    android:background="#FF0000FF"
+    android:background="#FF0000AA"
     android:orientation="vertical">
 
     <Spinner

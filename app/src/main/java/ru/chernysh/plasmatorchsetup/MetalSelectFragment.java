@@ -18,6 +18,8 @@ public class MetalSelectFragment extends Fragment {
 
     final String LOG_TAG = "Metal Select: ";
 
+    private TableWithSpinner material;
+
     public MetalSelectFragment() {
         // Required empty public constructor
     }
@@ -29,24 +31,21 @@ public class MetalSelectFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_metal_type, container, false);
 
-        initMetalName(v);
-        initMetalThickness(v);
+        initSpinners(v);
 
         return v;
     }
 
-    private void initMetalName(View parentView) {
-        final String material_table_name = getString(R.string.material_table);
-        final int materialSelected = (new StoredKey(getString(R.string.preference_)+material_table_name)).get();
+    private void initSpinners(View parentView) {
+        final String pref = getString(R.string.preference_);
+        final String materialTableName = getString(R.string.material_table);
 
-        TableWithSpinner material = new TableWithSpinner(parentView.findViewById(android.R.id.content),
-                                                         material_table_name,
-                                                         R.id.materialName);
+        final int materialSelected = (new StoredKey(pref + materialTableName)).get();
+        material = new TableWithSpinner(parentView.findViewById(android.R.id.content),
+                                        materialTableName,
+                                        R.id.materialName);
         material.setSelected(materialSelected);
 
-    }
-
-    private void initMetalThickness(View parentView) {
         final EditText materialThicknessEdit = (EditText)parentView.findViewById(R.id.materialThickness);
         int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
                 +App.getResourceString(R.string.material_thickness) )).get();
