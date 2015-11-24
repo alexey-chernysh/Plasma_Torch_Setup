@@ -39,17 +39,17 @@ public class PowerSupplySelectFragment extends Fragment {
 
         int modelSelected = (new StoredKey(pref + model_table_name)).get();
         if(modelSelected == 0) modelSelected = 1;
-        TableWithSpinner  model = new TableWithSpinner(fragmentView.findViewById(android.R.id.content),
+        TableWithSpinner  model = new TableWithSpinner(fragmentView,
                                                         model_table_name,
                                                         R.id.modelNameSpinner);
 
-        TableWithSpinner series = new TableWithSpinner(fragmentView.findViewById(android.R.id.content),
+        TableWithSpinner series = new TableWithSpinner(fragmentView,
                                                         series_table_name,
                                                         R.id.seriesNameSpinner);
         model.setUpperLevelSpinner(series);
         series.setLowerLevelSpinner(model);
 
-        TableWithSpinner brand = new TableWithSpinner(fragmentView.findViewById(android.R.id.content),
+        TableWithSpinner brand = new TableWithSpinner(fragmentView,
                                                         brand_table_name,
                                                         R.id.brandNameSpinner);
         series.setUpperLevelSpinner(brand);
