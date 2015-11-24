@@ -19,25 +19,10 @@
         android:id="@+id/metal_placeholder"
         class="ru.chernysh.plasmatorchsetup.MetalPlaceholderFragment" />
 
-    <ScrollView
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView" >
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/horizontalScrollView" >
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/plasmaSettingTable">
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </TableLayout>
-
-        </HorizontalScrollView>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:id="@+id/cutting_chart_placeholder"
+        class="ru.chernysh.plasmatorchsetup.ChartPlaceholderFragment" />
 
 </LinearLayout>

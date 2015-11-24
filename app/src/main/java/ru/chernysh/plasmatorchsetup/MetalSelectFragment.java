@@ -18,8 +18,6 @@ public class MetalSelectFragment extends Fragment {
 
     final String LOG_TAG = "Metal Select: ";
 
-    private TableWithSpinner material;
-
     public MetalSelectFragment() {
         // Required empty public constructor
     }
@@ -29,7 +27,7 @@ public class MetalSelectFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.i(LOG_TAG, "onCreateView");
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_metal_type, container, false);
+        View v = inflater.inflate(R.layout.fragment_metal_select, container, false);
 
         initSpinners(v);
 
@@ -39,17 +37,17 @@ public class MetalSelectFragment extends Fragment {
     private void initSpinners(View parentView) {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
+        final String materialThickness = getString(R.string.material_thickness);
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
-        material = new TableWithSpinner(parentView,
-                                        materialTableName,
-                                        R.id.materialName);
+        TableWithSpinner material = new TableWithSpinner(parentView,
+                                                         materialTableName,
+                                                         R.id.materialNameSpinner);
         material.setSelected(materialSelected);
 
         final EditText materialThicknessEdit = (EditText)parentView.findViewById(R.id.materialThickness);
-        int thickness_х_100 = (new StoredKey(App.getResourceString(R.string.preference_)
-                +App.getResourceString(R.string.material_thickness) )).get();
+        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
         Double thickness = ((double)thickness_х_100)/100.0;
         String thicknessString = thickness.toString();
         materialThicknessEdit.setText(thicknessString);
@@ -62,8 +60,7 @@ public class MetalSelectFragment extends Fragment {
                     try {
                         double thickness = Double.parseDouble(str);
                         int thickness_x_100 = (int) (thickness * 100.0);
-                        (new StoredKey(App.getResourceString(R.string.preference_)
-                                + App.getResourceString(R.string.material_thickness))).set(thickness_x_100);
+                        (new StoredKey(pref + materialThickness)).set(thickness_x_100);
                     } catch (NumberFormatException nfe) {
                         // nothing to do
                         // waiting for suitable number

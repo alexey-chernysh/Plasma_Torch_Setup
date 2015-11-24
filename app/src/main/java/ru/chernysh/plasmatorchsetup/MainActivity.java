@@ -13,8 +13,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private boolean powerSupplyFragExpanded = false;
     private boolean metalFragExpanded = false;
 
-    private CuttingChartTable cuttingChartTable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +26,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-        ft.addToBackStack(null);
+        ft.replace(R.id.cutting_chart_placeholder, new CuttingChartFragment());
+
         ft.commit();
 
-        cuttingChartTable = new CuttingChartTable(this);
     }
 
     @Override
@@ -59,7 +57,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void expandPowerSupplyFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplySelectFragment());
-        ft.addToBackStack(null);
         ft.commit();
         powerSupplyFragExpanded = true;
     }
@@ -67,7 +64,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void squeezePowerSupplyFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
-        ft.addToBackStack(null);
         ft.commit();
         powerSupplyFragExpanded = false;
     }
@@ -75,7 +71,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void expandMetalFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.metal_placeholder, new MetalSelectFragment());
-        ft.addToBackStack(null);
         ft.commit();
         metalFragExpanded = true;
     }
@@ -83,7 +78,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void squeezeMetalFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-        ft.addToBackStack(null);
         ft.commit();
         metalFragExpanded = false;
     }

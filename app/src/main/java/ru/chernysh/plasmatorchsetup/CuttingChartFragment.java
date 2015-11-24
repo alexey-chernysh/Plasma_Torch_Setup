@@ -5,73 +5,83 @@
 
 package ru.chernysh.plasmatorchsetup;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class CuttingChartTable {
+public class CuttingChartFragment extends Fragment {
 
-    Activity mainViewActivity_;
-
-    private static final String LOG_TAG = CuttingChartTable.class.getName()+": ";
-
-    public CuttingChartTable(Activity mainViewActivity){
-        mainViewActivity_ = mainViewActivity;
-        TableLayout table = (TableLayout)mainViewActivity_.findViewById(R.id.plasmaSettingTable);
+    private static final String LOG_TAG = "CuttingChartFragment: ";
+    
+    public CuttingChartFragment() {
+        // Required empty public constructor
+    }
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_cutting_chart, container, false);
+        TableLayout table = (TableLayout)v.findViewById(R.id.plasmaSettingTable);
         prepareTable(table);
         fillTableContent(table);
-        table.invalidate();
+        return v;
     }
 
     private void prepareTable(TableLayout table) {
         Log.d(LOG_TAG, "prepare table");
         // clear table
         table.removeAllViews();
+        Context context = this.getActivity();
         // create header row
-        TableRow headerRow = new TableRow(mainViewActivity_);
+        TableRow headerRow = new TableRow(context);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         headerRow.setLayoutParams(lp);
 
         // fill table header
-        TextView processHeader = new TextView(mainViewActivity_);
+        TextView processHeader = new TextView(context);
         processHeader.setText(App.getResourceString(R.string.process_header));
         headerRow.addView(processHeader);
 
-        TextView currentHeader = new TextView(mainViewActivity_);
+        TextView currentHeader = new TextView(context);
         currentHeader.setText(App.getResourceString(R.string.current_header));
         headerRow.addView(currentHeader);
 
-        TextView thicknessHeader = new TextView(mainViewActivity_);
+        TextView thicknessHeader = new TextView(context);
         thicknessHeader.setText(App.getResourceString(R.string.thickness_header));
         headerRow.addView(thicknessHeader);
 
-        TextView purposeHeader = new TextView(mainViewActivity_);
+        TextView purposeHeader = new TextView(context);
         purposeHeader.setText(App.getResourceString(R.string.purpose_header));
         headerRow.addView(purposeHeader);
 
-        TextView arcVoltageHeader = new TextView(mainViewActivity_);
+        TextView arcVoltageHeader = new TextView(context);
         arcVoltageHeader.setText(App.getResourceString(R.string.arc_voltage_header));
         headerRow.addView(arcVoltageHeader);
 
-        TextView arcHeightHeader = new TextView(mainViewActivity_);
+        TextView arcHeightHeader = new TextView(context);
         arcHeightHeader.setText(App.getResourceString(R.string.arc_height_header));
         headerRow.addView(arcHeightHeader);
 
-        TextView pierceHeightHeader = new TextView(mainViewActivity_);
+        TextView pierceHeightHeader = new TextView(context);
         pierceHeightHeader.setText(App.getResourceString(R.string.pierce_height_header));
         headerRow.addView(pierceHeightHeader);
 
-        TextView pierceTimeHeader = new TextView(mainViewActivity_);
+        TextView pierceTimeHeader = new TextView(context);
         pierceTimeHeader.setText(App.getResourceString(R.string.pierce_time_header));
         headerRow.addView(pierceTimeHeader);
 
-        TextView kerfOffsetHeader = new TextView(mainViewActivity_);
+        TextView kerfOffsetHeader = new TextView(context);
         kerfOffsetHeader.setText(App.getResourceString(R.string.kerf_offset_header));
         headerRow.addView(kerfOffsetHeader);
 
@@ -156,66 +166,67 @@ public class CuttingChartTable {
                     int nOfSettings = purposeCursor.getCount();
                     if(nOfSettings>0){
                         if(purposeCursor.moveToFirst()){
+                            Context context = this.getActivity();
                             for(int j=0; j<nOfSettings; j++){
                                 // create content row
-                                TableRow row = new TableRow(mainViewActivity_);
+                                TableRow row = new TableRow(context);
                                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                                 row.setLayoutParams(lp);
 
                                 // fill table data
-                                TextView processData = new TextView(mainViewActivity_);
+                                TextView processData = new TextView(context);
                                 Log.d(LOG_TAG, "fillTableForProcess : process name: " + processName);
                                 processData.setText(processName);
                                 row.addView(processData);
 
-                                TextView currentData = new TextView(mainViewActivity_);
+                                TextView currentData = new TextView(context);
                                 double current = purposeCursor.getDouble(currentIndex);
                                 String currentText = Double.toString(current);
                                 Log.d(LOG_TAG, "fillTableForProcess : current, A: " + currentText);
                                 currentData.setText(currentText);
                                 row.addView(currentData);
 
-                                TextView thicknessData = new TextView(mainViewActivity_);
+                                TextView thicknessData = new TextView(context);
                                 double thickness = purposeCursor.getDouble(thicknessIndex);
                                 String thicknessText = Double.toString(thickness);
                                 Log.d(LOG_TAG, "fillTableForProcess : thickness, mm: " + thicknessText);
                                 thicknessData.setText(thicknessText);
                                 row.addView(thicknessData);
 
-                                TextView purposeData = new TextView(mainViewActivity_);
+                                TextView purposeData = new TextView(context);
                                 Log.d(LOG_TAG, "fillTableForProcess : purpose name: " + purposeName);
                                 purposeData.setText(purposeName);
                                 row.addView(purposeData);
 
-                                TextView arcVoltageData = new TextView(mainViewActivity_);
+                                TextView arcVoltageData = new TextView(context);
                                 double arcVoltage = purposeCursor.getDouble(arcVoltageIndex);
                                 String arcVoltageText = Double.toString(arcVoltage);
                                 Log.d(LOG_TAG, "fillTableForProcess : arcVoltage: " + arcVoltage);
                                 arcVoltageData.setText(arcVoltageText);
                                 row.addView(arcVoltageData);
 
-                                TextView arcHeightData = new TextView(mainViewActivity_);
+                                TextView arcHeightData = new TextView(context);
                                 double arcHeight = purposeCursor.getDouble(arcHeightIndex);
                                 String arcHeightText = Double.toString(arcHeight);
                                 Log.d(LOG_TAG, "fillTableForProcess : arcHeight: " + arcHeight);
                                 arcHeightData.setText(arcHeightText);
                                 row.addView(arcHeightData);
 
-                                TextView pierceHeightData = new TextView(mainViewActivity_);
+                                TextView pierceHeightData = new TextView(context);
                                 double pierceHeight = purposeCursor.getDouble(pierceHeightIndex);
                                 String pierceHeightText = Double.toString(pierceHeight);
                                 Log.d(LOG_TAG, "fillTableForProcess : pierceHeight: " + pierceHeight);
                                 pierceHeightData.setText(pierceHeightText);
                                 row.addView(pierceHeightData);
 
-                                TextView pierceTimeData = new TextView(mainViewActivity_);
+                                TextView pierceTimeData = new TextView(context);
                                 double pierceTime = purposeCursor.getDouble(pierceTimeIndex);
                                 String pierceTimeText = Double.toString(pierceTime);
                                 Log.d(LOG_TAG, "fillTableForProcess : pierceTime: " + pierceTime);
                                 pierceTimeData.setText(pierceTimeText);
                                 row.addView(pierceTimeData);
 
-                                TextView kerfOffsetData = new TextView(mainViewActivity_);
+                                TextView kerfOffsetData = new TextView(context);
                                 double kerfOffset = purposeCursor.getDouble(kerfOffsetIndex);
                                 String kerfOffsetText = Double.toString(kerfOffset);
                                 Log.d(LOG_TAG, "fillTableForProcess : kerfOffset: " + kerfOffset);
