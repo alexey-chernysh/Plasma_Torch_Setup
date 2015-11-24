@@ -35,18 +35,21 @@ public class PowerSupplyNameFragment extends Fragment {
 
         final String brandTableName = getString(R.string.brand_table);
         int brandSelected = (new StoredKey(pref + brandTableName)).get();
+        if(brandSelected == 0) brandSelected = 1;
         String brandName = DataBaseHelper.getNameByKey(db, brandTableName, brandSelected);
         TextView brandView = (TextView)v.findViewById(R.id.brandNameText);
         brandView.setText(brandName);
 
         final String seriesTableName = getString(R.string.series_table);
         int seriesSelected = (new StoredKey(pref + seriesTableName)).get();
+        if(seriesSelected == 0) seriesSelected = 1;
         String seriesName = DataBaseHelper.getNameByKey(db, seriesTableName, seriesSelected);
         TextView seriesView = (TextView)v.findViewById(R.id.seriesNameText);
         seriesView.setText(seriesName);
 
         final String modelTableName = getString(R.string.model_table);
         int modelSelected = (new StoredKey(pref + modelTableName)).get();
+        if(modelSelected == 0) modelSelected = 1;
         String modelName = DataBaseHelper.getNameByKey(db, modelTableName, modelSelected);
         TextView modelView = (TextView)v.findViewById(R.id.modelNameText);
         modelView.setText(modelName);

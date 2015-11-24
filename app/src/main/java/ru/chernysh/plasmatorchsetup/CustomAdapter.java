@@ -6,16 +6,19 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 
 public class CustomAdapter extends ArrayAdapter {
-    private int[] keys_;
 
-    public CustomAdapter(Context context,
+    private int[] keys_;
+    private static final String[] dummyArray = {""};
+
+    public CustomAdapter(@NonNull Context context,
                          int textViewResourceId,
                          String[] objects,
                          int[] keys) {
-        super(context, textViewResourceId, objects);
+        super(context, textViewResourceId, (objects == null) ? dummyArray : objects);
         this.keys_ = keys;
     }
 

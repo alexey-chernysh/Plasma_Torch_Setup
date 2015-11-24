@@ -40,7 +40,8 @@ public class MetalSelectFragment extends Fragment {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
 
-        final int materialSelected = (new StoredKey(pref + materialTableName)).get();
+        int materialSelected = (new StoredKey(pref + materialTableName)).get();
+        if(materialSelected == 0) materialSelected = 1;
         material = new TableWithSpinner(parentView.findViewById(android.R.id.content),
                                         materialTableName,
                                         R.id.materialName);
