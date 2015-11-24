@@ -48,6 +48,7 @@ public class TableWithSpinner {
 
     private void init(){
         Spinner spinner = (Spinner)parentView_.findViewById(spinnerId_);
+        Log.d(LOG_TAG, " Init - spinnerId " + spinnerId_ + "; parentView - " + parentView_ + "; spinner - " + spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -58,13 +59,13 @@ public class TableWithSpinner {
                 CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
                 if (adapter != null) {
                     int selectedKey_ = adapter.getKey(pos);
-                    String assStr = (String)adapter.getItem(pos);
+                    String assStr = (String) adapter.getItem(pos);
                     (new StoredKey(App.getResourceString(R.string.preference_) + table_name_)).set(selectedKey_);
                     Log.d(LOG_TAG, " selection at pos " + pos + " in spinner for table " + table_name_ + " by key = " + selectedKey_ + " associated with string value " + assStr);
-                    if(lower_level_ != null){
+                    if (lower_level_ != null) {
                         int lowerLevelFilterKey = lower_level_.getFilterKey();
-                        if(lowerLevelFilterKey != selectedKey_ )
-                                lower_level_.updateList(selectedKey_);
+                        if (lowerLevelFilterKey != selectedKey_)
+                            lower_level_.updateList(selectedKey_);
                     }
                 }
             }
@@ -155,6 +156,7 @@ public class TableWithSpinner {
     public void setSelected(int keySelected) {
         int pos = adapter.getPos(keySelected);
         Spinner spinner = (Spinner)parentView_.findViewById(spinnerId_);
+        Log.d(LOG_TAG, " Init - spinnerId " + spinnerId_ + "; parentView - " + parentView_ + "; spinner - " + spinner);
         spinner.setSelection(pos);
         String name = (String)spinner.getSelectedItem();
         Log.d(LOG_TAG, "setSelected in " + table_name_ + " spinner to key = " + keySelected + ", that associated with pos = " + pos + "," + name);

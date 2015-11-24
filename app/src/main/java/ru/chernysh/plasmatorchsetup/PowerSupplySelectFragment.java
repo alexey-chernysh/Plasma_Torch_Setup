@@ -24,9 +24,9 @@ public class PowerSupplySelectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_power_supply_select, container, false);
-        initSpinners(v);
-        return v;
+        View view = inflater.inflate(R.layout.fragment_power_supply_select, container, false);
+        initSpinners(view);
+        return view;
     }
 
     private void initSpinners(View fragmentView){
@@ -39,7 +39,7 @@ public class PowerSupplySelectFragment extends Fragment {
 
         int modelSelected = (new StoredKey(pref + model_table_name)).get();
         if(modelSelected == 0) modelSelected = 1;
-        TableWithSpinner  model = new TableWithSpinner(fragmentView,
+        TableWithSpinner model = new TableWithSpinner(fragmentView,
                                                         model_table_name,
                                                         R.id.modelNameSpinner);
 

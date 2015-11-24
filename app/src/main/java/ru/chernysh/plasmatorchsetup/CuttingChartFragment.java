@@ -122,7 +122,7 @@ public class CuttingChartFragment extends Fragment {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfRows; i++){
                     result[i] = cursor.getInt(processKeyIndex);
-                    Log.d(LOG_TAG, "getProcessList : process key[" + i + "]= " + result[i]);
+//                    Log.d(LOG_TAG, "getProcessList : process key[" + i + "]= " + result[i]);
                     cursor.moveToNext();
                 }
             }
@@ -142,7 +142,7 @@ public class CuttingChartFragment extends Fragment {
         String processName = DataBaseHelper.getNameByKey(db, App.getResourceString(R.string.process_table), processKey);
         String tableName = App.getResourceString(R.string.settings_table);
         String filter = processFilter + " AND " + materialFilter;
-        Log.d(LOG_TAG, "fillTableForProcess : filter 1: " + filter);
+//        Log.d(LOG_TAG, "fillTableForProcess : filter 1: " + filter);
         String purpose_column_name = App.getResourceString(R.string.purpose_table);
         String[] columnList = {purpose_column_name};
         Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_column_name, null, null);
@@ -154,7 +154,7 @@ public class CuttingChartFragment extends Fragment {
                     int purposeKey = cursor.getInt(purposeKeyIndex);
                     String purposeName = DataBaseHelper.getNameByKey(db, purpose_column_name, purposeKey);
                     String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
-                    Log.d(LOG_TAG, "fillTableForProcess : filter 2: " + filterWithPurpose);
+//                    Log.d(LOG_TAG, "fillTableForProcess : filter 2: " + filterWithPurpose);
                     Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
                     int thicknessIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.thickness_column_name));
                     int currentIndex = purposeCursor.getColumnIndex(App.getResourceString(R.string.current_column_name));
@@ -175,61 +175,61 @@ public class CuttingChartFragment extends Fragment {
 
                                 // fill table data
                                 TextView processData = new TextView(context);
-                                Log.d(LOG_TAG, "fillTableForProcess : process name: " + processName);
+//                                Log.d(LOG_TAG, "fillTableForProcess : process name: " + processName);
                                 processData.setText(processName);
                                 row.addView(processData);
 
                                 TextView currentData = new TextView(context);
                                 double current = purposeCursor.getDouble(currentIndex);
                                 String currentText = Double.toString(current);
-                                Log.d(LOG_TAG, "fillTableForProcess : current, A: " + currentText);
+//                                Log.d(LOG_TAG, "fillTableForProcess : current, A: " + currentText);
                                 currentData.setText(currentText);
                                 row.addView(currentData);
 
                                 TextView thicknessData = new TextView(context);
                                 double thickness = purposeCursor.getDouble(thicknessIndex);
                                 String thicknessText = Double.toString(thickness);
-                                Log.d(LOG_TAG, "fillTableForProcess : thickness, mm: " + thicknessText);
+//                                Log.d(LOG_TAG, "fillTableForProcess : thickness, mm: " + thicknessText);
                                 thicknessData.setText(thicknessText);
                                 row.addView(thicknessData);
 
                                 TextView purposeData = new TextView(context);
-                                Log.d(LOG_TAG, "fillTableForProcess : purpose name: " + purposeName);
+//                                Log.d(LOG_TAG, "fillTableForProcess : purpose name: " + purposeName);
                                 purposeData.setText(purposeName);
                                 row.addView(purposeData);
 
                                 TextView arcVoltageData = new TextView(context);
                                 double arcVoltage = purposeCursor.getDouble(arcVoltageIndex);
                                 String arcVoltageText = Double.toString(arcVoltage);
-                                Log.d(LOG_TAG, "fillTableForProcess : arcVoltage: " + arcVoltage);
+//                                Log.d(LOG_TAG, "fillTableForProcess : arcVoltage: " + arcVoltage);
                                 arcVoltageData.setText(arcVoltageText);
                                 row.addView(arcVoltageData);
 
                                 TextView arcHeightData = new TextView(context);
                                 double arcHeight = purposeCursor.getDouble(arcHeightIndex);
                                 String arcHeightText = Double.toString(arcHeight);
-                                Log.d(LOG_TAG, "fillTableForProcess : arcHeight: " + arcHeight);
+//                                Log.d(LOG_TAG, "fillTableForProcess : arcHeight: " + arcHeight);
                                 arcHeightData.setText(arcHeightText);
                                 row.addView(arcHeightData);
 
                                 TextView pierceHeightData = new TextView(context);
                                 double pierceHeight = purposeCursor.getDouble(pierceHeightIndex);
                                 String pierceHeightText = Double.toString(pierceHeight);
-                                Log.d(LOG_TAG, "fillTableForProcess : pierceHeight: " + pierceHeight);
+//                                Log.d(LOG_TAG, "fillTableForProcess : pierceHeight: " + pierceHeight);
                                 pierceHeightData.setText(pierceHeightText);
                                 row.addView(pierceHeightData);
 
                                 TextView pierceTimeData = new TextView(context);
                                 double pierceTime = purposeCursor.getDouble(pierceTimeIndex);
                                 String pierceTimeText = Double.toString(pierceTime);
-                                Log.d(LOG_TAG, "fillTableForProcess : pierceTime: " + pierceTime);
+//                                Log.d(LOG_TAG, "fillTableForProcess : pierceTime: " + pierceTime);
                                 pierceTimeData.setText(pierceTimeText);
                                 row.addView(pierceTimeData);
 
                                 TextView kerfOffsetData = new TextView(context);
                                 double kerfOffset = purposeCursor.getDouble(kerfOffsetIndex);
                                 String kerfOffsetText = Double.toString(kerfOffset);
-                                Log.d(LOG_TAG, "fillTableForProcess : kerfOffset: " + kerfOffset);
+//                                Log.d(LOG_TAG, "fillTableForProcess : kerfOffset: " + kerfOffset);
                                 kerfOffsetData.setText(kerfOffsetText);
                                 row.addView(kerfOffsetData);
 
