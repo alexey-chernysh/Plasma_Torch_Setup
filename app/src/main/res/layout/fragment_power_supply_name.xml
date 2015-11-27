@@ -23,7 +23,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
+        android:text="@string/brand_title"
         android:id="@+id/brandNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:textColor="#FFFFFFFF" />
@@ -35,7 +35,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
+        android:text="@string/series_title"
         android:id="@+id/seriesNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:textColor="#FFFFFFFF" />
@@ -47,7 +47,7 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/please_select_prompt"
+        android:text="@string/model_title"
         android:id="@+id/modelNameText"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
         android:textColor="#FFFFFFFF" />
