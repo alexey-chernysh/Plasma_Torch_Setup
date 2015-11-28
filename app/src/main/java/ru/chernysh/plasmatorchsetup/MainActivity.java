@@ -23,11 +23,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.power_supply_placeholder).setOnClickListener(this);
         findViewById(R.id.metal_placeholder).setOnClickListener(this);
+        findViewById(R.id.cutting_chart_placeholder).setOnClickListener(this);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-//        ft.replace(R.id.cutting_chart_placeholder, new CuttingChartFragment());
 
         ft.commit();
 
@@ -55,6 +55,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     expandMetalFrag();
                     squeezePowerSupplyFrag();
                 }
+                break;
+            case R.id.cutting_chart_placeholder:
+                if(powerSupplyFragExpanded) squeezePowerSupplyFrag();
+                if(metalFragExpanded) squeezeMetalFrag();
                 break;
             default:
         }

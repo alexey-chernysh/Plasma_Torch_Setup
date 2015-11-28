@@ -32,7 +32,7 @@ public class CuttingChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cutting_chart, container, false);
-        TableLayout table = (TableLayout)v.findViewById(R.id.plasmaSettingTable);
+        TableLayout table = (TableLayout)v.findViewById(R.id.plasma_setting_table);
         prepareTable(table);
         fillTableContent(table);
         return v;
