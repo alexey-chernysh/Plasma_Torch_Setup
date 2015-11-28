@@ -23,6 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cutting_chart_placeholder"
-        class="ru.chernysh.plasmatorchsetup.ChartPlaceholderFragment" />
+        class="ru.chernysh.plasmatorchsetup.CuttingChartFragment" />
 
 </LinearLayout>

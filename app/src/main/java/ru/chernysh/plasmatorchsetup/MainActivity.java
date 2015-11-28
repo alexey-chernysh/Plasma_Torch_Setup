@@ -2,6 +2,7 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +27,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-        ft.replace(R.id.cutting_chart_placeholder, new CuttingChartFragment());
+//        ft.replace(R.id.cutting_chart_placeholder, new CuttingChartFragment());
 
         ft.commit();
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
