@@ -28,7 +28,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-
         ft.commit();
 
     }
