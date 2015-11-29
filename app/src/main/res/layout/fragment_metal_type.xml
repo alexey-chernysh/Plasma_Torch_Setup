@@ -3,56 +3,64 @@
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="ru.chernysh.myapplication.MetalTypeFragment"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
     android:id="@+id/metal_type_frag"
-    android:background="#FF0000AA"
-    android:orientation="horizontal">
+    android:background="#FF0000AA">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/metal_title"
-        android:id="@+id/metalNameText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-        android:layout_gravity="top|left"
-        android:textColor="#FFFFFFFF" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/float_null"
-        android:id="@+id/metalThicknessText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-        android:layout_gravity="top|center_horizontal"
-        android:textColor="#FFFFFFFF" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/metal_title"
+            android:id="@+id/metalNameText"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:layout_gravity="top|left"
+            android:textColor="#FFFFFFFF" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/mm"
-        android:id="@+id/thicknessUnitsText"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-        android:layout_gravity="top|right"
-        android:textColor="#FFFFFFFF" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/float_null"
+            android:id="@+id/metalThicknessText"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:layout_gravity="top|center_horizontal"
+            android:textColor="#FFFFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/mm"
+            android:id="@+id/thicknessUnitsText"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:layout_gravity="top|right"
+            android:textColor="#FFFFFFFF" />
+
+    </LinearLayout>
+
+</FrameLayout>
+

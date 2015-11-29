@@ -43,10 +43,10 @@ public class MetalSelectFragment extends Fragment {
         if(materialSelected == 0) materialSelected = 1;
         TableWithSpinner material = new TableWithSpinner(parentView,
                                                          materialTableName,
-                                                         R.id.materialNameSpinner);
+                                                         R.id.material_name_spinner);
         material.setSelected(materialSelected);
 
-        final EditText materialThicknessEdit = (EditText)parentView.findViewById(R.id.materialThickness);
+        final EditText materialThicknessEdit = (EditText)parentView.findViewById(R.id.material_thickness);
         int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
         Double thickness = ((double)thickness_х_100)/100.0;
         String thicknessString = thickness.toString();
