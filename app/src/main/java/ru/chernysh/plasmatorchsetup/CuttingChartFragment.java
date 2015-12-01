@@ -51,6 +51,7 @@ public class CuttingChartFragment extends Fragment {
 
         TableLayout table;
         Context context;
+        CuttingChart chart;
 
         @Override
         protected void onPreExecute() {
@@ -58,6 +59,7 @@ public class CuttingChartFragment extends Fragment {
             //retrieve references to table
             table = (TableLayout)view.findViewById(R.id.plasma_setting_table);
             context = view.getContext();
+            chart = new CuttingChart(table, context);
 
             // clear table
             prepareTable(table);
