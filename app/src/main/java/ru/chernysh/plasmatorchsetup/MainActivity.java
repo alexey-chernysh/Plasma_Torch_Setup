@@ -1,6 +1,7 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private boolean powerSupplyFragExpanded = false;
     private boolean metalFragExpanded = false;
 
+    private CuttingChartFragment cuttingChartFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.metal_placeholder).setOnClickListener(this);
         findViewById(R.id.cutting_chart_placeholder).setOnClickListener(this);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        cuttingChartFragment = (CuttingChartFragment)fm.findFragmentById(R.id.cutting_chart_fragment);
+        FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
         ft.commit();
@@ -89,6 +94,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
         ft.commit();
         metalFragExpanded = false;
+    }
+
+    public void updateChart(){
+        cuttingChartFragment.update();
     }
 
 }

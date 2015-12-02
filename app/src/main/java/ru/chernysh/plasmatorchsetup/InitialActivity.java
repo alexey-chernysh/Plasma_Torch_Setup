@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+ * Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
  * e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
  */
 
@@ -75,12 +75,10 @@ public class InitialActivity extends Activity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            if (result == true) {
+            if (result) {
                 InitialActivity.this.finish();
                 startMainActivity();
-            } else {
-                showInitErrorDialog("Сбой инициализации приложения");
-            }
+            } else showInitErrorDialog("Сбой инициализации приложения");
         }
     }
 }

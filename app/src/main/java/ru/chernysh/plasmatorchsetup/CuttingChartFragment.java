@@ -7,25 +7,17 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 public class CuttingChartFragment extends Fragment {
 
     private View view;
 
-    private static final String LOG_TAG = "CuttingChartFragment: ";
-    
     public CuttingChartFragment() {
         // Required empty public constructor
     }
