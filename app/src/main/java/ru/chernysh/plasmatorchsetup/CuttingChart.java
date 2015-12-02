@@ -155,14 +155,15 @@ public class CuttingChart {
                                 column.updateIndex(purposeCursor);
                             for(int j=0; j<nOfNewSettings; j++){
                                 // fill table data
+                                int pos = nOfSettings+j;
                                 for(CuttingChartColumn column:columns)
                                     if(column.isExternalKey()){
                                         int id = purposeCursor.getInt(column.getIndex());
                                         String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
-                                        column.setData(nOfSettings+j,name);
+                                        column.setData(pos,name);
                                     } else {
                                         double data = purposeCursor.getDouble(column.getIndex());
-                                        column.setData(nOfSettings+j,data);
+                                        column.setData(pos,data);
                                     }
                                 purposeCursor.moveToNext();
                             }

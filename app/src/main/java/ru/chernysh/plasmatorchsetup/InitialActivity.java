@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 public class InitialActivity extends Activity {
 
@@ -25,7 +26,7 @@ public class InitialActivity extends Activity {
         setContentView(R.layout.activity_iniitial);
 
         progressDialog = showInitProgressDialog();
-        new AppInitializerTask().execute((Void)null);
+        new AppInitializerTask().execute((Void) null);
     }
 
     private ProgressDialog showInitProgressDialog() {
@@ -60,11 +61,7 @@ public class InitialActivity extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                DataBaseHelper.Initialize();
-            } catch (SQLiteException ex) {
-                return false;
-            }
+            DataBaseHelper.Initialize();
             return true;
         }
 
@@ -72,13 +69,9 @@ public class InitialActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
 
-            if (result == true) {
-                InitialActivity.this.finish();
-                startMainActivity();
-            } else {
-                progressDialog.dismiss();
-                showInitErrorDialog("Сбой инициализации приложения");
-            }
+            progressDialog.dismiss();
+            InitialActivity.this.finish();
+            startMainActivity();
         }
     }
 }

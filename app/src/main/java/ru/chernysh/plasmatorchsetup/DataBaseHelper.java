@@ -26,7 +26,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = DataBaseHelper.class.getName() + ": ";
 
-    private static final int DB_VERSION = 1;
     private static final int DB_FILES_COPY_BUFFER_SIZE = 8192;
 
     public DataBaseHelper() {
@@ -56,64 +55,50 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @throws SQLiteException
      *             если инициализацию не удалось выполнить
      */
-    public static void Initialize() throws SQLiteException {
+    public static void Initialize() {
         if (!isInitialized()) {
-            copyInialDBfromAssets();
+            copyInitialDBFromAssets();
         }
     }
 
     private static boolean isInitialized() {
 
-        SQLiteDatabase checkDB = null;
-        Boolean correctVersion = false;
+        String db_path =  getDBPath();
 
-        try {
-            String db_path =  App.getInstance().getString(R.string.sd_card)
-                            + App.getInstance().getPackageName()
-                            + "/" + App.getInstance().getString(R.string.db_folder) + "/"
-                            + App.getInstance().getString(R.string.db_name);
-            checkDB = SQLiteDatabase.openDatabase(  db_path,
-                                                    null,
-                                                    SQLiteDatabase.OPEN_READONLY);
-            int currentVersion = checkDB.getVersion();
-            correctVersion = (currentVersion == DB_VERSION);
-        } catch (SQLiteException e) {
-            Log.w(LOG_TAG, e.getMessage());
-        } finally {
-            if (checkDB != null)
-                checkDB.close();
-        }
+        if(new File(db_path).isFile()){
+            SQLiteDatabase checkDB = null;
 
-        return checkDB != null && correctVersion;
+            try {
+                checkDB = SQLiteDatabase.openDatabase(db_path, null, SQLiteDatabase.OPEN_READONLY);
+            } catch (SQLiteException e) {
+                Log.w(LOG_TAG, e.getMessage());
+            }
+            if (checkDB != null) checkDB.close();
+            return (checkDB != null);
+        } else return false;
+
     }
 
     /**
      * Копирует файл базы данных из Assets в директорию для баз данных этого
      * приложения
-     *
-     * @throws SQLiteException
-     *             если что-то пошло не так при компировании
      */
-    private static void copyInialDBfromAssets() throws SQLiteException {
+    private static void copyInitialDBFromAssets() {
 
         Context appContext = App.getInstance().getApplicationContext();
         InputStream inStream = null;
         OutputStream outStream = null;
 
         try {
-            String db_assets_path = App.getInstance().getString(R.string.db_folder)
-                                  + "/"
-                                  + App.getInstance().getString(R.string.db_name);
+            String db_assets_path = getAssetPath();
             inStream = new BufferedInputStream(appContext.getAssets().open(db_assets_path), DB_FILES_COPY_BUFFER_SIZE);
-            String db_folder = App.getInstance().getString(R.string.sd_card)
-                             + App.getInstance().getPackageName()
-                             + "/" + App.getInstance().getString(R.string.db_folder) + "/";
+            String db_folder = getDBDir();
             File dbDir = new File(db_folder);
             if (!dbDir.exists())
                 if(dbDir.mkdir())
                     throw new IOException("Can't create database dir");
-            String db_path = db_folder + App.getInstance().getString(R.string.db_name);
-            outStream = new BufferedOutputStream(new FileOutputStream(db_path), DB_FILES_COPY_BUFFER_SIZE);
+            String dbPath = getDBPath();
+            outStream = new BufferedOutputStream(new FileOutputStream(dbPath), DB_FILES_COPY_BUFFER_SIZE);
 
             byte[] buffer = new byte[DB_FILES_COPY_BUFFER_SIZE];
             int length;
@@ -167,5 +152,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) result = cursor.getString(processNameIndex);
         cursor.close();
         return result;
+    }
+
+    private static String getDBDir(){
+        return    App.getInstance().getString(R.string.sd_card)
+                + App.getInstance().getPackageName()
+                + "/"
+                + App.getInstance().getString(R.string.db_folder);
+    }
+
+    private static String getDBPath(){
+        return    getDBDir()
+                + "/"
+                + getDBName();
+    }
+
+    private static String getDBName() {
+        return App.getInstance().getString(R.string.db_name);
+    }
+
+    private static String getAssetDir(){
+        return App.getInstance().getString(R.string.db_folder);
+    }
+
+    private static String getAssetPath(){
+        return    getAssetDir()
+                + "/"
+                + getDBName();
     }
 }
