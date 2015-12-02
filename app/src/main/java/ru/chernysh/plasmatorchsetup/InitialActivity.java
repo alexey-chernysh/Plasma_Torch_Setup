@@ -61,7 +61,12 @@ public class InitialActivity extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            DataBaseHelper.Initialize();
+            try {
+                DataBaseHelper.Initialize();
+            } catch (SQLiteException ex) {
+                Log.d("SQLiteException: ", ex.getMessage());
+                return false;
+            }
             return true;
         }
 
@@ -70,8 +75,12 @@ public class InitialActivity extends Activity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            InitialActivity.this.finish();
-            startMainActivity();
+            if (result == true) {
+                InitialActivity.this.finish();
+                startMainActivity();
+            } else {
+                showInitErrorDialog("Сбой инициализации приложения");
+            }
         }
     }
 }

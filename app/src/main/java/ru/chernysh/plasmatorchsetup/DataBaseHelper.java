@@ -55,13 +55,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @throws SQLiteException
      *             если инициализацию не удалось выполнить
      */
-    public static void Initialize() {
+    public static void Initialize() throws SQLiteException {
         if (!isInitialized()) {
             copyInitialDBFromAssets();
         }
     }
 
-    private static boolean isInitialized() {
+    private static boolean isInitialized() throws SQLiteException {
 
         String db_path =  getDBPath();
 
@@ -83,7 +83,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Копирует файл базы данных из Assets в директорию для баз данных этого
      * приложения
      */
-    private static void copyInitialDBFromAssets() {
+    private static void copyInitialDBFromAssets() throws SQLiteException {
 
         Context appContext = App.getInstance().getApplicationContext();
         InputStream inStream = null;
@@ -95,7 +95,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String db_folder = getDBDir();
             File dbDir = new File(db_folder);
             if (!dbDir.exists())
-                if(dbDir.mkdir())
+                if(!dbDir.mkdir())
                     throw new IOException("Can't create database dir");
             String dbPath = getDBPath();
             outStream = new BufferedOutputStream(new FileOutputStream(dbPath), DB_FILES_COPY_BUFFER_SIZE);
