@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator {
 
     private static final String LOG_TAG = MainActivity.class.getName()+": ";
 
@@ -96,8 +96,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         metalFragExpanded = false;
     }
 
+    @Override
     public void updateChart(){
-        cuttingChartFragment.update();
+        if(cuttingChartFragment != null) cuttingChartFragment.update();
     }
 
 }

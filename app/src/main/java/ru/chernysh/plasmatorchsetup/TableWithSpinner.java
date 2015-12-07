@@ -67,6 +67,8 @@ public class TableWithSpinner {
                         if (lowerLevelFilterKey != selectedKey_)
                             lower_level_.updateList(selectedKey_);
                     }
+                    ChartFragmentCommunicator communicator = (ChartFragmentCommunicator)parentView_.getContext();
+                    communicator.updateChart();
                 }
             }
         });
