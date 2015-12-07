@@ -53,7 +53,7 @@ public class InitialActivity extends Activity {
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CuttingChartActivity.class);
         startActivity(intent);
     }
 

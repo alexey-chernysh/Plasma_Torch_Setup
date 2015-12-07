@@ -7,15 +7,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator {
+public class CuttingChartActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator {
 
-    private static final String LOG_TAG = MainActivity.class.getName()+": ";
+    private static final String LOG_TAG = CuttingChartActivity.class.getName()+": ";
 
     private boolean powerSupplyFragExpanded = false;
     private boolean metalFragExpanded = false;
-
-    private CuttingChartFragment cuttingChartFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Char
         findViewById(R.id.cutting_chart_placeholder).setOnClickListener(this);
 
         FragmentManager fm = getFragmentManager();
-        cuttingChartFragment = (CuttingChartFragment)fm.findFragmentById(R.id.cutting_chart_fragment);
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
@@ -98,7 +96,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Char
 
     @Override
     public void updateChart(){
-        if(cuttingChartFragment != null) cuttingChartFragment.update();
+        CuttingChartFragment cuttingChartFragment = (CuttingChartFragment)getFragmentManager().findFragmentById(R.id.cutting_chart_placeholder);
+        if(cuttingChartFragment != null){
+            cuttingChartFragment.update();
+            Toast toast = Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT);
+            toast.show();         }
     }
 
 }

@@ -20,6 +20,7 @@ public class TableWithSpinner {
     private static final int[] intNullArray = {0};
 
     private View parentView_;
+    CuttingChartActivity parentActivity_;
     private int spinnerId_;
     private CustomAdapter adapter;
     private final String table_name_;
@@ -30,6 +31,7 @@ public class TableWithSpinner {
                             @NonNull String table_name,
                             int spinnerId){
         parentView_ = parentView;
+        parentActivity_ = (CuttingChartActivity)parentView_.getContext();
         table_name_ = table_name;
         spinnerId_  = spinnerId;
         init();
@@ -67,7 +69,7 @@ public class TableWithSpinner {
                         if (lowerLevelFilterKey != selectedKey_)
                             lower_level_.updateList(selectedKey_);
                     }
-                    ChartFragmentCommunicator communicator = (ChartFragmentCommunicator)parentView_.getContext();
+                    ChartFragmentCommunicator communicator = (ChartFragmentCommunicator)parentActivity_;
                     communicator.updateChart();
                 }
             }
