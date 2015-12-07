@@ -97,10 +97,10 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
     @Override
     public void updateChart(){
         CuttingChartFragment cuttingChartFragment = (CuttingChartFragment)getFragmentManager().findFragmentById(R.id.cutting_chart_placeholder);
-        if(cuttingChartFragment != null){
+        if(cuttingChartFragment != null) {
             cuttingChartFragment.update();
-            Toast toast = Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT);
-            toast.show();         }
+            Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
