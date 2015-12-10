@@ -20,7 +20,7 @@ public class TableWithSpinner {
     private static final int[] intNullArray = {0};
 
     private View parentView_;
-    CuttingChartActivity parentActivity_;
+    private CuttingChartActivity parentActivity_;
     private int spinnerId_;
     private CustomAdapter adapter;
     private final String table_name_;
@@ -40,12 +40,26 @@ public class TableWithSpinner {
 
     public TableWithSpinner setUpperLevelSpinner(TableWithSpinner upper_level){
         upper_level_ = upper_level;
+        if(upper_level.getLowerLevelSpinner() != this )
+            upper_level_.setLowerLevelSpinner(this);
+        updateList();
         return this;
     }
 
     public TableWithSpinner setLowerLevelSpinner(TableWithSpinner lower_level){
         lower_level_ = lower_level;
+        if(lower_level_.getUpperLevelSpinner() != this)
+            lower_level_.setUpperLevelSpinner(this);
         return this;
+    }
+
+
+    private TableWithSpinner getLowerLevelSpinner() {
+        return lower_level_;
+    }
+
+    private TableWithSpinner getUpperLevelSpinner() {
+        return upper_level_;
     }
 
     private void init(){
@@ -64,7 +78,9 @@ public class TableWithSpinner {
                     String assStr = (String) adapter.getItem(pos);
                     (new StoredKey(App.getResourceString(R.string.preference_) + table_name_)).set(selectedKey_);
                     Log.d(LOG_TAG, " selection at pos " + pos + " in spinner for table " + table_name_ + " by key = " + selectedKey_ + " associated with string value " + assStr);
-                    if (lower_level_ != null) lower_level_.updateList(selectedKey_);
+                    if (lower_level_ != null)
+                        if(lower_level_.getFilterKey() != selectedKey_)
+                            lower_level_.updateList(selectedKey_);
                     ((ChartFragmentCommunicator)parentActivity_).updateChart();
                 }
             }
