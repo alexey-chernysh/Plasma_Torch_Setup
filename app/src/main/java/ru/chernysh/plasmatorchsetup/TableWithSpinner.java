@@ -64,13 +64,8 @@ public class TableWithSpinner {
                     String assStr = (String) adapter.getItem(pos);
                     (new StoredKey(App.getResourceString(R.string.preference_) + table_name_)).set(selectedKey_);
                     Log.d(LOG_TAG, " selection at pos " + pos + " in spinner for table " + table_name_ + " by key = " + selectedKey_ + " associated with string value " + assStr);
-                    if (lower_level_ != null) {
-                        int lowerLevelFilterKey = lower_level_.getFilterKey();
-                        if (lowerLevelFilterKey != selectedKey_)
-                            lower_level_.updateList(selectedKey_);
-                    }
-                    ChartFragmentCommunicator communicator = (ChartFragmentCommunicator)parentActivity_;
-                    communicator.updateChart();
+                    if (lower_level_ != null) lower_level_.updateList(selectedKey_);
+                    ((ChartFragmentCommunicator)parentActivity_).updateChart();
                 }
             }
         });
