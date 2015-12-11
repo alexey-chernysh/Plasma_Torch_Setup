@@ -19,7 +19,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.cutting_chart_activity);
 
         Log.d(LOG_TAG, "OnCreate");
 

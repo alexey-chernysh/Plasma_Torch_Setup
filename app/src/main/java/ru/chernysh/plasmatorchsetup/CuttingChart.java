@@ -84,16 +84,19 @@ public class CuttingChart {
 
     public void fillData() {
         final String pref = App.getResourceString(R.string.preference_);
-        final String model_table_name = App.getResourceString(R.string.model_table);
-        final String material_table_name = App.getResourceString(R.string.material_table);
+        final String modelTableName = App.getResourceString(R.string.model_table);
+        final String materialTableName = App.getResourceString(R.string.material_table);
+        final String materialThickness = App.getResourceString(R.string.material_thickness);
 
-        int modelKey = (new StoredKey(pref + model_table_name)).get();
-        int materialKey = (new StoredKey(pref + material_table_name)).get();
+        int modelKey = (new StoredKey(pref + modelTableName)).get();
+        int materialKey = (new StoredKey(pref + materialTableName)).get();
+        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
+        double thickness = ((double)thickness_х_100)/100.0;
 
         int[] processKey = getProcessList(modelKey);
         if(processKey != null){
             for (int aProcessKey : processKey)
-                fillTableForProcess(materialKey, aProcessKey);
+                fillTableForProcess(materialKey, aProcessKey, thickness);
         }
     }
 
@@ -123,17 +126,15 @@ public class CuttingChart {
         return result;
     }
 
-    private void fillTableForProcess(int materialKey, int processKey) {
+    private void fillTableForProcess(int materialKey, int processKey, double thickness) {
         if(materialKey <= 0) return;
         String materialFilter = DataBaseHelper.getFilterEqualTo(R.string.material_table, materialKey);
         if(processKey <= 0) return;
         String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
         // find all "purpose" cases
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String processName = DataBaseHelper.getNameByKey(db, App.getResourceString(R.string.process_table), processKey);
         String tableName = App.getResourceString(R.string.settings_table);
         String filter = processFilter + " AND " + materialFilter;
-//        Log.d(LOG_TAG, "fillTableForProcess : filter 1: " + filter);
         String purpose_column_name = App.getResourceString(R.string.purpose_table);
         String[] columnList = {purpose_column_name};
         Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, purpose_column_name, null, null);
@@ -143,36 +144,38 @@ public class CuttingChart {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
-                    String purposeName = DataBaseHelper.getNameByKey(db, purpose_column_name, purposeKey);
-                    String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
-//                    Log.d(LOG_TAG, "fillTableForProcess : filter 2: " + filterWithPurpose);
-                    Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
-                    int nOfSettings = columns.get(0).getDataLength();
-                    int nOfNewSettings = purposeCursor.getCount();
-                    if(nOfNewSettings>0){
-                        if(purposeCursor.moveToFirst()){
-                            for(CuttingChartColumn column:columns)
-                                column.updateIndex(purposeCursor);
-                            for(int j=0; j<nOfNewSettings; j++){
-                                // fill table data
-                                int pos = nOfSettings+j;
-                                for(CuttingChartColumn column:columns)
-                                    if(column.isExternalKey()){
-                                        int id = purposeCursor.getInt(column.getIndex());
-                                        String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
-                                        column.setData(pos,name);
-                                    } else {
-                                        double data = purposeCursor.getDouble(column.getIndex());
-                                        column.setData(pos,data);
-                                    }
-                                purposeCursor.moveToNext();
-                            }
-                        }
-                    }
+                    getSubTable(db, tableName, filter, purposeKey);
                     cursor.moveToNext();
                 }
             }
         }
         cursor.close();
+    }
+
+    private void getSubTable(SQLiteDatabase db, String tableName, String filter, int purposeKey) {
+        String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+        Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
+        int nOfSettings = columns.get(0).getDataLength();
+        int nOfNewSettings = purposeCursor.getCount();
+        if(nOfNewSettings>0){
+            if(purposeCursor.moveToFirst()){
+                for(CuttingChartColumn column:columns)
+                    column.updateIndex(purposeCursor);
+                for(int j=0; j<nOfNewSettings; j++){
+                    // fill table data
+                    int pos = nOfSettings+j;
+                    for(CuttingChartColumn column:columns)
+                        if(column.isExternalKey()){
+                            int id = purposeCursor.getInt(column.getIndex());
+                            String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
+                            column.setData(pos,name);
+                        } else {
+                            double data = purposeCursor.getDouble(column.getIndex());
+                            column.setData(pos,data);
+                        }
+                    purposeCursor.moveToNext();
+                }
+            }
+        }
     }
 }
