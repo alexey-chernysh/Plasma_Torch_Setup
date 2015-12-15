@@ -25,6 +25,7 @@
     <!--
         Table headers
     -->
+    <string name="thickness_header">Толщина</string>
     <string name="cutting_speed_header">Скорость резки</string>
     <string name="arc_voltage_header">Напряжение дуги</string>
     <string name="arc_height_header">Высота дуги</string>

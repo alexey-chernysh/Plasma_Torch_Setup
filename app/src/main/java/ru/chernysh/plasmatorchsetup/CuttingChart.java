@@ -144,7 +144,8 @@ public class CuttingChart {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
-                    getSubTable(db, tableName, filter, purposeKey);
+                    new CuttingChartSubTable(db, tableName, filter, purposeKey, columns);
+//                    getSubTable(db, tableName, filter, purposeKey);
                     cursor.moveToNext();
                 }
             }
@@ -152,30 +153,4 @@ public class CuttingChart {
         cursor.close();
     }
 
-    private void getSubTable(SQLiteDatabase db, String tableName, String filter, int purposeKey) {
-        String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
-        Cursor purposeCursor = db.query(tableName, null, filterWithPurpose, null, null, null, null);
-        int nOfSettings = columns.get(0).getDataLength();
-        int nOfNewSettings = purposeCursor.getCount();
-        if(nOfNewSettings>0){
-            if(purposeCursor.moveToFirst()){
-                for(CuttingChartColumn column:columns)
-                    column.updateIndex(purposeCursor);
-                for(int j=0; j<nOfNewSettings; j++){
-                    // fill table data
-                    int pos = nOfSettings+j;
-                    for(CuttingChartColumn column:columns)
-                        if(column.isExternalKey()){
-                            int id = purposeCursor.getInt(column.getIndex());
-                            String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
-                            column.setData(pos,name);
-                        } else {
-                            double data = purposeCursor.getDouble(column.getIndex());
-                            column.setData(pos,data);
-                        }
-                    purposeCursor.moveToNext();
-                }
-            }
-        }
-    }
 }
