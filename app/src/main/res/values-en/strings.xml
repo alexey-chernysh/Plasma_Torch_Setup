@@ -22,6 +22,7 @@
     <string name="equipment_title">Equipment</string>
     <string name="metal_title">Metal</string>
     <string name="settings_title">Settings</string>
+    <string name="title_activity_number_picker">Material thickness</string>
 
     <!--
         Table headers

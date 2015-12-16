@@ -58,7 +58,7 @@ public class CuttingChartSubTable {
         if(nOfRows>0){
             double minThickness =  (Double)dataBuffer[0][0];
             double maxThickness =  (Double)dataBuffer[0][nOfRows-1];
-            Log.d(LOG_TAG, "Thickness=" + thickness + " min=" + minThickness + ",max=" + maxThickness);
+//            Log.d(LOG_TAG, "Thickness=" + thickness + " min=" + minThickness + ",max=" + maxThickness);
             if(thickness >= minThickness)
                 if(thickness <= maxThickness){
                     for(CuttingChartColumn column:columns) {
