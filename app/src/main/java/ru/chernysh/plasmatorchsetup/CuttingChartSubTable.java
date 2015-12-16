@@ -7,42 +7,45 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class CuttingChartSubTable {
 
+    private final static String LOG_TAG = "SubTable:";
+
     private Cursor subTableCursor;
     private int nOfRows = 0;
-    private Double[][] dataBuffer;
+    private Object[][] dataBuffer;
+    private ArrayList<CuttingChartColumn> columns;
 
     public CuttingChartSubTable(SQLiteDatabase db,
                                 String settingTableName,
                                 String filter,
                                 int purposeKey,
-                                ArrayList<CuttingChartColumn> columns){
+                                ArrayList<CuttingChartColumn> col){
+        columns = col;
         String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
         subTableCursor = db.query(settingTableName, null, filterWithPurpose, null, null, null, null);
-        int nOfSettings = columns.get(0).getDataLength();
         nOfRows = subTableCursor.getCount();
         if(nOfRows>0){
-            dataBuffer = new Double[nOfRows][columns.size()];
+            dataBuffer = new Object[nOfRows][columns.size()];
             if(subTableCursor.moveToFirst()){
                 for(CuttingChartColumn column:columns)
                     column.updateIndex(subTableCursor);
                 for(int j=0; j<nOfRows; j++){
                     // fill table data
-                    int pos = nOfSettings+j;
                     for(CuttingChartColumn column:columns) {
+                        int k = columns.indexOf(column);
                         if (column.isExternalKey()) {
                             int id = subTableCursor.getInt(column.getIndex());
                             String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
-                            column.setData(pos, name);
-                            dataBuffer[j][column.getIndex()] = (double)id;
+                            dataBuffer[j][k] = name;
                         } else {
-                            double data = subTableCursor.getDouble(column.getIndex());
-                            column.setData(pos, data);
-                            dataBuffer[j][column.getIndex()] = data;
+                            Double data = subTableCursor.getDouble(column.getIndex());
+//                            Log.d(LOG_TAG, "Double data=" + data.toString() + " at j=" + j + ",k=" + k);
+                            dataBuffer[j][k] = data;
                         }
                     }
                     subTableCursor.moveToNext();
@@ -51,7 +54,28 @@ public class CuttingChartSubTable {
         }
     }
 
-    public void fillRow(){
-
+    public void fillRow(double thickness){
+        int nOfSettings = columns.get(0).getDataLength();
+        nOfRows = subTableCursor.getCount();
+        if(nOfRows>0){
+            if(subTableCursor.moveToFirst()){
+                for(int j=0; j<1; j++){
+//                for(int j=0; j<nOfRows; j++){
+                    // fill table data
+                    int pos = nOfSettings + j;
+                    for(CuttingChartColumn column:columns) {
+                        int k = columns.indexOf(column);
+                        if (column.isExternalKey()) {
+                            String name = (String)dataBuffer[j][k];
+                            column.setData(pos, name);
+                        } else {
+                            double data = (Double)dataBuffer[j][k];
+                            column.setData(pos, data);
+                        }
+                    }
+                    subTableCursor.moveToNext();
+                }
+            }
+        }
     }
 }
