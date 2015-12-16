@@ -37,6 +37,7 @@
     <string name="process_header">Process</string>
     <string name="purpose_header">Purpose</string>
     <string name="kerf_offset_header">Kerf offset</string>
+    <string name="cut_speed_header">Cutting speed</string>
 
     <!--
         Messages

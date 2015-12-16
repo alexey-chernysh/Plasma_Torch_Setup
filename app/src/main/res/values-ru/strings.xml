@@ -36,5 +36,6 @@
     <string name="process_header">Процесс</string>
     <string name="purpose_header">Назначение</string>
     <string name="kerf_offset_header">Компенсация</string>
+    <string name="cut_speed_header">Скорость резки</string>
 
 </resources>
