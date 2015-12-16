@@ -5,14 +5,15 @@
 
 package ru.chernysh.plasmatorchsetup;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 
 public class MetalSelectFragment extends Fragment {
 
@@ -46,28 +47,17 @@ public class MetalSelectFragment extends Fragment {
                                                          R.id.material_name_spinner);
         material.setSelected(materialSelected);
 
-        final EditText materialThicknessEdit = (EditText)parentView.findViewById(R.id.material_thickness);
+        final TextView materialThicknessText = (TextView)parentView.findViewById(R.id.material_thickness);
         int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
         Double thickness = ((double)thickness_х_100)/100.0;
         String thicknessString = thickness.toString();
-        materialThicknessEdit.setText(thicknessString);
-        materialThicknessEdit.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // сохраняем текст, введенный до нажатия Enter в переменную
-                    String str = materialThicknessEdit.getText().toString();
-                    try {
-                        double thickness = Double.parseDouble(str);
-                        int thickness_x_100 = (int) (thickness * 100.0);
-                        (new StoredKey(pref + materialThickness)).set(thickness_x_100);
-                    } catch (NumberFormatException nfe) {
-                        // nothing to do
-                        // waiting for suitable number
-                    }
-                    return true;
-                }
-                return false;
+        materialThicknessText.setText(thicknessString);
+        materialThicknessText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = getActivity();
+                Intent intent = new Intent(activity, ThicknessPickerDialog.class);
+                startActivity(intent);
             }
         });
     }

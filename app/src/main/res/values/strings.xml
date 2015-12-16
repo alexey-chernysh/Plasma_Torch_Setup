@@ -54,6 +54,7 @@
     <string name="pierce_height_column_name">initial_pierce_height</string>
     <string name="pierce_time_column_name">pierce_delay_time</string>
     <string name="kerf_offset_column_name">kerf_width_compensation</string>
+    <string name="material_thickness_units">mm</string>
     <string name="thickness_column_name">thickness</string>
     <string name="mm">mm</string>
     <string name="placeholder" />
