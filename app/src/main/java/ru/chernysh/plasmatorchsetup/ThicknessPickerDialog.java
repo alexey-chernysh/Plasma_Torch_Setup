@@ -13,10 +13,14 @@ import android.widget.NumberPicker;
 
 public class ThicknessPickerDialog extends Activity {
 
-    final String pref = App.getResourceString(R.string.preference_);
-    final String materialThickness = App.getResourceString(R.string.material_thickness);
+    private static final String LOG_TAG = "Thickness Picker: ";
 
-    int value;
+    private final String pref = App.getResourceString(R.string.preference_);
+    private final String materialThickness = App.getResourceString(R.string.material_thickness);
+
+    private int value;
+    private static String thicknessName[]  = null;
+    private static double thicknessValue[] = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -26,8 +30,9 @@ public class ThicknessPickerDialog extends Activity {
         value = (new StoredKey(pref + materialThickness)).get()/100;
 
         NumberPicker np = (NumberPicker)findViewById(R.id.thickness_picker);
-        np.setMinValue(1);// restricted number to minimum value i.e 1
-        np.setMaxValue(31);// restricted number to maximum value i.e. 31
+        np.setMinValue(0);
+        np.setMaxValue(thicknessName.length - 1);
+        np.setDisplayedValues(thicknessName);
         np.setValue(value);
         np.setWrapSelectorWheel(true);
 
@@ -51,4 +56,6 @@ public class ThicknessPickerDialog extends Activity {
         int thickness_х_100 = (int)(100.0*newValue);
         (new StoredKey(pref + materialThickness)).set(thickness_х_100);
     }
+
 }
+
