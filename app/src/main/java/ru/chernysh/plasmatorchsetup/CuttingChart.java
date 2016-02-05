@@ -17,51 +17,51 @@ import java.util.ArrayList;
 
 public class CuttingChart {
 
-    private ArrayList<CuttingChartColumn> columns;
-    private TableLayout table;
+    private ArrayList<CuttingChartColumn> columns_;
+    private TableLayout table_;
     private Context context_;
 
     public CuttingChart(TableLayout tab, Context context){
-        table = tab;
+        table_ = tab;
         context_ = context;
         
-        columns = new ArrayList<>();
-        columns.add(new CuttingChartColumn(R.string.thickness_header, R.string.thickness_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.process_header, R.string.process_table,true));
-        columns.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.purpose_header, R.string.purpose_table,true));
-        columns.add(new CuttingChartColumn(R.string.arc_voltage_header, R.string.arc_voltage_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.arc_height_header, R.string.arc_height_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.pierce_height_header, R.string.pierce_height_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.pierce_time_header, R.string.pierce_time_column_name,false));
-        columns.add(new CuttingChartColumn(R.string.kerf_offset_header, R.string.kerf_offset_column_name,false));
+        columns_ = new ArrayList<>();
+        columns_.add(new CuttingChartColumn(R.string.thickness_header, R.string.thickness_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.process_header, R.string.process_table, true));
+        columns_.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.purpose_header, R.string.purpose_table, true));
+        columns_.add(new CuttingChartColumn(R.string.arc_voltage_header, R.string.arc_voltage_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.arc_height_header, R.string.arc_height_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.pierce_height_header, R.string.pierce_height_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.pierce_time_header, R.string.pierce_time_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.kerf_offset_header, R.string.kerf_offset_column_name, false));
     }
     
     public void fillHeaderView(){
         //clear obsolete content
-        table.removeAllViews();
+        table_.removeAllViews();
         // create header row
         TableRow headerRow = new TableRow(context_);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         headerRow.setLayoutParams(lp);
 
         // fill header row
-        for (CuttingChartColumn column:columns) {
+        for (CuttingChartColumn column: columns_) {
             TextView columnHeader = new TextView(context_);
             columnHeader.setText(column.getHeader());
-            int columnNum = columns.indexOf(column);
+            int columnNum = columns_.indexOf(column);
             headerRow.addView(columnHeader, columnNum);
         }
 
         // add row to layout
         headerRow.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
-        table.addView(headerRow);
+        table_.addView(headerRow);
     }
 
     public void fillContentView() {
         //get row number
-        int rowNumber = columns.get(0).getDataLength();
+        int rowNumber = columns_.get(0).getDataLength();
         //create & fill data rows
         for(int i=0; i<rowNumber; i++){
             TableRow dataRow = new TableRow(context_);
@@ -69,16 +69,16 @@ public class CuttingChart {
             dataRow.setLayoutParams(lp);
 
             // fill header row
-            for (CuttingChartColumn column:columns) {
+            for (CuttingChartColumn column: columns_) {
                 TextView dataCell = new TextView(context_);
                 dataCell.setText(column.getData(i));
-                int columnNum = columns.indexOf(column);
+                int columnNum = columns_.indexOf(column);
                 dataRow.addView(dataCell, columnNum);
             }
 
             // add row to layout
             dataRow.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
-            table.addView(dataRow);
+            table_.addView(dataRow);
         }
     }
 
@@ -142,7 +142,7 @@ public class CuttingChart {
             if (cursor.moveToFirst()) {
                 for(int i=0; i<nOfPurpose; i++){
                     int purposeKey = cursor.getInt(purposeKeyIndex);
-                    CuttingChartSubTable subTable = new CuttingChartSubTable(db, tableName, filter, purposeKey, columns);
+                    CuttingChartSubTable subTable = new CuttingChartSubTable(db, tableName, filter, purposeKey, columns_);
                     subTable.fillRow(thickness);
                     cursor.moveToNext();
                 }
