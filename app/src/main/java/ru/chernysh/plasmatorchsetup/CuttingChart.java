@@ -19,13 +19,13 @@ public class CuttingChart {
 
     private ArrayList<CuttingChartColumn> columns;
     private TableLayout table;
-    private Context context;
+    private Context context_;
 
-    public CuttingChart(TableLayout tab, Context cntxt){
+    public CuttingChart(TableLayout tab, Context context){
         table = tab;
-        context = cntxt;
+        context_ = context;
         
-        columns = new ArrayList<CuttingChartColumn>();
+        columns = new ArrayList<>();
         columns.add(new CuttingChartColumn(R.string.thickness_header, R.string.thickness_column_name,false));
         columns.add(new CuttingChartColumn(R.string.process_header, R.string.process_table,true));
         columns.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name,false));
@@ -42,13 +42,13 @@ public class CuttingChart {
         //clear obsolete content
         table.removeAllViews();
         // create header row
-        TableRow headerRow = new TableRow(context);
+        TableRow headerRow = new TableRow(context_);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         headerRow.setLayoutParams(lp);
 
         // fill header row
         for (CuttingChartColumn column:columns) {
-            TextView columnHeader = new TextView(context);
+            TextView columnHeader = new TextView(context_);
             columnHeader.setText(column.getHeader());
             int columnNum = columns.indexOf(column);
             headerRow.addView(columnHeader, columnNum);
@@ -64,13 +64,13 @@ public class CuttingChart {
         int rowNumber = columns.get(0).getDataLength();
         //create & fill data rows
         for(int i=0; i<rowNumber; i++){
-            TableRow dataRow = new TableRow(context);
+            TableRow dataRow = new TableRow(context_);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             dataRow.setLayoutParams(lp);
 
             // fill header row
             for (CuttingChartColumn column:columns) {
-                TextView dataCell = new TextView(context);
+                TextView dataCell = new TextView(context_);
                 dataCell.setText(column.getData(i));
                 int columnNum = columns.indexOf(column);
                 dataRow.addView(dataCell, columnNum);
@@ -86,12 +86,10 @@ public class CuttingChart {
         final String pref = App.getResourceString(R.string.preference_);
         final String modelTableName = App.getResourceString(R.string.model_table);
         final String materialTableName = App.getResourceString(R.string.material_table);
-        final String materialThickness = App.getResourceString(R.string.material_thickness);
 
         int modelKey = (new StoredKey(pref + modelTableName)).get();
         int materialKey = (new StoredKey(pref + materialTableName)).get();
-        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
-        double thickness = ((double)thickness_х_100)/100.0;
+        double thickness = MaterialThickness.getInstance().getCurrentThicknessValue();
 
         int[] processKey = getProcessList(modelKey);
         if(processKey != null){

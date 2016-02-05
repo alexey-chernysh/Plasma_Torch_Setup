@@ -15,7 +15,6 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
 
     private boolean powerSupplyFragExpanded = false;
     private boolean metalFragExpanded = false;
-    private ThicknessTable thicknessTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +22,6 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.cutting_chart_activity);
 
         Log.d(LOG_TAG, "OnCreate");
-
-        thicknessTable = new ThicknessTable();
 
         findViewById(R.id.power_supply_placeholder).setOnClickListener(this);
         findViewById(R.id.metal_placeholder).setOnClickListener(this);
@@ -104,10 +101,6 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
             cuttingChartFragment.update();
             Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public ThicknessTable getThicknessTable() {
-        return thicknessTable;
     }
 
 }

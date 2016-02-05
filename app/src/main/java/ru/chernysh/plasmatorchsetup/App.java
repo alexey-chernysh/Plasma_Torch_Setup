@@ -12,9 +12,17 @@ public class App extends android.app.Application {
     public final static String language = Locale.getDefault().getLanguage();
 
     private static App instance;
-    public App() {instance = this;}
-    public static App getInstance() {return instance;}
+
+    public App() {
+        instance = this;
+    }
+
+    public static App getInstance() {
+        return instance;
+    }
+
     public static String getResourceString(int id){
         return instance.getString(id);
     }
+
 }

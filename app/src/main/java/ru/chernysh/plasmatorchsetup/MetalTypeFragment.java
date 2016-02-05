@@ -37,8 +37,6 @@ public class MetalTypeFragment extends Fragment {
     private void initTexts(View parentView){
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
-        final String materialThickness = getString(R.string.material_thickness);
-
 
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
 
@@ -49,13 +47,7 @@ public class MetalTypeFragment extends Fragment {
 
         db.close();
 
-        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
-        if(thickness_х_100 <= 0){
-            thickness_х_100 = 100;
-            (new StoredKey(pref + materialThickness)).set(thickness_х_100);
-        }
-        Double thickness = ((double)thickness_х_100)/100.0;
-        String thicknessString = thickness.toString();
+        String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
         ((TextView)parentView.findViewById(R.id.metalThicknessText)).setText(thicknessString);
 
     }

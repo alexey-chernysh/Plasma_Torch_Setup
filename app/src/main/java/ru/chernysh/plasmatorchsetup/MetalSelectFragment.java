@@ -38,7 +38,6 @@ public class MetalSelectFragment extends Fragment {
     private void initSpinners(View parentView) {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
-        final String materialThickness = getString(R.string.material_thickness);
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
@@ -48,9 +47,7 @@ public class MetalSelectFragment extends Fragment {
         material.setSelected(materialSelected);
 
         final TextView materialThicknessText = (TextView)parentView.findViewById(R.id.material_thickness);
-        int thickness_х_100 = (new StoredKey(pref + materialThickness)).get();
-        Double thickness = ((double)thickness_х_100)/100.0;
-        String thicknessString = thickness.toString();
+        String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
         materialThicknessText.setText(thicknessString);
         materialThicknessText.setOnClickListener(new View.OnClickListener() {
             @Override
