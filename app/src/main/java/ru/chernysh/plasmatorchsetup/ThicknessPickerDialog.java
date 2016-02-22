@@ -13,7 +13,6 @@ import android.widget.NumberPicker;
 
 public class ThicknessPickerDialog extends Activity {
 
-    private static final String LOG_TAG = "Thickness Picker: ";
     private MaterialThickness materialThickness;
 
     @Override
