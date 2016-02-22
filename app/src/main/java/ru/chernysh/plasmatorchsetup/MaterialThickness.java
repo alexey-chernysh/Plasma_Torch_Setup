@@ -19,13 +19,14 @@ public class MaterialThickness {
     private final String valueColumnHeader = "value_in_mm";
 
     private int    currentKey;
-    private int    thicknessKey[]   = null;
-    public  String thicknessName[]  = null;
-    public  double thicknessValue[] = null;
+    public int    thicknessKey[]   = null;
+    public String thicknessName[]  = null;
+    public double thicknessValue[] = null;
 
-    private static MaterialThickness ourInstance = new MaterialThickness();
+    private static MaterialThickness ourInstance;
 
     public static MaterialThickness getInstance() {
+        if(ourInstance == null) ourInstance = new MaterialThickness();
         return ourInstance;
     }
 
@@ -44,6 +45,7 @@ public class MaterialThickness {
             int keyIndex   = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
             int nameIndex  = cursor.getColumnIndex(nameColumnHeader);
             int valueIndex = cursor.getColumnIndex(valueColumnHeader);
+            thicknessKey = new int[tablesLength];
             thicknessName = new String[tablesLength];
             thicknessValue = new double[tablesLength];
             if (cursor.moveToFirst()) {
@@ -60,13 +62,18 @@ public class MaterialThickness {
         db.close();
     }
 
-    private int getCurrentThicknessKey(){
+    public int getCurrentThicknessKey(){
         return (new StoredKey(pref + materialThickness)).get();
+    }
+
+    public void  setCurrentThickness(int num){ // num is selection number in value array
+        int key = thicknessKey[num];
+        (new StoredKey(pref + materialThickness)).set(key);
     }
 
     public String getCurrentThicknessName(){
         SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
-        String result= DataBaseHelper.getNameByKey(db, materialThickness, getCurrentThicknessKey());
+        String result= DataBaseHelper.getStringByKey(db, materialThickness, nameColumnHeader, getCurrentThicknessKey());
         db.close();
         return result;
     }
@@ -85,11 +92,4 @@ public class MaterialThickness {
         return result;
     }
 
-    public void  setCurrentThickness(int num){ // num is selection number in value array
-        (new StoredKey(pref + materialThickness)).set(num);
-    }
-
-    public int getCurrentThicknessNum() { // num is selection number in value array
-        return (new StoredKey(pref + materialThickness)).get();
-    }
 }

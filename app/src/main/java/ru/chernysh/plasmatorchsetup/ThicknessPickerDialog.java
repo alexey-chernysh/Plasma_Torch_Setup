@@ -27,7 +27,10 @@ public class ThicknessPickerDialog extends Activity {
         np.setMinValue(0);
         np.setMaxValue(materialThickness.thicknessName.length - 1);
         np.setDisplayedValues(materialThickness.thicknessName);
-        np.setValue(materialThickness.getCurrentThicknessNum());
+        int num = 0;
+        int currentKey = materialThickness.getCurrentThicknessKey();
+        while(currentKey > materialThickness.thicknessKey[num])num++;
+        np.setValue(num);
         np.setWrapSelectorWheel(true);
 
         np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
