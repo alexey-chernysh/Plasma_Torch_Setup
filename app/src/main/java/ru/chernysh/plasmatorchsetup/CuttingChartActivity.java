@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-public class CuttingChartActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator {
+public class CuttingChartActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator, MetalFragmentCommunicator {
 
     private static final String LOG_TAG = CuttingChartActivity.class.getName()+": ";
 
@@ -99,8 +99,12 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         CuttingChartFragment cuttingChartFragment = (CuttingChartFragment)getFragmentManager().findFragmentById(R.id.cutting_chart_placeholder);
         if(cuttingChartFragment != null) {
             cuttingChartFragment.update();
-            Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT).show();
         }
     }
 
+    @Override
+    public void updateThickness() {
+        updateChart();
+    }
 }

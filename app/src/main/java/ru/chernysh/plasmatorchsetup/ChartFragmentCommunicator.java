@@ -6,5 +6,5 @@
 package ru.chernysh.plasmatorchsetup;
 
 public interface ChartFragmentCommunicator {
-    public void updateChart ();
+    void updateChart();
 }
