@@ -105,6 +105,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
 
     @Override
     public void updateThickness() {
+        expandMetalFrag();
         updateChart();
     }
 }

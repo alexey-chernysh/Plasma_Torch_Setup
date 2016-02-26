@@ -4,26 +4,53 @@
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/background_material_light"
+    android:textColor="@color/primary_text_default_material_light"
+    android:clickable="true"
+    android:gravity="center_vertical|center_horizontal"
+    android:foregroundGravity="center_vertical|center_horizontal"
+    android:onClick="onClick">
 
     <NumberPicker
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/thickness_picker"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"/>
+        android:clickable="true"
+        android:background="@color/background_material_light"
+        android:textColor="@color/primary_text_default_material_light"
+        android:descendantFocusability="blocksDescendants"/>
 
-    <Button
-        android:id="@+id/apply_button"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/thickness_picker"
-        android:text="Apply" />
+        android:background="@color/background_material_light"
+        android:textColor="@color/primary_text_default_material_light"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/buttonCancel"
+            android:background="@color/background_material_light"
+            android:textColor="@color/primary_text_default_material_light"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/buttonOK"
+            android:background="@color/background_material_light"
+            android:textColor="@color/primary_text_default_material_light"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

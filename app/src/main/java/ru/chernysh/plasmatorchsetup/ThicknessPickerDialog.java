@@ -7,11 +7,14 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-public class ThicknessPickerDialog extends Activity {
+public class ThicknessPickerDialog extends Activity implements View.OnClickListener{
+
+    private final static String LOG_TAG = "Thickness picker:";
 
     private MaterialThickness materialThickness;
 
@@ -30,7 +33,7 @@ public class ThicknessPickerDialog extends Activity {
         int currentKey = materialThickness.getCurrentThicknessKey();
         while(currentKey > materialThickness.thicknessKey[num])num++;
         np.setValue(num);
-        np.setWrapSelectorWheel(true);
+        np.setWrapSelectorWheel(false);
 
         np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -39,14 +42,14 @@ public class ThicknessPickerDialog extends Activity {
             }
         });
 
-        Button button = (Button)findViewById(R.id.apply_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.thickness_picker).setOnClickListener(this);
+        findViewById(R.id.buttonOK).setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.i(LOG_TAG, "Number clicked!!!");
+        finish();
+    }
 }
 

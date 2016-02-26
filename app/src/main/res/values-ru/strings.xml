@@ -21,7 +21,7 @@
     <string name="equipment_title">Оборудование</string>
     <string name="metal_title">Металл</string>
     <string name="settings_title">Установки</string>
-    <string name="title_activity_number_picker">Толщина мвтериала</string>
+    <string name="title_activity_number_picker">Толщина материала</string>
 
     <!--
         Table headers
