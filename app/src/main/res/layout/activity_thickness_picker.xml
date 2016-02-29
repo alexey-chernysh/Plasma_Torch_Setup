@@ -6,31 +6,26 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/background_material_light"
-    android:textColor="@color/primary_text_default_material_light"
-    android:clickable="true"
     android:gravity="center_vertical|center_horizontal"
-    android:foregroundGravity="center_vertical|center_horizontal"
-    android:onClick="onClick">
+    android:background="#FF0000AA"
+    android:textColor="#FF000000"
+    tools:context=".ThicknessPickerDialog">
 
     <NumberPicker
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/thickness_picker"
         android:clickable="true"
-        android:background="@color/background_material_light"
-        android:textColor="@color/primary_text_default_material_light"
         android:descendantFocusability="blocksDescendants"/>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_material_light"
-        android:textColor="@color/primary_text_default_material_light"
         android:orientation="horizontal">
 
         <Button
@@ -38,8 +33,6 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/buttonCancel"
-            android:background="@color/background_material_light"
-            android:textColor="@color/primary_text_default_material_light"
             android:layout_weight="1" />
 
         <Button
@@ -47,8 +40,6 @@
             android:layout_height="wrap_content"
             android:text="OK"
             android:id="@+id/buttonOK"
-            android:background="@color/background_material_light"
-            android:textColor="@color/primary_text_default_material_light"
             android:layout_weight="1" />
 
     </LinearLayout>
