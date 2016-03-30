@@ -43,12 +43,12 @@ public class MetalTypeFragment extends Fragment {
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
         String metalName = DataBaseHelper.getNameByKey(db, materialTableName, materialSelected);
-        ((TextView)parentView.findViewById(R.id.metalNameText)).setText(metalName);
-
         db.close();
 
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
-        ((TextView)parentView.findViewById(R.id.metalThicknessText)).setText(thicknessString);
+
+        ((TextView)parentView.findViewById(R.id.metalTypeText))
+                .setText(metalName + " " + thicknessString + " mm");
 
     }
 
