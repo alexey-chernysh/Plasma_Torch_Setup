@@ -29,8 +29,6 @@
             android:name=".ThicknessPickerDialog"
             android:theme="@android:style/Theme.Holo.Dialog"
             android:headerBackground="@color/MetalBackground"
-            android:background="@color/EditBackground"
-            android:textColor="@color/EditText"
             android:label="@string/title_activity_number_picker">
         </activity>
     </application>
