@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem</item>
+        <item name="android:headerBackground">@color/PSUBackground</item>
     </style>
 
     <style name="PlaceholderTemplate">
@@ -17,10 +18,12 @@
 
     <style name="PSUHeaderTemplate" parent ="@style/PlaceholderTemplate">
         <item name="android:background">@color/PSUBackground</item>
+        <item name="android:textColor">@color/HeaderText</item>
     </style>
 
     <style name="MetalHeaderTemplate" parent ="@style/PlaceholderTemplate">
         <item name="android:background">@color/MetalBackground</item>
+        <item name="android:textColor">@color/HeaderText</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.DeviceDefault.Large">
@@ -53,8 +56,17 @@
         <item name="android:background">@color/EditBackground</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/PSUBackground</item>
+        <item name="android:textColor">@color/HeaderText</item>
+    </style>
 
 </resources>

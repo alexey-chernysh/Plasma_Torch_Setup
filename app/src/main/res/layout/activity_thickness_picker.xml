@@ -11,8 +11,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
-    android:background="#FF0000AA"
-    android:textColor="#FF000000"
+    android:background="@color/EditBackground"
+    android:textColor="@color/EditText"
     tools:context=".ThicknessPickerDialog">
 
     <NumberPicker
@@ -29,15 +29,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/ButtonStyle"
             android:text="Cancel"
             android:id="@+id/buttonCancel"
             android:layout_weight="1" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/ButtonStyle"
             android:text="OK"
             android:id="@+id/buttonOK"
             android:layout_weight="1" />
