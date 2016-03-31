@@ -4,38 +4,32 @@
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
     android:background="@color/EditBackground"
     android:textColor="@color/EditText"
     tools:context=".ThicknessPickerDialog">
 
-    <FrameLayout
+    <NumberPicker
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/thickness_picker"
+        android:descendantFocusability="blocksDescendants"
+        android:background="@color/MetalBackground"
+        android:backgroundTint="#000055" />
 
-        <NumberPicker
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/thickness_picker"
-            android:descendantFocusability="blocksDescendants"
-            android:background="@color/MetalBackground"
-            android:backgroundTint="#000055" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="New Button"
+        android:id="@+id/hidden_button"
+        android:alpha="0"
+        android:layout_gravity="center" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="New Button"
-            android:id="@+id/hidden_button"
-            android:alpha="0"
-            android:layout_gravity="center" />
 
-    </FrameLayout>
-
-</LinearLayout>
+</FrameLayout>

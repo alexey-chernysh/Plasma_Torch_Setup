@@ -6,17 +6,12 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
 public class ThicknessPickerDialog extends Activity {
-
-    private final static String LOG_TAG = "Thickness picker:";
 
     private MaterialThickness materialThickness;
 
