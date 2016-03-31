@@ -15,31 +15,27 @@
     android:textColor="@color/EditText"
     tools:context=".ThicknessPickerDialog">
 
-    <NumberPicker
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/thickness_picker"
-        android:clickable="true"
-        android:descendantFocusability="blocksDescendants"/>
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/thickness_picker"
+            android:descendantFocusability="blocksDescendants"
+            android:background="@color/MetalBackground"
+            android:backgroundTint="#000055" />
 
         <Button
-            style="@style/ButtonStyle"
-            android:text="Cancel"
-            android:id="@+id/buttonCancel"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="New Button"
+            android:id="@+id/hidden_button"
+            android:alpha="0"
+            android:layout_gravity="center" />
 
-        <Button
-            style="@style/ButtonStyle"
-            android:text="OK"
-            android:id="@+id/buttonOK"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
