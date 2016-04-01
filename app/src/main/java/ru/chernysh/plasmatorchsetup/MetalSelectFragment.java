@@ -54,7 +54,8 @@ public class MetalSelectFragment extends Fragment {
         materialThicknessText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity activity = getActivity();
+                CuttingChartActivity activity = (CuttingChartActivity)getActivity();
+                activity.cancelMetalTimer();
                 Intent intent = new Intent(activity, ThicknessPickerDialog.class);
                 startActivityForResult(intent,1);
             }
@@ -65,5 +66,7 @@ public class MetalSelectFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         initSpinners(fragmentView);
         fragmentView.invalidate();
+        CuttingChartActivity activity = (CuttingChartActivity)getActivity();
+        activity.startMetalTimer();
     }
 }

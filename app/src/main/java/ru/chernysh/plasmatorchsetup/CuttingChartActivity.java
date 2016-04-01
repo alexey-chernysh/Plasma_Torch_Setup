@@ -3,11 +3,10 @@ package ru.chernysh.plasmatorchsetup;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 public class CuttingChartActivity extends Activity implements View.OnClickListener, ChartFragmentCommunicator, MetalFragmentCommunicator {
 
@@ -15,6 +14,8 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
 
     private boolean powerSupplyFragExpanded = false;
     private boolean metalFragExpanded = false;
+    private CountDownTimer PSUTimer;
+    private CountDownTimer MetalTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +34,23 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
         ft.commit();
 
+        PSUTimer = new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                squeezePowerSupplyFrag();
+            }
+        };
+        MetalTimer = new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                squeezeMetalFrag();
+            }
+        };
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
+   @Override
     public void onClick(View v) {
         int viewId = v.getId();
         switch (viewId){
@@ -71,6 +81,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         ft.replace(R.id.power_supply_placeholder, new PowerSupplySelectFragment());
         ft.commit();
         powerSupplyFragExpanded = true;
+        if(PSUTimer != null) PSUTimer.start();
     }
 
     private void squeezePowerSupplyFrag(){
@@ -78,6 +89,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
         ft.commit();
         powerSupplyFragExpanded = false;
+        if(PSUTimer != null) PSUTimer.cancel();
     }
 
     private void expandMetalFrag(){
@@ -85,6 +97,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         ft.replace(R.id.metal_placeholder, new MetalSelectFragment());
         ft.commit();
         metalFragExpanded = true;
+        startMetalTimer();
     }
 
     private void squeezeMetalFrag(){
@@ -92,6 +105,15 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
         ft.commit();
         metalFragExpanded = false;
+        cancelMetalTimer();
+    }
+
+    public void startMetalTimer(){
+        if(MetalTimer != null) MetalTimer.start();
+    }
+
+    public void cancelMetalTimer(){
+        if(MetalTimer != null) MetalTimer.cancel();
     }
 
     @Override
@@ -99,13 +121,11 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         CuttingChartFragment cuttingChartFragment = (CuttingChartFragment)getFragmentManager().findFragmentById(R.id.cutting_chart_placeholder);
         if(cuttingChartFragment != null) {
             cuttingChartFragment.update();
-//            Toast.makeText(this, "Cutting chart updated!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void updateThickness() {
-        expandMetalFrag();
         updateChart();
     }
 }
