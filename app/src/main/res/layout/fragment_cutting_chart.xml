@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cutting_chart_fragment" >
+    android:id="@+id/cutting_chart_fragment"
     tools:context="ru.chernysh.plasmatorchsetup.CuttingChartFragment">
 
     <ScrollView
@@ -26,7 +26,8 @@
                 android:id="@+id/plasma_setting_table">
                 <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    style="@style/TableItemStyle"/>
             </TableLayout>
 
         </HorizontalScrollView>

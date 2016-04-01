@@ -6,9 +6,11 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -50,12 +52,13 @@ public class CuttingChart {
         for (CuttingChartColumn column: columns_) {
             TextView columnHeader = new TextView(context_);
             columnHeader.setText(column.getHeader());
+            columnHeader.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableHeaderBackground));
+            columnHeader.setTextColor(ContextCompat.getColor(context_, R.color.HeaderText));
             int columnNum = columns_.indexOf(column);
             headerRow.addView(columnHeader, columnNum);
         }
 
         // add row to layout
-        headerRow.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
         table_.addView(headerRow);
     }
 
@@ -73,6 +76,10 @@ public class CuttingChart {
                 TextView dataCell = new TextView(context_);
                 dataCell.setText(column.getData(i));
                 int columnNum = columns_.indexOf(column);
+                dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
+                dataCell.setTextColor(ContextCompat.getColor(context_, R.color.EditText));
+                if((columnNum % 2) > 0)dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemOddBackground));
+                else dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
                 dataRow.addView(dataCell, columnNum);
             }
 

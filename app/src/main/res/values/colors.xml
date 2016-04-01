@@ -6,7 +6,10 @@
 
 <resources>
     <color name="PSUBackground">#FF000077</color>
-    <color name="MetalBackground">#FF0000AA</color>
+    <color name="MetalBackground">#FF000099</color>
+    <color name="TableHeaderBackground">#FF0000BB</color>
+    <color name="TableItemOddBackground">#FFCCCCFF</color>
+    <color name="TableItemEvenBackground">#FFAAAAFF</color>
     <color name="EditBackground">#FFFFFFFF</color>
     <color name="HeaderText">#FFEEEEFF</color>
     <color name="EditText">#FF000099</color>
