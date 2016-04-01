@@ -57,15 +57,15 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
             case R.id.power_supply_placeholder:
                 if(powerSupplyFragExpanded) squeezePowerSupplyFrag();
                 else {
-                    expandPowerSupplyFrag();
                     squeezeMetalFrag();
+                    expandPowerSupplyFrag();
                 }
                 break;
             case R.id.metal_placeholder:
                 if(metalFragExpanded) squeezeMetalFrag();
                 else {
-                    expandMetalFrag();
                     squeezePowerSupplyFrag();
+                    expandMetalFrag();
                 }
                 break;
             case R.id.cutting_chart_placeholder:

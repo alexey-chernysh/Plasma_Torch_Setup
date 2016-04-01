@@ -11,16 +11,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/HeaderText</item>
+        <item name="android:divider">@color/HeaderText</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
     </style>
 
     <style name="PSUHeaderTemplate" parent ="@style/PlaceholderTemplate">
         <item name="android:background">@color/PSUBackground</item>
-        <item name="android:textColor">@color/HeaderText</item>
     </style>
 
     <style name="MetalHeaderTemplate" parent ="@style/PlaceholderTemplate">
         <item name="android:background">@color/MetalBackground</item>
-        <item name="android:textColor">@color/HeaderText</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.DeviceDefault.Large">
@@ -34,21 +35,16 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">4dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:background">@color/EditBackground</item>
         <item name="android:textColor">@color/EditText</item>
-    </style>
-
-    <style name="TableItemStyle" >
-        <item name="android:padding">4dp</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
     </style>
 
     <style name="SpinnerItem">
         <item name="android:textColor">@color/EditText</item>
         <item name="android:background">@color/EditBackground</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">

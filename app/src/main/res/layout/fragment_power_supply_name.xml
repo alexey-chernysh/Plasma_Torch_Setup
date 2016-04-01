@@ -14,7 +14,8 @@
     <TextView
         style="@style/HeaderText"
         android:text="@string/brand_title"
-        android:id="@+id/PSUNameText" />
+        android:id="@+id/PSUNameText"
+        android:textSize="@dimen/header_font_size"  />
 
 </LinearLayout>
 
