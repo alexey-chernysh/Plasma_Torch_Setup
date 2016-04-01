@@ -6,11 +6,10 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -55,7 +54,7 @@ public class CuttingChart {
             columnHeader.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableHeaderBackground));
             columnHeader.setTextColor(ContextCompat.getColor(context_, R.color.HeaderText));
             int columnNum = columns_.indexOf(column);
-            headerRow.addView(columnHeader, columnNum);
+            headerRow.addView(columnHeader, columnNum, lp);
         }
 
         // add row to layout
@@ -84,7 +83,6 @@ public class CuttingChart {
             }
 
             // add row to layout
-            dataRow.setBackgroundColor(Color.parseColor("#FFFFFFDD"));
             table_.addView(dataRow);
         }
     }
