@@ -41,15 +41,16 @@
     <string name="series_table">series</string>
     <string name="model_table">model</string>
     <string name="material_table">material</string>
-    <string name="cutting_voltage_header">Cutting voltage</string>
-    <string name="cutting_height_header">Cutting height</string>
     <string name="settings_table">settings</string>
     <string name="process_usage_table">process_usage</string>
     <string name="process_table">process</string>
     <string name="units_table">units</string>
-    <string name="english_language">en</string>
     <string name="purpose_table">purpose</string>
+    <!--
+        6. main tables column names
+    -->
     <string name="current_column_name">current</string>
+    <string name="cut_speed_column_name">cut_speed</string>
     <string name="arc_voltage_column_name">voltage</string>
     <string name="arc_height_column_name">torch_to_work_distance</string>
     <string name="pierce_height_column_name">initial_pierce_height</string>
@@ -57,11 +58,12 @@
     <string name="kerf_offset_column_name">kerf_width_compensation</string>
     <string name="material_thickness_units">mm</string>
     <string name="thickness_column_name">thickness</string>
-    <string name="mm">mm</string>
-    <string name="placeholder" />
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scale_column_name">scale</string>
+    <!--
+        7. service names
+    -->
     <string name="float_null">0.0</string>
-    <string name="cut_speed_column_name">cut_speed</string>
+    <string name="english_language">en</string>
+    <string name="action_settings">settings</string>
+
 </resources>

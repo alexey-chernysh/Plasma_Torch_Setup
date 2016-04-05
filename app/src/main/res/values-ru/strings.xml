@@ -11,31 +11,21 @@
     <!--
         Resource titles
     -->
-    <string name="please_select_prompt">Выбирете…</string>
-    <string name="brand_title">Брэнд:</string>
-    <string name="series_title">Серия:</string>
-    <string name="model_title">Модель:</string>
-    <string name="material_title">Материал:</string>
-    <string name="material_thickness_title">Толщина:</string>
-    <string name="material_thickness_units">мм</string>
-    <string name="equipment_title">Оборудование</string>
-    <string name="metal_title">Металл</string>
-    <string name="settings_title">Установки</string>
-    <string name="title_activity_number_picker">Толщина материала</string>
+    <string name="title_activity_number_picker">Толщина материала, </string>
 
     <!--
         Table headers
     -->
-    <string name="thickness_header">Толщина\nмм</string>
-    <string name="arc_voltage_header">Напряжение\nдуги\nВ</string>
-    <string name="arc_height_header">Высота\nдуги\nмм</string>
-    <string name="pierce_time_header">Время\nпрожига\nсек</string>
-    <string name="pierce_height_header">Высота\nпрожига\nмм</string>
-    <string name="current_header">Ток\nрезки\nА</string>
+    <string name="thickness_header">Толщина \n мм</string>
+    <string name="arc_voltage_header">Напряжение \n дуги\nВ</string>
+    <string name="arc_height_header">Высота \n дуги \n мм</string>
+    <string name="pierce_time_header">Время \n прожига \n сек</string>
+    <string name="pierce_height_header">Высота \n прожига \n мм</string>
+    <string name="current_header">Ток \n резки \n А</string>
     <string name="system_header">Система</string>
     <string name="process_header">Процесс</string>
     <string name="purpose_header">Назначение</string>
-    <string name="kerf_offset_header">Компенсация\nмм</string>
-    <string name="cut_speed_header">Скорость\nрезки\nмм/мин</string>
+    <string name="kerf_offset_header">Компенсация \n мм</string>
+    <string name="cut_speed_header">Скорость \n резки \n мм/мин</string>
 
 </resources>

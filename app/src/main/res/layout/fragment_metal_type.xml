@@ -13,7 +13,6 @@
 
     <TextView
         style="@style/HeaderText"
-        android:text="@string/metal_title"
         android:id="@+id/metalTypeText"
         android:textSize="@dimen/header_font_size" />
 

@@ -55,7 +55,7 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
 
         int unitsSelected = (new StoredKey(pref + unitsTableName)).get();
         if(unitsSelected == 0){
-            // // TODO: 05.04.2016 u need get cuttent units by location
+            // // TODO: 05.04.2016 i need to get current units by location
             unitsSelected = 1;
         }
         TableWithSpinner units = new TableWithSpinner(parentView,

@@ -81,11 +81,10 @@ public class TableWithSpinner {
                     if (lower_level_ != null)
                         if(lower_level_.getFilterKey() != selectedKey_)
                             lower_level_.updateList(selectedKey_);
-                    ((ChartFragmentCommunicator)parentActivity_).updateChart();
+                    parentActivity_.updateChart();
                 }
             }
         });
-        spinner.setPrompt(App.getResourceString(R.string.please_select_prompt));
     }
 
 

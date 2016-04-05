@@ -11,34 +11,25 @@
     <!--
         Resource titles
     -->
-    <string name="action_settings">Settings</string>
-    <string name="brand_title">Brand:</string>
-    <string name="series_title">Series:</string>
-    <string name="model_title">Model:</string>
-    <string name="material_title">Material:</string>
-    <string name="please_select_prompt">Please select…</string>
-    <string name="material_thickness_title">Thickness:</string>
-    <string name="material_thickness_units">inches </string>
-    <string name="equipment_title">Equipment</string>
-    <string name="metal_title">Metal</string>
-    <string name="settings_title">Settings</string>
-    <string name="title_activity_number_picker">Material thickness</string>
+    <string name="title_activity_number_picker">Thickness, </string>
 
     <!--
         Table headers
     -->
     <string name="thickness_header">Thickness</string>
-    <string name="cutting_speed_header">Cutting speed</string>
-    <string name="arc_voltage_header">Arc voltage</string>
-    <string name="arc_height_header">Arc height</string>
-    <string name="pierce_time_header">Pierce time</string>
-    <string name="pierce_height_header">Pierce height</string>
+    <string name="cutting_speed_header">Cutting \n speed</string>
+    <string name="arc_voltage_header">Arc \n voltage</string>
+    <string name="arc_height_header">Arc \n height</string>
+    <string name="pierce_time_header">Pierce \n time</string>
+    <string name="pierce_height_header">Pierce \n height</string>
     <string name="current_header">Current</string>
     <string name="system_header">System</string>
     <string name="process_header">Process</string>
     <string name="purpose_header">Purpose</string>
-    <string name="kerf_offset_header">Kerf offset</string>
-    <string name="cut_speed_header">Cutting speed</string>
+    <string name="kerf_offset_header">Kerf \n offset</string>
+    <string name="cut_speed_header">Cutting \n speed</string>
+    <string name="cutting_voltage_header">Cutting \n voltage</string>
+    <string name="cutting_height_header">Cutting \n height</string>
 
     <!--
         Messages
