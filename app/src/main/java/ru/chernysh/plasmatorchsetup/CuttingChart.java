@@ -26,16 +26,16 @@ public class CuttingChart {
         context_ = context;
         
         columns_ = new ArrayList<>();
-        columns_.add(new CuttingChartColumn(R.string.thickness_header, R.string.thickness_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.process_header, R.string.process_table, true));
-        columns_.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.purpose_header, R.string.purpose_table, true));
-        columns_.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.arc_voltage_header, R.string.arc_voltage_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.arc_height_header, R.string.arc_height_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.pierce_height_header, R.string.pierce_height_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.pierce_time_header, R.string.pierce_time_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.kerf_offset_header, R.string.kerf_offset_column_name, false));
+        columns_.add(new CuttingChartColumn(R.string.thickness_header, R.string.thickness_column_name, false, true));
+        columns_.add(new CuttingChartColumn(R.string.process_header, R.string.process_table, true, false));
+        columns_.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name, false, false));
+        columns_.add(new CuttingChartColumn(R.string.purpose_header, R.string.purpose_table, true, false));
+        columns_.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name, false, true));
+        columns_.add(new CuttingChartColumn(R.string.arc_voltage_header, R.string.arc_voltage_column_name, false, false));
+        columns_.add(new CuttingChartColumn(R.string.arc_height_header, R.string.arc_height_column_name, false, true));
+        columns_.add(new CuttingChartColumn(R.string.pierce_height_header, R.string.pierce_height_column_name, false, true));
+        columns_.add(new CuttingChartColumn(R.string.pierce_time_header, R.string.pierce_time_column_name, false, false));
+        columns_.add(new CuttingChartColumn(R.string.kerf_offset_header, R.string.kerf_offset_column_name, false, true));
     }
     
     public void fillHeaderView(){

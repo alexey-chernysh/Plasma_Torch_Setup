@@ -12,21 +12,22 @@ import java.util.ArrayList;
 public class CuttingChartColumn {
 
     private final String header;
+    private final String dbAccessName;
+    private ArrayList<String> data;
+    private int queryIndex = -1;
+    private final boolean externalKey;
+    private final boolean needToScale;
 
     public String getTableName() {
         return dbAccessName;
     }
 
-    private final String dbAccessName;
-    private ArrayList<String> data;
-    private int queryIndex = -1;
-    private final boolean externalKey;
-
-    public CuttingChartColumn(int headerStringId, int columnHeaderId, boolean exKey){
-        header = App.getResourceString(headerStringId);
-        dbAccessName = App.getResourceString(columnHeaderId);
-        externalKey = exKey;
-        data = new ArrayList<>();
+    public CuttingChartColumn(int headerStringId, int columnHeaderId, boolean exKey, boolean needToScale){
+        this.needToScale = needToScale;
+        this.header = App.getResourceString(headerStringId);
+        this.dbAccessName = App.getResourceString(columnHeaderId);
+        this.externalKey = exKey;
+        this.data = new ArrayList<>();
     }
 
     public void setData(int recordNum, double value){
@@ -63,5 +64,4 @@ public class CuttingChartColumn {
     public boolean isExternalKey() {
         return externalKey;
     }
-
 }
