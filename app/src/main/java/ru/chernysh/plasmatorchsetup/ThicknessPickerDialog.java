@@ -20,6 +20,8 @@ public class ThicknessPickerDialog extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thickness_picker);
 
+        this.setTitle(App.getResourceString(R.string.title_activity_number_picker));
+
         NumberPicker np = (NumberPicker)findViewById(R.id.thickness_picker);
         materialThickness = MaterialThickness.getInstance();
 
