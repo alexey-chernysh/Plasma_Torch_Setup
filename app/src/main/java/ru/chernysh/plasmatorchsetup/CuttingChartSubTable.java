@@ -7,13 +7,12 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 public class CuttingChartSubTable {
 
-    private final static String LOG_TAG = "SubTable:";
+//    private final static String LOG_TAG = "SubTable:";
 
     private int nOfRows = 0;
     private Object[][] dataBuffer;
@@ -69,7 +68,7 @@ public class CuttingChartSubTable {
                             column.setData(pos, name);
                         } else {
                             if(k>0){
-                                double data = getValueForThickness(thickness, dataBuffer[k], dataBuffer[0]);
+                                double data = getValueForThickness(thickness, dataBuffer[k], dataBuffer[0], column.needToScale);
 //                                Log.d(LOG_TAG, "Double value found = " + data);
                                 column.setData(pos, data);
                             } else {
@@ -84,7 +83,8 @@ public class CuttingChartSubTable {
 
     private double getValueForThickness(double thickness,
                                         Object[] valueVector,
-                                        Object[] thicknessVector) {
+                                        Object[] thicknessVector,
+                                        boolean needToScale) {
         int N = thicknessVector.length;
 
         int index1 = 0;
@@ -120,6 +120,9 @@ public class CuttingChartSubTable {
         if(value1 <= 0.0) return 0.0;
         if(value2 <= 0.0) return 0.0;
         if(thickness2 == thickness1) return value1;
-        return value1 + (value2 - value1)*(thickness - thickness1)/(thickness2 - thickness1);
+        double averageValue = value1 + (value2 - value1)*(thickness - thickness1)/(thickness2 - thickness1);
+        if(needToScale) averageValue /= MeasurementUnits.getCurrentScale();
+        int tmp = (int)(averageValue*1000.0);
+        return tmp/1000.0;
     }
 }

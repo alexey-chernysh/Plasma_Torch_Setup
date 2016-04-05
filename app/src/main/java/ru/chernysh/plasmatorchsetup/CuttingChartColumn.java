@@ -16,7 +16,7 @@ public class CuttingChartColumn {
     private ArrayList<String> data;
     private int queryIndex = -1;
     private final boolean externalKey;
-    private final boolean needToScale;
+    public final boolean needToScale;
 
     public String getTableName() {
         return dbAccessName;
