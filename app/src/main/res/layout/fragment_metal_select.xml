@@ -20,10 +20,9 @@
         android:id="@+id/material_thickness"
         android:clickable="true"/>
 
-    <TextView
+    <Spinner
         style="@style/SpinnerText"
-        android:id="@+id/material_thickness_units"
-        android:clickable="true"/>
+        android:id="@+id/units_name_spinner"/>
 
 </LinearLayout>
 

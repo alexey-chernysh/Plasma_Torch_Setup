@@ -5,7 +5,6 @@
 
 package ru.chernysh.plasmatorchsetup;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MetalSelectFragment extends Fragment {
+public class MetalSelectFragment extends Fragment implements View.OnClickListener {
 
     final String LOG_TAG = "Metal Select: ";
 
@@ -40,6 +39,7 @@ public class MetalSelectFragment extends Fragment {
     private void initSpinners(View parentView) {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
+        final String unitsTableName = getString(R.string.units_table);
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
@@ -51,15 +51,17 @@ public class MetalSelectFragment extends Fragment {
         final TextView materialThicknessText = (TextView)parentView.findViewById(R.id.material_thickness);
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
         materialThicknessText.setText(thicknessString);
-        materialThicknessText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CuttingChartActivity activity = (CuttingChartActivity)getActivity();
-                activity.cancelMetalTimer();
-                Intent intent = new Intent(activity, ThicknessPickerDialog.class);
-                startActivityForResult(intent,1);
-            }
-        });
+        materialThicknessText.setOnClickListener(this);
+
+        int unitsSelected = (new StoredKey(pref + unitsTableName)).get();
+        if(unitsSelected == 0){
+            // // TODO: 05.04.2016 u need get cuttent units by location
+            unitsSelected = 1;
+        }
+        TableWithSpinner units = new TableWithSpinner(parentView,
+                                                      unitsTableName,
+                                                      R.id.units_name_spinner);
+        units.setSelected(unitsSelected);
     }
 
     @Override
@@ -68,5 +70,13 @@ public class MetalSelectFragment extends Fragment {
         fragmentView.invalidate();
         CuttingChartActivity activity = (CuttingChartActivity)getActivity();
         activity.startMetalTimer();
+    }
+
+    @Override
+    public void onClick(View v) {
+        CuttingChartActivity activity = (CuttingChartActivity)getActivity();
+        activity.cancelMetalTimer();
+        Intent intent = new Intent(activity, ThicknessPickerDialog.class);
+        startActivityForResult(intent,1);
     }
 }

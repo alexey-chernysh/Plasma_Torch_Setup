@@ -46,6 +46,7 @@
     <string name="settings_table">settings</string>
     <string name="process_usage_table">process_usage</string>
     <string name="process_table">process</string>
+    <string name="units_table">units</string>
     <string name="english_language">en</string>
     <string name="purpose_table">purpose</string>
     <string name="current_column_name">current</string>
