@@ -26,17 +26,16 @@
     <!--
         Table headers
     -->
-    <string name="thickness_header">Толщина</string>
-    <string name="cutting_speed_header">Скорость резки</string>
-    <string name="arc_voltage_header">Напряжение дуги</string>
-    <string name="arc_height_header">Высота дуги</string>
-    <string name="pierce_time_header">Время прожига</string>
-    <string name="pierce_height_header">Высота прожига</string>
-    <string name="current_header">Ток резки</string>
+    <string name="thickness_header">Толщина\nмм</string>
+    <string name="arc_voltage_header">Напряжение\nдуги\nВ</string>
+    <string name="arc_height_header">Высота\nдуги\nмм</string>
+    <string name="pierce_time_header">Время\nпрожига\nсек</string>
+    <string name="pierce_height_header">Высота\nпрожига\nмм</string>
+    <string name="current_header">Ток\nрезки\nА</string>
     <string name="system_header">Система</string>
     <string name="process_header">Процесс</string>
     <string name="purpose_header">Назначение</string>
-    <string name="kerf_offset_header">Компенсация</string>
-    <string name="cut_speed_header">Скорость резки</string>
+    <string name="kerf_offset_header">Компенсация\nмм</string>
+    <string name="cut_speed_header">Скорость\nрезки\nмм/мин</string>
 
 </resources>

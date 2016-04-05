@@ -7,7 +7,8 @@
 <resources>
     <color name="PSUBackground">#FF000077</color>
     <color name="MetalBackground">#FF000099</color>
-    <color name="TableHeaderBackground">#FF0000BB</color>
+    <color name="TableHeaderOddBackground">#FF5555BB</color>
+    <color name="TableHeaderEvenBackground">#FF0000BB</color>
     <color name="TableItemOddBackground">#FFCCCCFF</color>
     <color name="TableItemEvenBackground">#FFAAAAFF</color>
     <color name="EditBackground">#FFFFFFFF</color>

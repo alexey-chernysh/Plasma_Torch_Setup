@@ -9,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.ContextCompat;
-import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,9 +30,9 @@ public class CuttingChart {
         columns_.add(new CuttingChartColumn(R.string.process_header, R.string.process_table, true));
         columns_.add(new CuttingChartColumn(R.string.current_header, R.string.current_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.purpose_header, R.string.purpose_table, true));
+        columns_.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.arc_voltage_header, R.string.arc_voltage_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.arc_height_header, R.string.arc_height_column_name, false));
-        columns_.add(new CuttingChartColumn(R.string.cut_speed_header, R.string.cut_speed_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.pierce_height_header, R.string.pierce_height_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.pierce_time_header, R.string.pierce_time_column_name, false));
         columns_.add(new CuttingChartColumn(R.string.kerf_offset_header, R.string.kerf_offset_column_name, false));
@@ -44,25 +43,29 @@ public class CuttingChart {
         table_.removeAllViews();
         // create header row
         TableRow headerRow = new TableRow(context_);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        headerRow.setLayoutParams(lp);
 
         // fill header row
         for (CuttingChartColumn column: columns_) {
-            TextView columnHeader = new TextView(context_);
-            columnHeader.setText(column.getHeader());
-            columnHeader.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableHeaderBackground));
-            columnHeader.setTextColor(ContextCompat.getColor(context_, R.color.HeaderText));
             int columnNum = columns_.indexOf(column);
-            headerRow.addView(columnHeader, columnNum, lp);
+            if(columnNum > 0) { // hide thickness column
+                TextView columnHeader = new TextView(context_);
+                columnHeader.setText(column.getHeader());
+                columnHeader.setTextColor(ContextCompat.getColor(context_, R.color.HeaderText));
+                columnHeader.setTextSize(14);
+                columnHeader.setLines(3);
+                columnHeader.setPadding(4,4,4,4);
+                if((columnNum % 2) > 0)columnHeader.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableHeaderOddBackground));
+                else columnHeader.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableHeaderEvenBackground));
+                headerRow.addView(columnHeader, columnNum-1);
+            }
         }
 
         // add row to layout
         table_.addView(headerRow);
     }
 
-    public void fillContentView() {
-        //get row number
+        public void fillContentView() {
+            //get row number
         int rowNumber = columns_.get(0).getDataLength();
         //create & fill data rows
         for(int i=0; i<rowNumber; i++){
@@ -72,14 +75,18 @@ public class CuttingChart {
 
             // fill header row
             for (CuttingChartColumn column: columns_) {
-                TextView dataCell = new TextView(context_);
-                dataCell.setText(column.getData(i));
                 int columnNum = columns_.indexOf(column);
-                dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
-                dataCell.setTextColor(ContextCompat.getColor(context_, R.color.EditText));
-                if((columnNum % 2) > 0)dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemOddBackground));
-                else dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
-                dataRow.addView(dataCell, columnNum);
+                if(columnNum > 0){ // hide thickness column
+                    TextView dataCell = new TextView(context_);
+                    CharSequence cellString = column.getData(i);
+                    dataCell.setLines(2);
+                    dataCell.setText(cellString);
+                    dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
+                    dataCell.setTextColor(ContextCompat.getColor(context_, R.color.EditText));
+                    if((columnNum % 2) > 0)dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemOddBackground));
+                    else dataCell.setBackgroundColor(ContextCompat.getColor(context_, R.color.TableItemEvenBackground));
+                    dataRow.addView(dataCell, columnNum-1);
+                }
             }
 
             // add row to layout
