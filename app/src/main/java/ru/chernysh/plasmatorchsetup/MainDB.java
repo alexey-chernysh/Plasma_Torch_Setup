@@ -18,16 +18,12 @@ public class MainDB {
 
     private MainDB() {
         Log.d(LOG_TAG, "Opening db...");
-        db = (new DataBaseHelper()).getWritableDatabase();
+        db = (new DataBaseHelper()).getReadableDatabase();
     }
 
-    public static MainDB getInstance(){
+    public static synchronized MainDB getInstance(){
         if(instance == null){
-            synchronized (MainDB.class) {
-                if(instance == null){
-                    instance = new MainDB();
-                }
-            }
+            instance = new MainDB();
         }
         return instance;
     }

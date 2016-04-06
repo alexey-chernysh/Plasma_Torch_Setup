@@ -112,7 +112,7 @@ public class CuttingChart {
 
     private int[] getProcessList(int inverter) {
 
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         String tableName = App.getResourceString(R.string.process_usage_table);
         String filter = DataBaseHelper.getFilterEqualTo(R.string.model_table, inverter);
         String process_column_header = App.getResourceString(R.string.process_table);
@@ -142,7 +142,7 @@ public class CuttingChart {
         if(processKey <= 0) return;
         String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
         // find all "purpose" cases
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         String tableName = App.getResourceString(R.string.settings_table);
         String filter = processFilter + " AND " + materialFilter;
         String purpose_column_name = App.getResourceString(R.string.purpose_table);

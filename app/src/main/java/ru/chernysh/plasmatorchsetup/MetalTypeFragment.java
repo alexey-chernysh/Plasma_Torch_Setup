@@ -38,11 +38,11 @@ public class MetalTypeFragment extends Fragment {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
 
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
-        String metalName = DataBaseHelper.getNameByKey(db, materialTableName, materialSelected);
+        String metalName = MainDB.getNameByKey(materialTableName, materialSelected);
         db.close();
 
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();

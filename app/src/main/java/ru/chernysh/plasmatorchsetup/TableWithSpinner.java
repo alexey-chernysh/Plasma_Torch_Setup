@@ -109,7 +109,7 @@ public class TableWithSpinner {
         }
 
         Log.d(LOG_TAG, "table name is " + table_name_ + "; filter string is " + filter + ";");
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         int nOfRows = cursor.getCount();
         if(nOfRows > 0){
@@ -150,7 +150,7 @@ public class TableWithSpinner {
         int selectedKey = this.getSelected();
         if(selectedKey == 0) return 0;
 
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         String filter = DataBaseHelper.getFilterEqualTo(R.string.key_field, selectedKey);
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         if (cursor.moveToFirst()) {

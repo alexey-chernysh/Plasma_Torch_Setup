@@ -31,22 +31,22 @@ public class PowerSupplyNameFragment extends Fragment {
 
         final String pref = getString(R.string.preference_);
 
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
 
         final String brandTableName = getString(R.string.brand_table);
         int brandSelected = (new StoredKey(pref + brandTableName)).get();
         if(brandSelected == 0) brandSelected = 1;
-        String brandName = DataBaseHelper.getNameByKey(db, brandTableName, brandSelected);
+        String brandName = MainDB.getNameByKey(brandTableName, brandSelected);
 
         final String seriesTableName = getString(R.string.series_table);
         int seriesSelected = (new StoredKey(pref + seriesTableName)).get();
         if(seriesSelected == 0) seriesSelected = 1;
-        String seriesName = DataBaseHelper.getNameByKey(db, seriesTableName, seriesSelected);
+        String seriesName = MainDB.getNameByKey(seriesTableName, seriesSelected);
 
         final String modelTableName = getString(R.string.model_table);
         int modelSelected = (new StoredKey(pref + modelTableName)).get();
         if(modelSelected == 0) modelSelected = 1;
-        String modelName = DataBaseHelper.getNameByKey(db, modelTableName, modelSelected);
+        String modelName = MainDB.getNameByKey(modelTableName, modelSelected);
 
         TextView modelView = (TextView)v.findViewById(R.id.PSUNameText);
         modelView.setText(brandName + " " + seriesName + " " + modelName);

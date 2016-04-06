@@ -141,19 +141,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return App.getResourceString(nameId) + "==" + value;
     }
 
-    public static String getNameByKey(SQLiteDatabase db, String tableName, int key) {
-        Cursor cursor = db.query(tableName, null, null, null, null, null, null);
-        int columnIndex = cursor.getColumnIndex(getNameColumnHeader(cursor));
-        String filter = App.getResourceString(R.string.key_field)
-                      + App.getResourceString(R.string.is_equal_to)
-                      + key;
-        cursor = db.query(tableName, null, filter, null, null, null, null);
-        String result = null;
-        if (cursor.moveToFirst()) result = cursor.getString(columnIndex);
-        cursor.close();
-        return result;
-    }
-
     public static String getStringByKey(SQLiteDatabase db, String tableName, String columnName, int key) {
         Cursor cursor = db.query(tableName, null, null, null, null, null, null);
         int columnIndex = cursor.getColumnIndex(columnName);

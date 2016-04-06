@@ -38,7 +38,7 @@ public class MaterialThickness {
     private void loadStringTables() {
         String filter = valueColumnHeader + " > 0.0";
         Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, valueColumnHeader);
         int tablesLength = cursor.getCount();
         if( tablesLength > 0 ){
@@ -72,14 +72,14 @@ public class MaterialThickness {
     }
 
     public String getCurrentThicknessName(){
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         String result= DataBaseHelper.getStringByKey(db, materialThickness, nameColumnHeader, getCurrentThicknessKey());
         db.close();
         return result;
     }
 
     public double getCurrentThicknessValue(){
-        SQLiteDatabase db = (new DataBaseHelper()).getWritableDatabase();
+        SQLiteDatabase db = MainDB.getInstance().getDb();
         String filter = App.getResourceString(R.string.key_field)
                 + App.getResourceString(R.string.is_equal_to)
                 + getCurrentThicknessKey();

@@ -38,7 +38,7 @@ public class CuttingChartSubTable {
                         int k = columns.indexOf(column);
                         if (column.isExternalKey()) {
                             int id = subTableCursor.getInt(column.getIndex());
-                            String name = DataBaseHelper.getNameByKey(db, column.getTableName(), id);
+                            String name = MainDB.getNameByKey(column.getTableName(), id);
                             dataBuffer[k][j] = name;
                         } else {
                             Double data = subTableCursor.getDouble(column.getIndex());
