@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2015. Alexey Chernysh? Krasnoyarsk, Russia
+  ~ Copyright (c) 2015. Alexey Chernysh, Krasnoyarsk, Russia
   ~ e-mail: ALEXEY DOT CHERNYSH AT GMAIL DOT COM.
   -->
 
@@ -23,10 +23,16 @@
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/plasma_setting_table">
+                android:id="@+id/plasma_setting_table"
+                android:divider="?android:attr/dividerHorizontal"
+                android:dividerPadding="1dp"
+                android:showDividers="middle">
                 <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:divider="?android:attr/dividerVertical"
+                    android:dividerPadding="1dp"
+                    android:showDividers="middle" />
             </TableLayout>
 
         </HorizontalScrollView>
