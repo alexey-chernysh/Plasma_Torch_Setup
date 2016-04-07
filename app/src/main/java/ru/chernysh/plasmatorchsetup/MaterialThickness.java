@@ -25,7 +25,7 @@ public class MaterialThickness {
 
     private static MaterialThickness ourInstance;
 
-    public static MaterialThickness getInstance() {
+    public static synchronized MaterialThickness getInstance() {
         if(ourInstance == null) ourInstance = new MaterialThickness();
         return ourInstance;
     }
@@ -74,7 +74,7 @@ public class MaterialThickness {
         return MainDB.getStringByKey(materialThickness, nameColumnHeader, getCurrentThicknessKey());
     }
 
-    public double getCurrentThicknessValue(){
+    public double getCurrentThicknessMM(){
         SQLiteDatabase db = MainDB.getInstance().getDb();
         String filter = App.getResourceString(R.string.key_field)
                 + App.getResourceString(R.string.is_equal_to)

@@ -101,7 +101,7 @@ public class CuttingChart {
 
         int modelKey = (new StoredKey(pref + modelTableName)).get();
         int materialKey = (new StoredKey(pref + materialTableName)).get();
-        double thickness = MaterialThickness.getInstance().getCurrentThicknessValue();
+        double thickness = MaterialThickness.getInstance().getCurrentThicknessMM();
 
         int[] processKey = getProcessList(modelKey);
         if(processKey != null){

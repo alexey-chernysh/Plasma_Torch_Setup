@@ -39,7 +39,6 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
     private void initSpinners(View parentView) {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
-        final String unitsTableName = getString(R.string.units_table);
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
@@ -53,15 +52,10 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         materialThicknessText.setText(thicknessString);
         materialThicknessText.setOnClickListener(this);
 
-        int unitsSelected = (new StoredKey(pref + unitsTableName)).get();
-        if(unitsSelected == 0){
-            // // TODO: 05.04.2016 i need to get current units by location
-            unitsSelected = 1;
-        }
         TableWithSpinner units = new TableWithSpinner(parentView,
-                                                      unitsTableName,
+                                                      getString(R.string.units_table),
                                                       R.id.units_name_spinner);
-        units.setSelected(unitsSelected);
+        units.setSelected(MeasurementUnits.getUnitsKey());
     }
 
     @Override
