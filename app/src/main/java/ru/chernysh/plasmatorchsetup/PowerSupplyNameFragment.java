@@ -51,8 +51,6 @@ public class PowerSupplyNameFragment extends Fragment {
         TextView modelView = (TextView)v.findViewById(R.id.PSUNameText);
         modelView.setText(brandName + " " + seriesName + " " + modelName);
 
-        db.close();
-
     }
 
 }

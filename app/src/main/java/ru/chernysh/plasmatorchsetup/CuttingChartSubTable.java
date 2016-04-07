@@ -24,7 +24,7 @@ public class CuttingChartSubTable {
                                 int purposeKey,
                                 ArrayList<CuttingChartColumn> col){
         columns = col;
-        String filterWithPurpose = filter + " AND " + DataBaseHelper.getFilterEqualTo(R.string.purpose_table, purposeKey);
+        String filterWithPurpose = filter + " AND " + MainDB.getFilterEqualTo(R.string.purpose_table, purposeKey);
         Cursor subTableCursor = db.query(settingTableName, null, filterWithPurpose, null, null, null, null);
         nOfRows = subTableCursor.getCount();
         if(nOfRows>0){

@@ -59,7 +59,6 @@ public class MaterialThickness {
             }
         }
         cursor.close();
-        db.close();
     }
 
     public int getCurrentThicknessKey(){
@@ -72,10 +71,7 @@ public class MaterialThickness {
     }
 
     public String getCurrentThicknessName(){
-        SQLiteDatabase db = MainDB.getInstance().getDb();
-        String result= DataBaseHelper.getStringByKey(db, materialThickness, nameColumnHeader, getCurrentThicknessKey());
-        db.close();
-        return result;
+        return MainDB.getStringByKey(materialThickness, nameColumnHeader, getCurrentThicknessKey());
     }
 
     public double getCurrentThicknessValue(){
@@ -88,7 +84,6 @@ public class MaterialThickness {
         int valueIndex = cursor.getColumnIndex(valueColumnHeader);
         if (cursor.moveToFirst()) result = cursor.getDouble(valueIndex);
         cursor.close();
-        db.close();
         return result;
     }
 

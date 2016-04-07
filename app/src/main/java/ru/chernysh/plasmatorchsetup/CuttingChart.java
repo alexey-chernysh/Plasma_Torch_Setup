@@ -114,7 +114,7 @@ public class CuttingChart {
 
         SQLiteDatabase db = MainDB.getInstance().getDb();
         String tableName = App.getResourceString(R.string.process_usage_table);
-        String filter = DataBaseHelper.getFilterEqualTo(R.string.model_table, inverter);
+        String filter = MainDB.getFilterEqualTo(R.string.model_table, inverter);
         String process_column_header = App.getResourceString(R.string.process_table);
         String[] columnList = {process_column_header};
         Cursor cursor = db.query(true, tableName, columnList, filter, null, null, null, process_column_header, null, null);
@@ -132,15 +132,14 @@ public class CuttingChart {
             }
         }
         cursor.close();
-        db.close();
         return result;
     }
 
     private void fillTableForProcess(int materialKey, int processKey, double thickness) {
         if(materialKey <= 0) return;
-        String materialFilter = DataBaseHelper.getFilterEqualTo(R.string.material_table, materialKey);
+        String materialFilter = MainDB.getFilterEqualTo(R.string.material_table, materialKey);
         if(processKey <= 0) return;
-        String processFilter = DataBaseHelper.getFilterEqualTo(R.string.process_table, processKey);
+        String processFilter = MainDB.getFilterEqualTo(R.string.process_table, processKey);
         // find all "purpose" cases
         SQLiteDatabase db = MainDB.getInstance().getDb();
         String tableName = App.getResourceString(R.string.settings_table);

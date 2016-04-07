@@ -130,7 +130,6 @@ public class TableWithSpinner {
             }
         }
         cursor.close();
-        db.close();
 
         adapter = new CustomAdapter(parentView_.getContext(), android.R.layout.simple_spinner_item, name, key);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -151,14 +150,13 @@ public class TableWithSpinner {
         if(selectedKey == 0) return 0;
 
         SQLiteDatabase db = MainDB.getInstance().getDb();
-        String filter = DataBaseHelper.getFilterEqualTo(R.string.key_field, selectedKey);
+        String filter = MainDB.getFilterEqualTo(R.string.key_field, selectedKey);
         Cursor cursor = db.query(table_name_, null, filter, null, null, null, null);
         if (cursor.moveToFirst()) {
             int index = cursor.getColumnIndex(filterColumnName);
             result = cursor.getInt(index);
         }
         cursor.close();
-        db.close();
         Log.d(LOG_TAG, "getFilterKey result = " + result + " for table " + table_name_ + " row with key =  " + selectedKey);
         return result;
     }

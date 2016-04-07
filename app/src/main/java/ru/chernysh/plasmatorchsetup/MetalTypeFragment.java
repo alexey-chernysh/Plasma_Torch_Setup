@@ -43,7 +43,6 @@ public class MetalTypeFragment extends Fragment {
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
         String metalName = MainDB.getNameByKey(materialTableName, materialSelected);
-        db.close();
 
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
 

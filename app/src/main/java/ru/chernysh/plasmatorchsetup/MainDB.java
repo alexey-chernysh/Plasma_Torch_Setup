@@ -64,4 +64,22 @@ public class MainDB {
         return result;
     }
 
+    public static String getStringByKey(String tableName, String columnName, int key) {
+        SQLiteDatabase db_ = MainDB.getInstance().getDb();
+        Cursor cursor = db_.query(tableName, null, null, null, null, null, null);
+        int columnIndex = cursor.getColumnIndex(columnName);
+        String filter = App.getResourceString(R.string.key_field)
+                + App.getResourceString(R.string.is_equal_to)
+                + key;
+        cursor = db_.query(tableName, null, filter, null, null, null, null);
+        String result = null;
+        if (cursor.moveToFirst()) result = cursor.getString(columnIndex);
+        cursor.close();
+        return result;
+    }
+
+    public static String getFilterEqualTo(int nameId, int value){
+        return App.getResourceString(nameId) + "==" + value;
+    }
+
 }
