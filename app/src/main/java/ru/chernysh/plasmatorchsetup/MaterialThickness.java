@@ -7,18 +7,17 @@ package ru.chernysh.plasmatorchsetup;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+//import android.util.Log;
 
 public class MaterialThickness {
 
-    private static final String LOG_TAG = "MaterialThickness: ";
+//    private static final String LOG_TAG = "MaterialThickness: ";
 
     private final String pref = App.getResourceString(R.string.preference_);
     private final String materialThickness = App.getResourceString(R.string.material_thickness);
     private final String nameColumnHeader = "name_metric";
     private final String valueColumnHeader = "value_in_mm";
 
-    private int    currentKey;
     public int    thicknessKey[]   = null;
     public String thicknessName[]  = null;
     public double thicknessValue[] = null;
@@ -31,13 +30,12 @@ public class MaterialThickness {
     }
 
     private MaterialThickness() {
-        currentKey = getCurrentThicknessKey();
         loadStringTables();
     }
 
     private void loadStringTables() {
         String filter = valueColumnHeader + " > 0.0";
-        Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
+//        Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
         SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, valueColumnHeader);
         int tablesLength = cursor.getCount();
@@ -53,7 +51,7 @@ public class MaterialThickness {
                     thicknessKey[i]   = cursor.getInt(keyIndex);
                     thicknessName[i]  = cursor.getString(nameIndex);
                     thicknessValue[i] = cursor.getDouble(valueIndex);
-                    Log.d(LOG_TAG, "record [" + i + "]: " + thicknessName[i] + " = " + thicknessValue[i] + "mm");
+//                    Log.d(LOG_TAG, "record [" + i + "]: " + thicknessName[i] + " = " + thicknessValue[i] + "mm");
                     cursor.moveToNext();
                 }
             }
