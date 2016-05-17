@@ -8,9 +8,6 @@ package ru.chernysh.plasmatorchsetup;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by Sales on 05.04.2016.
- */
 public class MeasurementUnits {
 
     final static String pref = App.getResourceString(R.string.preference_);

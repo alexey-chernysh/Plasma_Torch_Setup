@@ -16,14 +16,15 @@ public class CuttingChartColumn {
     private ArrayList<String> data;
     private int queryIndex = -1;
     private final boolean externalKey;
-    public final boolean needToScale;
+
+    private final boolean Scalable_;
 
     public String getTableName() {
         return dbAccessName;
     }
 
-    public CuttingChartColumn(int headerStringId, int columnHeaderId, boolean exKey, boolean needToScale){
-        this.needToScale = needToScale;
+    public CuttingChartColumn(int headerStringId, int columnHeaderId, boolean exKey, boolean Scalable){
+        this.Scalable_ = Scalable;
         this.header = App.getResourceString(headerStringId);
         this.dbAccessName = App.getResourceString(columnHeaderId);
         this.externalKey = exKey;
@@ -64,4 +65,7 @@ public class CuttingChartColumn {
     public boolean isExternalKey() {
         return externalKey;
     }
+
+    public boolean isScalable_() { return Scalable_; }
+
 }

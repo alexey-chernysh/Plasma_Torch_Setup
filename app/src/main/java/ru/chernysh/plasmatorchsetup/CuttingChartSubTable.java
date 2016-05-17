@@ -68,7 +68,7 @@ public class CuttingChartSubTable {
                             column.setData(pos, name);
                         } else {
                             if(k>0){
-                                double data = getValueForThickness(thickness, dataBuffer[k], dataBuffer[0], column.needToScale);
+                                double data = getValueForThickness(thickness, dataBuffer[k], dataBuffer[0], column.isScalable_());
 //                                Log.d(LOG_TAG, "Double value found = " + data);
                                 column.setData(pos, data);
                             } else {
