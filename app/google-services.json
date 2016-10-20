@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "376431237757",
+    "firebase_url": "https://plasma-cut-charts.firebaseio.com",
+    "project_id": "plasma-cut-charts",
+    "storage_bucket": "plasma-cut-charts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376431237757:android:4ed9e3ed54a55194",
+        "android_client_info": {
+          "package_name": "ru.chernysh.plasmatorchsetup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376431237757-ma5kd2babi1dbub9bgsrrcpkfvtq87d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
