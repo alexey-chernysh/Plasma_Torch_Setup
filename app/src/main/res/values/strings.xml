@@ -59,11 +59,35 @@
     <string name="material_thickness_units">mm</string>
     <string name="thickness_column_name">thickness</string>
     <string name="scale_column_name">scale</string>
+
     <!--
         7. service names
     -->
     <string name="float_null">0.0</string>
     <string name="english_language">en</string>
     <string name="action_settings">settings</string>
+
+    <!--
+        Resource titles
+    -->
+    <string name="title_activity_number_picker">Thickness, </string>
+
+    <!--
+        Table headers
+    -->
+    <string name="thickness_header">Thickness</string>
+    <string name="cutting_speed_header">Cutting \n speed</string>
+    <string name="arc_voltage_header">Arc \n voltage</string>
+    <string name="arc_height_header">Arc \n height</string>
+    <string name="pierce_time_header">Pierce \n time</string>
+    <string name="pierce_height_header">Pierce \n height</string>
+    <string name="current_header">Current</string>
+    <string name="system_header">System</string>
+    <string name="process_header">Process</string>
+    <string name="purpose_header">Purpose</string>
+    <string name="kerf_offset_header">Kerf \n offset</string>
+    <string name="cut_speed_header">Cutting \n speed</string>
+    <string name="cutting_voltage_header">Cutting \n voltage</string>
+    <string name="cutting_height_header">Cutting \n height</string>
 
 </resources>
