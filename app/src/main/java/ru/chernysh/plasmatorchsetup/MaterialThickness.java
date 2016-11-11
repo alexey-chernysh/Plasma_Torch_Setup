@@ -15,8 +15,9 @@ public class MaterialThickness {
 
     private final String pref = App.getResourceString(R.string.preference_);
     private final String materialThickness = App.getResourceString(R.string.material_thickness);
-    private final String nameColumnHeader = "name_metric";
-    private final String valueColumnHeader = "value_in_mm";
+    private final String nameColumnHeaderMetric = App.getResourceString(R.string.metric_column_name);
+    private final String nameColumnHeaderImperial = App.getResourceString(R.string.imperial_column_name);
+    private final String valueColumnHeader = App.getResourceString(R.string.thickness_value_column_name);
 
     public int    thicknessKey[]   = null;
     public String thicknessName[]  = null;
@@ -38,10 +39,13 @@ public class MaterialThickness {
 //        Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
         SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, valueColumnHeader);
+        String currentUnitHeader;
+        if(MeasurementUnits.getUnitsKey() == 1) currentUnitHeader = nameColumnHeaderMetric;
+        else currentUnitHeader = nameColumnHeaderImperial;
         int tablesLength = cursor.getCount();
         if( tablesLength > 0 ){
             int keyIndex   = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
-            int nameIndex  = cursor.getColumnIndex(nameColumnHeader);
+            int nameIndex  = cursor.getColumnIndex(currentUnitHeader);
             int valueIndex = cursor.getColumnIndex(valueColumnHeader);
             thicknessKey = new int[tablesLength];
             thicknessName = new String[tablesLength];
@@ -69,7 +73,7 @@ public class MaterialThickness {
     }
 
     public String getCurrentThicknessName(){
-        return MainDB.getStringByKey(materialThickness, nameColumnHeader, getCurrentThicknessKey());
+        return MainDB.getStringByKey(materialThickness, nameColumnHeaderMetric, getCurrentThicknessKey());
     }
 
     public double getCurrentThicknessMM(){

@@ -22,7 +22,7 @@ public class ThicknessPickerDialog extends Activity {
 
         this.setTitle(App.getResourceString(R.string.title_activity_number_picker)
                       + " "
-                      + MeasurementUnits.getCurrentName());
+                      + MeasurementUnits.getCurrentMetricSystemName());
 
         NumberPicker np = (NumberPicker)findViewById(R.id.thickness_picker);
         materialThickness = MaterialThickness.getInstance();

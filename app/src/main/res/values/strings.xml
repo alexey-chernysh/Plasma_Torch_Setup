@@ -44,7 +44,7 @@
     <string name="settings_table">settings</string>
     <string name="process_usage_table">process_usage</string>
     <string name="process_table">process</string>
-    <string name="units_table">units</string>
+    <string name="metric_system_table">metric_system</string>
     <string name="purpose_table">purpose</string>
     <!--
         6. main tables column names
@@ -59,6 +59,9 @@
     <string name="material_thickness_units">mm</string>
     <string name="thickness_column_name">thickness</string>
     <string name="scale_column_name">scale</string>
+    <string name="metric_column_name">name_metric</string>
+    <string name="imperial_column_name">name_imperial</string>
+    <string name="thickness_value_column_name">value_in_mm</string>
 
     <!--
         7. service names

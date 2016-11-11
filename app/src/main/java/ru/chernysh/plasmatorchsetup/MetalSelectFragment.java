@@ -53,7 +53,7 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         materialThicknessText.setOnClickListener(this);
 
         TableWithSpinner units = new TableWithSpinner(parentView,
-                                                      getString(R.string.units_table),
+                                                      getString(R.string.metric_system_table),
                                                       R.id.units_name_spinner);
         units.setSelected(MeasurementUnits.getUnitsKey());
     }

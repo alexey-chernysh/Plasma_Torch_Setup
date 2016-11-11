@@ -47,7 +47,7 @@ public class MetalTypeFragment extends Fragment {
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
 
         ((TextView)parentView.findViewById(R.id.metalTypeText))
-                .setText(metalName + " " + thicknessString + " " + MeasurementUnits.getCurrentName());
+                .setText(metalName + " " + thicknessString);
 
     }
 
