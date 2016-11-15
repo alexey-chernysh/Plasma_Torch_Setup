@@ -26,6 +26,7 @@ public class ThicknessPickerDialog extends Activity {
 
         NumberPicker np = (NumberPicker)findViewById(R.id.thickness_picker);
         materialThickness = MaterialThickness.getInstance();
+        materialThickness.loadStringTables();
 
         np.setMinValue(0);
         np.setMaxValue(materialThickness.thicknessName.length - 1);

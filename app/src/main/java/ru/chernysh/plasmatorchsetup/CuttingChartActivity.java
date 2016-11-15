@@ -78,34 +78,42 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
 
     private void expandPowerSupplyFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.power_supply_placeholder, new PowerSupplySelectFragment());
-        ft.commit();
-        powerSupplyFragExpanded = true;
-        if(PSUTimer != null) PSUTimer.start();
+        if(ft != null){
+            ft.replace(R.id.power_supply_placeholder, new PowerSupplySelectFragment());
+            ft.commit();
+            powerSupplyFragExpanded = true;
+            if(PSUTimer != null) PSUTimer.start();
+        }
     }
 
     private void squeezePowerSupplyFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
-        ft.commit();
-        powerSupplyFragExpanded = false;
-        if(PSUTimer != null) PSUTimer.cancel();
+        if(ft != null){
+            ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
+            ft.commit();
+            powerSupplyFragExpanded = false;
+            if(PSUTimer != null) PSUTimer.cancel();
+        }
     }
 
     private void expandMetalFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.metal_placeholder, new MetalSelectFragment());
-        ft.commit();
-        metalFragExpanded = true;
-        startMetalTimer();
+        if(ft != null){
+            ft.replace(R.id.metal_placeholder, new MetalSelectFragment());
+            ft.commit();
+            metalFragExpanded = true;
+            startMetalTimer();
+        }
     }
 
     private void squeezeMetalFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
-        ft.commit();
-        metalFragExpanded = false;
-        cancelMetalTimer();
+        if(ft != null){
+            ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
+            ft.commit();
+            metalFragExpanded = false;
+            cancelMetalTimer();
+        }
     }
 
     public void startMetalTimer(){

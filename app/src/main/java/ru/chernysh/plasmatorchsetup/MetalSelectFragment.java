@@ -60,6 +60,8 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        MaterialThickness materialThickness = MaterialThickness.getInstance();
+//        materialThickness.loadStringTables();
         initSpinners(fragmentView);
         fragmentView.invalidate();
         CuttingChartActivity activity = (CuttingChartActivity)getActivity();

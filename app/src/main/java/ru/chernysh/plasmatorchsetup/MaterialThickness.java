@@ -17,6 +17,7 @@ public class MaterialThickness {
     private final String materialThickness = App.getResourceString(R.string.material_thickness);
     private final String nameColumnHeaderMetric = App.getResourceString(R.string.metric_column_name);
     private final String nameColumnHeaderImperial = App.getResourceString(R.string.imperial_column_name);
+    private       String currentUnitHeader;
     private final String valueColumnHeader = App.getResourceString(R.string.thickness_value_column_name);
 
     public int    thicknessKey[]   = null;
@@ -34,12 +35,11 @@ public class MaterialThickness {
         loadStringTables();
     }
 
-    private void loadStringTables() {
+    public void loadStringTables() {
         String filter = valueColumnHeader + " > 0.0";
 //        Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
         SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, valueColumnHeader);
-        String currentUnitHeader;
         if(MeasurementUnits.getUnitsKey() == 1) currentUnitHeader = nameColumnHeaderMetric;
         else currentUnitHeader = nameColumnHeaderImperial;
         int tablesLength = cursor.getCount();
@@ -73,14 +73,14 @@ public class MaterialThickness {
     }
 
     public String getCurrentThicknessName(){
-        return MainDB.getStringByKey(materialThickness, nameColumnHeaderMetric, getCurrentThicknessKey());
+        return MainDB.getStringByKey(materialThickness, currentUnitHeader, getCurrentThicknessKey());
     }
 
     public double getCurrentThicknessMM(){
         SQLiteDatabase db = MainDB.getInstance().getDb();
         String filter = App.getResourceString(R.string.key_field)
-                + App.getResourceString(R.string.is_equal_to)
-                + getCurrentThicknessKey();
+                      + App.getResourceString(R.string.is_equal_to)
+                      + getCurrentThicknessKey();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, null);
         double result = 0.0;
         int valueIndex = cursor.getColumnIndex(valueColumnHeader);
