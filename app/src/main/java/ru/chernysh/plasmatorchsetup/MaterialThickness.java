@@ -37,11 +37,12 @@ public class MaterialThickness {
 
     public void loadStringTables() {
         String filter = valueColumnHeader + " > 0.0";
-//        Log.d(LOG_TAG, "table name is " + materialThickness + "; filter string is " + filter + ";");
         SQLiteDatabase db = MainDB.getInstance().getDb();
         Cursor cursor = db.query(materialThickness, null, filter, null, null, null, valueColumnHeader);
-        if(MeasurementUnits.getUnitsKey() == 1) currentUnitHeader = nameColumnHeaderMetric;
-        else currentUnitHeader = nameColumnHeaderImperial;
+        if(MeasurementUnits.getUnitsKey() == 1)
+            currentUnitHeader = nameColumnHeaderMetric;
+        else
+            currentUnitHeader = nameColumnHeaderImperial;
         int tablesLength = cursor.getCount();
         if( tablesLength > 0 ){
             int keyIndex   = cursor.getColumnIndex(App.getResourceString(R.string.key_field));
@@ -55,7 +56,6 @@ public class MaterialThickness {
                     thicknessKey[i]   = cursor.getInt(keyIndex);
                     thicknessName[i]  = cursor.getString(nameIndex);
                     thicknessValue[i] = cursor.getDouble(valueIndex);
-//                    Log.d(LOG_TAG, "record [" + i + "]: " + thicknessName[i] + " = " + thicknessValue[i] + "mm");
                     cursor.moveToNext();
                 }
             }
