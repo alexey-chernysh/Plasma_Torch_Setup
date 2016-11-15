@@ -6,7 +6,6 @@
 package ru.chernysh.plasmatorchsetup;
 
 import android.app.Fragment;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,16 +37,13 @@ public class MetalTypeFragment extends Fragment {
         final String pref = getString(R.string.preference_);
         final String materialTableName = getString(R.string.material_table);
 
-        SQLiteDatabase db = MainDB.getInstance().getDb();
-
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
         String metalName = MainDB.getNameByKey(materialTableName, materialSelected);
 
         String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
 
-        ((TextView)parentView.findViewById(R.id.metalTypeText))
-                .setText(metalName + " " + thicknessString);
+        ((TextView)parentView.findViewById(R.id.metalTypeText)).setText(metalName + " " + thicknessString);
 
     }
 

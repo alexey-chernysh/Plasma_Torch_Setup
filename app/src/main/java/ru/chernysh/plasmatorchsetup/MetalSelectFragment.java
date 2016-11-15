@@ -42,6 +42,8 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
 
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
+
+        MaterialThickness.getInstance().loadStringTables();
         TableWithSpinner material = new TableWithSpinner(parentView,
                                                          materialTableName,
                                                          R.id.material_name_spinner);
