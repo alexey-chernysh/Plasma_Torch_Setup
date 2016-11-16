@@ -27,5 +27,8 @@
     <string name="purpose_header">Назначение</string>
     <string name="kerf_offset_header">Компенсация \n мм</string>
     <string name="cut_speed_header">Скорость \n резки \n мм/мин</string>
+    <string name="mesurement_units">Единицы измерения</string>
+    <string name="metric">Миллиметры</string>
+    <string name="imperial">Дюймы</string>
 
 </resources>

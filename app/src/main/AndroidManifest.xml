@@ -27,9 +27,8 @@
         </activity>
         <activity
             android:name=".ThicknessPickerDialog"
-            android:theme="@style/AppTheme.Dialog"
-            android:label="@string/title_activity_number_picker">
-        </activity>
+            android:label="@string/title_activity_number_picker"
+            android:theme="@style/AppTheme.Dialog"></activity>
     </application>
 
 </manifest>

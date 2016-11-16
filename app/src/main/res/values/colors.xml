@@ -14,4 +14,6 @@
     <color name="EditBackground">#FFFFFFFF</color>
     <color name="HeaderText">#FFEEEEFF</color>
     <color name="EditText">#FF000099</color>
+    <color name="HighlightedButtonText">#FFFFFFFF</color>
+    <color name="NonHighlightedButtonText">#FF000000</color>
 </resources>

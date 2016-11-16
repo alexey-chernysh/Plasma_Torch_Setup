@@ -61,6 +61,9 @@
     <string name="scale_column_name">scale</string>
     <string name="metric_column_name">name_metric</string>
     <string name="imperial_column_name">name_imperial</string>
+    <string name="mesurement_units">Mesurement Units</string>
+    <string name="metric">Millimeters</string>
+    <string name="imperial">Inches/Gauges</string>
     <string name="thickness_value_column_name">value_in_mm</string>
 
     <!--

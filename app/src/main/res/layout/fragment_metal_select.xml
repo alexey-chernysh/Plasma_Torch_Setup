@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/materialSelectFragment"
-    tools:context="ru.chernysh.myapplication.MetalSelectFragment"
+    tools:context=".MetalSelectFragment"
     style="@style/MetalHeaderTemplate"
     android:orientation="vertical">
 
@@ -24,5 +24,24 @@
         style="@style/SpinnerText"
         android:id="@+id/units_name_spinner"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:text="@string/imperial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button1"
+            android:layout_weight="1"/>
+
+        <Button
+            android:text="@string/metric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>
 
