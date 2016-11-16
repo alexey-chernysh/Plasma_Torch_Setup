@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MetalTypeFragment extends Fragment {
+public class MetalNameFragment extends Fragment {
 
     final String LOG_TAG = "Metal Type: ";
 
-    public MetalTypeFragment() {
+    public MetalNameFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class MetalTypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(LOG_TAG, "onCreateView");
-        View v = inflater.inflate(R.layout.fragment_metal_type, container, false);
+        View v = inflater.inflate(R.layout.fragment_metal_name, container, false);
 
         initTexts(v);
 

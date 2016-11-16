@@ -31,7 +31,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.power_supply_placeholder, new PowerSupplyNameFragment());
-        ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
+        ft.replace(R.id.metal_placeholder, new MetalNameFragment());
         ft.commit();
 
         PSUTimer = new CountDownTimer(10000, 1000) {
@@ -109,7 +109,7 @@ public class CuttingChartActivity extends Activity implements View.OnClickListen
     private void squeezeMetalFrag(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if(ft != null){
-            ft.replace(R.id.metal_placeholder, new MetalTypeFragment());
+            ft.replace(R.id.metal_placeholder, new MetalNameFragment());
             ft.commit();
             metalFragExpanded = false;
             cancelMetalTimer();

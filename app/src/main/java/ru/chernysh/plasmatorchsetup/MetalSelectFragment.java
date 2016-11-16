@@ -43,14 +43,15 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         int materialSelected = (new StoredKey(pref + materialTableName)).get();
         if(materialSelected == 0) materialSelected = 1;
 
-        MaterialThickness.getInstance().loadStringTables();
         TableWithSpinner material = new TableWithSpinner(parentView,
                                                          materialTableName,
                                                          R.id.material_name_spinner);
         material.setSelected(materialSelected);
 
         final TextView materialThicknessText = (TextView)parentView.findViewById(R.id.material_thickness);
-        String thicknessString = MaterialThickness.getInstance().getCurrentThicknessName();
+        MaterialThickness materialThickness = MaterialThickness.getInstance();
+        materialThickness.loadStringTables();
+        String thicknessString = materialThickness.getCurrentThicknessName();
         materialThicknessText.setText(thicknessString);
         materialThicknessText.setOnClickListener(this);
 

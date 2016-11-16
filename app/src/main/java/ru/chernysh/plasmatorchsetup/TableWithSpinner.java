@@ -88,7 +88,7 @@ public class TableWithSpinner {
     }
 
 
-    public void updateList(){
+    private void updateList(){
         int filterColumnKey = this.getFilterKey();
         updateList(filterColumnKey);
     }
@@ -174,7 +174,7 @@ public class TableWithSpinner {
         Log.d(LOG_TAG, "setSelected in " + table_name_ + " spinner to key = " + keySelected + ", that associated with pos = " + pos + "," + name);
     }
 
-    public int getSelected() {
+    private int getSelected() {
         Spinner spinner = (Spinner)parentView_.findViewById(spinnerId_);
         int pos = spinner.getSelectedItemPosition();
         int result = adapter.getKey(pos);
