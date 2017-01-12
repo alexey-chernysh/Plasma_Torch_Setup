@@ -14,8 +14,8 @@ public class MeasurementUnits {
     final static String metricSystemTableName = App.getResourceString(R.string.metric_system_table);
 
     public static int getUnitsKey(){
-        StoredKey storeUnits = new StoredKey(pref + metricSystemTableName);
-        int unitsSelected = storeUnits.get();
+        final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
+        int unitsSelected = storedUnits.get();
         if(unitsSelected == 0){
             if(App.language.equals(App.getResourceString(R.string.english_language))){
                 // imperial system
@@ -24,7 +24,7 @@ public class MeasurementUnits {
                 // metric system
                 unitsSelected = 1;
             }
-            storeUnits.set(unitsSelected);
+            storedUnits.set(unitsSelected);
         }
         return unitsSelected;
     }
@@ -44,5 +44,15 @@ public class MeasurementUnits {
         if (cursor.moveToFirst()) result = cursor.getDouble(scaleIndex);
         cursor.close();
         return result;
+    }
+
+    public static void setMetricSystem(){
+        final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
+        storedUnits.set(1);
+    }
+
+    public static void setImperialSystem(){
+        final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
+        storedUnits.set(2);
     }
 }
