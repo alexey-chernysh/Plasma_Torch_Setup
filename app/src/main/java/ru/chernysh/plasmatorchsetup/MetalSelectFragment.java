@@ -12,13 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MetalSelectFragment extends Fragment implements View.OnClickListener {
+public class MetalSelectFragment extends Fragment {
 
     final String LOG_TAG = "Metal Select: ";
 
     private View fragmentView;
+    private Button buttonMetric;
+    private Button buttonImperial;
 
     public MetalSelectFragment() {
         // Required empty public constructor
@@ -32,8 +35,31 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         fragmentView = inflater.inflate(R.layout.fragment_metal_select, container, false);
 
         initSpinners(fragmentView);
-
+        buttonMetric = (Button)fragmentView.findViewById(R.id.buttonMetric);
+        buttonMetric.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMetric();
+            }
+        });
+        buttonImperial = (Button)fragmentView.findViewById(R.id.buttonImperial);
+        buttonImperial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setImperial();
+            }
+        });
         return fragmentView;
+    }
+
+    private void setMetric() {
+        MeasurementUnits.setMetricSystem();
+        fragmentView.invalidate();
+    }
+
+    private void setImperial() {
+        MeasurementUnits.setImperialSystem();
+        fragmentView.invalidate();
     }
 
     private void initSpinners(View parentView) {
@@ -53,7 +79,15 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         materialThickness.loadStringTables();
         String thicknessString = materialThickness.getCurrentThicknessName();
         materialThicknessText.setText(thicknessString);
-        materialThicknessText.setOnClickListener(this);
+        materialThicknessText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CuttingChartActivity activity = (CuttingChartActivity)getActivity();
+                activity.cancelMetalTimer();
+                Intent intent = new Intent(activity, ThicknessPickerDialog.class);
+                startActivityForResult(intent,1);
+            }
+        });
 
         TableWithSpinner units = new TableWithSpinner(parentView,
                                                       getString(R.string.metric_system_table),
@@ -71,11 +105,4 @@ public class MetalSelectFragment extends Fragment implements View.OnClickListene
         activity.startMetalTimer();
     }
 
-    @Override
-    public void onClick(View v) {
-        CuttingChartActivity activity = (CuttingChartActivity)getActivity();
-        activity.cancelMetalTimer();
-        Intent intent = new Intent(activity, ThicknessPickerDialog.class);
-        startActivityForResult(intent,1);
-    }
 }
