@@ -30,5 +30,9 @@
     <string name="mesurement_units">Единицы измерения</string>
     <string name="metric">Миллиметры</string>
     <string name="imperial">Дюймы</string>
+    <string name="app_name">Таблицы для плазменного резака</string>
+    <string name="cutting_height_header">Высота дуги</string>
+    <string name="cutting_speed_header">Скорость резки</string>
+    <string name="cutting_voltage_header">Напряжение дуги</string>
 
 </resources>

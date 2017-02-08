@@ -12,15 +12,15 @@
         1. names of apps and activities
     -->
     <string name="app_name">Plasma cutter charts</string>
-    <string name="title_activity_initial">InitialActivity</string>
+    <string name="title_activity_initial" translatable="false">InitialActivity</string>
 
     <!--
         2. names of preferences
     -->
-    <string name="preference_">preference_</string>
-    <string name="preference_prefix">last_selection_in_</string>
-    <string name="preference_suffix">_table</string>
-    <string name="material_thickness">thickness</string>
+    <string name="preference_" translatable="false">preference_</string>
+    <string name="preference_prefix" translatable="false">last_selection_in_</string>
+    <string name="preference_suffix" translatable="false">_table</string>
+    <string name="material_thickness" translatable="false">thickness</string>
 
     <!--
         3. names of resources
@@ -28,50 +28,49 @@
     <!--
         4. names of files
     -->
-    <string name="sd_card">/data/data/</string>
-    <string name="db_folder">databases</string>
-    <string name="db_name">cut_chart.sqlite</string>
+    <string name="sd_card" translatable="false">/data/data/</string>
+    <string name="db_folder" translatable="false">databases</string>
+    <string name="db_name" translatable="false">cut_chart.sqlite</string>
     <!--
         5. names of tables and fields in database and string expressions used in queries
     -->
-    <string name="key_field">key</string>
-    <string name="name_field">name</string>
-    <string name="is_equal_to">==</string>
-    <string name="brand_table">brand</string>
-    <string name="series_table">series</string>
-    <string name="model_table">model</string>
-    <string name="material_table">material</string>
-    <string name="settings_table">settings</string>
-    <string name="process_usage_table">process_usage</string>
-    <string name="process_table">process</string>
-    <string name="metric_system_table">metric_system</string>
-    <string name="purpose_table">purpose</string>
+    <string name="key_field" translatable="false">key</string>
+    <string name="name_field" translatable="false">name</string>
+    <string name="is_equal_to" translatable="false">==</string>
+    <string name="brand_table" translatable="false">brand</string>
+    <string name="series_table" translatable="false">series</string>
+    <string name="model_table" translatable="false">model</string>
+    <string name="material_table" translatable="false">material</string>
+    <string name="settings_table" translatable="false">settings</string>
+    <string name="process_usage_table" translatable="false">process_usage</string>
+    <string name="process_table" translatable="false">process</string>
+    <string name="metric_system_table" translatable="false">metric_system</string>
+    <string name="purpose_table" translatable="false">purpose</string>
     <!--
         6. main tables column names
     -->
-    <string name="current_column_name">current</string>
-    <string name="cut_speed_column_name">cut_speed</string>
-    <string name="arc_voltage_column_name">voltage</string>
-    <string name="arc_height_column_name">torch_to_work_distance</string>
-    <string name="pierce_height_column_name">initial_pierce_height</string>
-    <string name="pierce_time_column_name">pierce_delay_time</string>
-    <string name="kerf_offset_column_name">kerf_width_compensation</string>
-    <string name="material_thickness_units">mm</string>
-    <string name="thickness_column_name">thickness</string>
-    <string name="scale_column_name">scale</string>
-    <string name="metric_column_name">name_metric</string>
-    <string name="imperial_column_name">name_imperial</string>
-    <string name="mesurement_units">Mesurement Units</string>
-    <string name="metric">Millimeters</string>
-    <string name="imperial">Inches/Gauges</string>
-    <string name="thickness_value_column_name">value_in_mm</string>
+    <string name="current_column_name" translatable="false">current</string>
+    <string name="cut_speed_column_name" translatable="false">cut_speed</string>
+    <string name="arc_voltage_column_name" translatable="false">voltage</string>
+    <string name="arc_height_column_name" translatable="false">torch_to_work_distance</string>
+    <string name="pierce_height_column_name" translatable="false">initial_pierce_height</string>
+    <string name="pierce_time_column_name" translatable="false">pierce_delay_time</string>
+    <string name="kerf_offset_column_name" translatable="false">kerf_width_compensation</string>
+    <string name="material_thickness_units" translatable="false">mm</string>
+    <string name="thickness_column_name" translatable="false">thickness</string>
+    <string name="scale_column_name" translatable="false">scale</string>
+    <string name="metric_column_name" translatable="false">name_metric</string>
+    <string name="imperial_column_name" translatable="false">name_imperial</string>
+    <string name="mesurement_units">Measurement Units</string>
+    <string name="metric">Metric</string>
+    <string name="thickness_value_column_name" translatable="false">value_in_mm</string>
 
     <!--
         7. service names
     -->
-    <string name="float_null">0.0</string>
-    <string name="english_language">en</string>
-    <string name="action_settings">settings</string>
+    <string name="float_null" translatable="false">0.0</string>
+    <string name="english_language" translatable="false">en</string>
+    <string name="action_settings" translatable="false">settings</string>
 
     <!--
         Resource titles
@@ -95,5 +94,6 @@
     <string name="cut_speed_header">Cutting \n speed</string>
     <string name="cutting_voltage_header">Cutting \n voltage</string>
     <string name="cutting_height_header">Cutting \n height</string>
+    <string name="imperial">Imperial</string>
 
 </resources>
