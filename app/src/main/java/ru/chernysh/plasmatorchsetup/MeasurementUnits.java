@@ -8,32 +8,34 @@ package ru.chernysh.plasmatorchsetup;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class MeasurementUnits {
+class MeasurementUnits {
 
-    final static String pref = App.getResourceString(R.string.preference_);
-    final static String metricSystemTableName = App.getResourceString(R.string.metric_system_table);
+    private final static String pref = App.getResourceString(R.string.preference_);
+    private final static String metricSystemTableName = App.getResourceString(R.string.metric_system_table);
+    private final static int METRIC = 1;
+    private final static int IMPERIAL = 2;
 
-    public static int getUnitsKey(){
+    static int getUnitsKey(){
         final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
         int unitsSelected = storedUnits.get();
         if(unitsSelected == 0){
             if(App.language.equals(App.getResourceString(R.string.english_language))){
                 // imperial system
-                unitsSelected = 2;
+                unitsSelected = IMPERIAL;
             } else {
                 // metric system
-                unitsSelected = 1;
+                unitsSelected = METRIC;
             }
             storedUnits.set(unitsSelected);
         }
         return unitsSelected;
     }
 
-    public static String getCurrentMetricSystemName(){
+    static String getCurrentMetricSystemName(){
         return MainDB.getNameByKey(metricSystemTableName, MeasurementUnits.getUnitsKey());
     }
 
-    public static double getCurrentScale(){
+    static double getCurrentScale(){
         SQLiteDatabase db_ = MainDB.getInstance().getDb();
         String filter = App.getResourceString(R.string.key_field)
                       + App.getResourceString(R.string.is_equal_to)
@@ -46,13 +48,13 @@ public class MeasurementUnits {
         return result;
     }
 
-    public static void setMetricSystem(){
+    static void setMetricSystem(){
         final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
-        storedUnits.set(1);
+        storedUnits.set(METRIC);
     }
 
-    public static void setImperialSystem(){
+    static void setImperialSystem(){
         final StoredKey storedUnits = new StoredKey(pref + metricSystemTableName);
-        storedUnits.set(2);
+        storedUnits.set(IMPERIAL);
     }
 }
