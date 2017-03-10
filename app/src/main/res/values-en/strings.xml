@@ -30,6 +30,10 @@
     <string name="cut_speed_header">Cutting \n speed</string>
     <string name="cutting_voltage_header">Cutting \n voltage</string>
     <string name="cutting_height_header">Cutting \n height</string>
+    <string name="imperial">Inches/Gauges</string>
+    <string name="metric">Millimeters</string>
+    <string name="mesurement_units">Mesurement Units</string>
+    <string name="app_name">Plasma cutter charts</string>
 
     <!--
         Messages
