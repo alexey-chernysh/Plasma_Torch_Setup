@@ -11,7 +11,7 @@
     <!--
         1. names of apps and activities
     -->
-    <string name="app_name">Plasma cutter charts</string>
+    <string name="app_name">Plasma cutter cookbook</string>
     <string name="title_activity_initial" translatable="false">InitialActivity</string>
 
     <!--
